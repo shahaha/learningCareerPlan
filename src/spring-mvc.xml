@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/cache 
+        http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+	<!-- 自动扫描且只扫描@Controller -->
+	<!-- 加入定制化包实体路径cn.jxufe -->
+	<context:component-scan base-package="cn.jxufe" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<!-- <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/> -->
+	</context:component-scan>
+
+	
+	<context:annotation-config />
+
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8" />
+			</bean>
+			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>  
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"></bean>
+            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"></bean>
+            <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"></bean>
+            <bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter"></bean>			 
+		</mvc:message-converters>	
+
+	</mvc:annotation-driven>
+	
+	<!-- 支持缓存注解 ,如果springmvc的spingmvc的配置文件分开,
+	必须在两个文件中都加入这个配置,Cacheable注解才起作用!-->
+	<cache:annotation-driven cache-manager="cacheManager" />
+	
+	<!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL-->
+	<mvc:default-servlet-handler/>
+
+	<!-- 定义JSP文件的位置 --> 
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/template/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>	
+	
+	<!-- 定义无Controller的path<->view直接映射 -->
+	<mvc:view-controller path="/" view-name="redirect:/error/500"/>
+	
+	<!-- 文件上传配置 -->
+		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+		    <property name="defaultEncoding" value="UTF-8" />  
+		    <!-- 指定所上传文件的总大小不能超过1MB。maxUploadSize是所有文件的容量之和 -->  
+		    <property name="maxUploadSize" value="1024000"/>  
+		</bean>
+	   	     
+</beans>
