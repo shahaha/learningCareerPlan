@@ -4,11 +4,15 @@ package cn.jxufe.service.imp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import cn.jxufe.bean.EasyUIData;
 import cn.jxufe.bean.Message;
 import cn.jxufe.dao.StudentDao;
+import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.Student;
 import cn.jxufe.service.StudentService;
 
@@ -48,5 +52,15 @@ public class StudentServiceImpl extends QueryServiceImpl<Student> implements Stu
 			message.setMsg("保存失败");
 		}
 		return message;
+	}
+
+	@Override
+	@Cacheable(value="myCache")
+	public EasyUIData<Student> findByClasses(Classes classes, Pageable pageable) {
+		Page<Student> page = studentDao.findByClasses(classes, pageable);
+		EasyUIData<Student> easyUIData = new EasyUIData<Student>();
+        easyUIData.setTotal(page.getTotalElements());
+        easyUIData.setRows(page.getContent());
+        return easyUIData;
 	}
 }

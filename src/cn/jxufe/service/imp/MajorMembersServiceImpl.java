@@ -2,9 +2,11 @@ package cn.jxufe.service.imp;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import cn.jxufe.bean.Message;
 import cn.jxufe.dao.MajorMembersDao;
 import cn.jxufe.entity.MajorMembers;
 import cn.jxufe.service.MajorMembersService;
@@ -27,6 +29,41 @@ public class MajorMembersServiceImpl extends QueryServiceImpl<MajorMembers> impl
 	@Override
 	public JpaRepository<MajorMembers, Long> getDao() {
 		return majorMembersDao;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.jxufe.service.MajorMembersService#save(cn.jxufe.entity.MajorMembers)
+	 */
+	@Override
+	@CachePut(value="myCache",key="#majorMembers.id")
+	public Message save(MajorMembers majorMembers) {
+		Message message = new Message();
+		try {
+			majorMembersDao.save(majorMembers);
+			message.setCode(200);
+			message.setMsg("保存成功");
+		} catch (Exception e) {
+			message.setCode(202);
+			message.setMsg("保存失败");
+		}
+		return message;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.jxufe.service.MajorMembersService#delete(java.lang.Long)
+	 */
+	@Override
+	public Message delete(Long id) {
+		Message message = new Message();
+		try {
+			majorMembersDao.delete(id);
+			message.setCode(200);
+			message.setMsg("删除成功");
+		} catch (Exception e) {
+			message.setCode(202);
+			message.setMsg("删除失败");
+		}
+		return message;
 	}
 
 }

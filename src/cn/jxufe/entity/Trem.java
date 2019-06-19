@@ -1,12 +1,11 @@
 package cn.jxufe.entity;
 
 import javax.persistence.JoinColumn;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import cn.jxufe.bean.EntityID;
 
@@ -16,7 +15,6 @@ import cn.jxufe.bean.EntityID;
  */
 @Table(name="t_trem")
 @Entity
-@JsonIgnoreProperties(value= {"student"})
 public class Trem extends EntityID{
 	
 	/**
@@ -97,6 +95,18 @@ public class Trem extends EntityID{
 	public void setStudents(Student student) {
 		this.student = student;
 	}
+	
+	/**
+	 * 判断该学期有没有结束
+	 * @return true 已结束 false 未结束
+	 */
+	public Boolean isEnd() {
+		if (this.teacherComment != null || this.score != null || !"".equals(this.teacherComment)) {
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return "Trem [semester=" + semester + ", smallTarget=" + smallTarget + ", teacherAudit=" + teacherAudit

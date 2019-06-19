@@ -136,7 +136,7 @@
 							"vcodeText": vcodeText
 						};
 				$.ajax({
-		            url: basePath+"base/login",
+		            url: basePath+"base/loginValidate",
 		            async: true,
 		            data: loginData,
 		            beforeSend: function () {

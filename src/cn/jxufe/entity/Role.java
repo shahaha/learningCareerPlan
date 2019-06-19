@@ -1,7 +1,6 @@
 package cn.jxufe.entity;
 
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,7 +36,7 @@ public class Role extends EntityID{
 	 * 一个角色都对应了多个用户
 	 * joinColumns 用来指定中间表中关联自己ID的字段 inverseJoinColumns 用来指定中间表中关联对方ID的字段
 	 */
-	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
 	@JoinTable(name="user_role",joinColumns=@JoinColumn(name="roleId"),inverseJoinColumns=@JoinColumn(name="userId"))
 	private Set<User> users;
 	

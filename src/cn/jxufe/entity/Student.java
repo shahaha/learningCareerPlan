@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 学生类，存储学生基本信息
  * 该类继承了User类
@@ -18,6 +20,7 @@ import javax.persistence.Table;
  */
 @Table(name="t_student")
 @Entity
+@JsonIgnoreProperties(value= {"trems"})
 public class Student extends User{
 	/**
 	 * 
@@ -72,10 +75,17 @@ public class Student extends User{
 	 */
 	@OneToMany(mappedBy="student",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<MajorMembers> members;
-	
-	
+	/**
+	 * 该生各个学期信息
+	 */
 	@OneToMany(mappedBy="student",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Trem> trems;
+	
+	public Student() {};
+	
+	public Student(String id) {
+		setId(Long.valueOf(id));
+	};
 	
 	public Boolean getStuSex() {
 		return stuSex;

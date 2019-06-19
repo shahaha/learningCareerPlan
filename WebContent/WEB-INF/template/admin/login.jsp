@@ -126,16 +126,20 @@
 			var password = $("#password").val();
 			var vcodeText =  $("#vcodeText").val();
 			if(checkInput(account,password,vcodeText)){
-				var user = {
-						"account":account.trim(),
-						"password":password
+				var loginData = {
+							"account": account.trim(),
+							"password": password,
+							"vcodeText": vcodeText
 						};
 				$.ajax({
-		            url: basePath+"base/login?vcodeText="+vcodeText,
+		            url: basePath+"base/loginValidate",
 		            async: true,
-		            data: user,
+		            data: loginData,
 		            beforeSend: function () {
 		            	loading.show();
+		            },
+		            complete: function () {
+		            	loading.hide();
 		            },
 		            method: "POST"
 		        }).done(loginSuccess).fail(serverError);

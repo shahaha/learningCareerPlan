@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.jxufe.bean.Message;
 import cn.jxufe.entity.Role;
+import cn.jxufe.entity.Student;
+import cn.jxufe.entity.Trem;
 import cn.jxufe.entity.User;
+import cn.jxufe.service.StudentService;
+import cn.jxufe.service.TremService;
 import cn.jxufe.service.UserService;
 import cn.jxufe.utils.LoggerUtils;
 import cn.jxufe.vcode.Captcha;
@@ -29,6 +33,10 @@ import cn.jxufe.vcode.VerifyCodeUtils;
 public class BaseController {
 	@Autowired
 	UserService userService;
+	@Autowired
+	StudentService studentService;
+	@Autowired
+	TremService tremService;
 	
 	
 	/**
@@ -65,17 +73,16 @@ public class BaseController {
 	
 	
 	/**
-	 * 登录
+	 * 登录验证
 	 * @param user 前台登录用户参数
-	 * @param model
-	 * @return 跳转页面
+	 * @param request
+	 * @param vcodeText 前台传来的验证码
+	 * @return 验证返回结果
 	 */
-	@RequestMapping(value="login",produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="loginValidate",produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-    public Message login(User user,Model model,HttpServletRequest request,@RequestParam(defaultValue="") String vcodeText){
-		String vcode = (String) request.getSession().getAttribute("vcode");
-		System.err.println(user);
-		System.err.println(vcodeText);
+    public Message login(User user,HttpServletRequest request,@RequestParam(defaultValue="") String vcodeText){
+		String vcode = (String) request.getSession().getAttribute("vcode");;
 		vcodeText = vcodeText.toLowerCase();
 		Message message = new Message();
 		if (vcodeText.equals(vcode)) {
@@ -114,6 +121,21 @@ public class BaseController {
 		String url = "error/500";
 		for (Role role : roles) {
 			if ("学生".equals(role.getRole())) {
+				Student student = studentService.get(curUser.getId());
+				Set<Trem> trems = student.getTrems();
+				int curTrem = 1;
+				if (!trems.isEmpty()) {
+					for (Trem trem : trems) {
+						if (trem.getSemester() > curTrem) {
+							curTrem = trem.getSemester();
+						}
+					}
+					Trem trem = tremService.findByStudentAndSemester(student, curTrem);
+					if (trem.isEnd()) {
+						curTrem = curTrem + 1;
+					}
+				}
+				model.addAttribute("curTrem", curTrem);
 				url = "student/main";
 				break;
 			}
