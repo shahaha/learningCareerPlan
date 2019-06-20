@@ -10,11 +10,11 @@
 <meta charset="utf-8">
 <base href="<%=basePath%>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="<%=basePath%>/images/school.png"
+<link rel="icon" href="<%=basePath%>images/school.png"
 	type="image/x-icon" />
 <title>学生学习规划系统</title>
-<link href="<%=basePath%>/css/base.css" rel="stylesheet" type="text/css">
-<link href="<%=basePath%>/css/loading.css" rel="stylesheet" type="text/css">
+<link href="<%=basePath%>css/login_base.css" rel="stylesheet" type="text/css">
+<link href="<%=basePath%>css/loading.css" rel="stylesheet" type="text/css">
 <link href="<%=basePath%>/css/login/login.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="<%=basePath%>/js/jquery.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/main.js"></script>

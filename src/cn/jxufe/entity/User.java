@@ -51,7 +51,10 @@ public class User extends EntityID{
 	/**
 	 * 普通无参构造函数
 	 */
-	public User() {}
+	public User() {
+		
+		
+	}
 	/**
 	 * 带String类型的id的构造函数，setId时要把id转成Long型
 	 * @param id 前台传来的String类型的id
