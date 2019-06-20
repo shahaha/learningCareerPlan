@@ -99,7 +99,7 @@
 
                 <ul class="sider-nav">
                      <li class="current">
-                        <a onclick="addTab('学生信息录入','http://www.baidu.com')">
+                        <a onclick="addTab('学生信息录入','basic_info.jsp?${curUser.account}')">
                             <span class="iconfont sider-nav-icon">&#xe620;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">学生信息录入</span>
                             <i class="iconfont">&#xe642;</i>
@@ -166,7 +166,6 @@
 		
     </div> 
     <script type="text/javascript">
-    	
     var mainPlatform = {
 
     		init: function(){
