@@ -38,7 +38,7 @@
 					<tbody>
 						<tr>
 							<td class="kv-label">姓名</td>
-							<td class="kv-content"><span id="userName"></span></td>
+							<td class="kv-content"><input id="userName"/></td>
 							<td class="kv-label">性别</td>
 							<td class="kv-content">
 								<input style="width:80%;" placeholder="必填" name="stuSex" class="easyui-combobox"
@@ -62,10 +62,20 @@
 						</tr>
 						<tr>
 							<td class="kv-label">所在大学</td>
-							<td class="kv-content">江西财经大学</td>
+							<td class="kv-content">
+								<input style="width:80%;" placeholder="必填" name="college" class="easyui-combobox"
+                           			data-options="editable:false,
+									required:true,
+                                    valueField:'id',
+                                    textField:'collegeName',
+                                    panelHeight:'auto',
+                                    data:[{'id':10421,'collegeName':'江西财经大学'}]">
+							</td>
+							
+							
 							<td class="kv-label">所在班级</td>
 							<td class="kv-content">
-								<input placeholder="必填" name="class" type="text" class="easyui-validatebox" data-options="required:true"/>
+								<input placeholder="必填" name="classes" type="text" class="easyui-validatebox" data-options="required:true"/>
 							</td>
 							<td class="kv-label">家庭经济情况</td>
 							<td class="kv-content">
@@ -114,8 +124,8 @@
 				
 				<hr style="margin-top:15%;">
 				
-				<div class="column"><span class="current">亲属信息</span> <a onclick="add()" style="float:right;cursor:pointer;" class="iconfont show-family">&#xe663;</a></div>
-		      	<table class="kv-table">
+				<div class="column"><span class="current">亲属信息</span> <!-- <a onclick="add()" style="float:right;cursor:pointer;" class="iconfont show-family">&#xe663;</a> --></div>
+		      	<!-- <table class="kv-table">
 					<tbody class="family-table" >
 						<tr class="family-modle" style="display:none;">
 							<td class="kv-label">成员姓名</td>
@@ -131,22 +141,69 @@
 								<input name="membersJob" type="text">
 							</td>
 							<td class="kv-label">
-								<a id="save-member" onclick="save-member()" class="easyui-linkbutton c4" iconCls="icon-save" >保存</a>
-								<a id="delete-member" onclick="delete-member()" class="easyui-linkbutton c5" iconCls="icon-cancel" >删除</a>
+								<a id="save-member" onclick="save_member()" class="easyui-linkbutton c4" iconCls="icon-save" >保存</a>
+								<a id="delete-member" onclick="delete_member()" class="easyui-linkbutton c5" iconCls="icon-remove" >删除</a>
 								</td>
 						</tr>
 					</tbody>
-				</table>
+				</table> -->
 				
-		    </div>
+				<div id="controlBox">
+				    <a href="#" class="easyui-linkbutton c2" iconCls="icon-add" onclick="addForm()">添加</a>
+				    <a href="#" class="easyui-linkbutton c4" iconCls="icon-edit" onclick="loadForm()">编辑</a>
+				    <a href="#" class="easyui-linkbutton c3" iconCls="icon-remove"
+				       onclick="javascript:grid.edatagrid('cancelRow')">取消</a>
+				    <a href="#" class="easyui-linkbutton c5" iconCls="icon-cancel"
+				       onclick="javascript:grid.edatagrid('destroyRow')">删除</a>
+				</div>
+				
+				
+				<div id="memberFormContainer" class="easyui-dialog" 
+					style="width:80%;height:16%;vertical-align: center" closed="true" buttons="#memberFormBtns">
+				    <form id="formMember" method="POST" novalidate>
+				        <table class='kv-table'>
+				        	<tr class="family-table">
+								<td class="kv-label">成员姓名</td>
+								<td class="kv-content">
+									<input name="membersName" type="text">
+								</td>
+								<td class="kv-label">与学生的关系</td>
+								<td class="kv-content">
+									<input name="membersRelationship" type="text">
+								</td>
+								<td class="kv-label">成员工作</td>
+								<td class="kv-content">
+									<input name="membersJob" type="text">
+								</td>
+								<!-- <td class="kv-label">
+									<a id="save-member" onclick="save_member()" class="easyui-linkbutton c4" iconCls="icon-save" >保存</a>
+									<a id="delete-member" onclick="delete_member()" class="easyui-linkbutton c5" iconCls="icon-remove" >删除</a>
+								</td> -->
+							</tr>
+						</table>
+				    </form>
+		    	</div>
+		    	<div id="memberFormBtns">
+				    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveForm()">保存</a>
+				    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
+				       onclick="javascript:$('#memberFormContainer').dialog('close')">取消</a>
+				</div>
+				
+				<!--亲属成员清单表格  -->
+				<table id="grid"></table>
+		    	
 		</div>
 	</div>
 </div>
 	<script>
 	
-	
-	
+	var params = {
+	        id: '',
+	        mode: 'insert'
+	    };
+	var grid = null;
 	var family_count=0;
+	
 	function add(){
 		var tempMembers = $(".family-modle").clone(true).css("display","block").appendTo(".family-table");
 		tempMembers.removeClass();
@@ -172,13 +229,69 @@
 			async : false
 		});
 		*/
-		$('#userName').html(account);
+		$('#userName').val(account);//自动填写姓名
 		
-		//$("#userName").val(user.name);//自动填写姓名
+		grid = $('#grid').edatagrid({
+            title: '亲属成员清单',
+            height: '240px',
+            fitColumns: true,
+            method: 'post',
+            url: '<%=basePath%>/seeds',
+            saveUrl: '<%=basePath%>/createSeed.do',
+            updateUrl: '<%=basePath%>/createSeed.do',
+            destroyUrl: '<%=basePath%>/delSeed.do',
+            border: false,
+            rownumbers: true,
+            remoteSort: true,
+            nowrap: false,
+            singleSelect: true,
+            fitColumns: true,
+            pagination: true,
+            striped: true,
+            autoSave: true,
+            pagination: true,
+            pageSize: 5,
+            pageList: [1, 3, 5],
+            idField: "id",
+            columns: [[
+                {field: 'membersName', title: '成员姓名', width: 80, align: 'center', halign: 'center'},
+                {field: 'membersRelationship', title: '与学生关系', width: 80, align: 'center', halign: 'center'},
+                {field: 'membersJob', title: '成员工作', width: 100, align: 'center', halign: 'center'}
+            ]],
+            destroyMsg: {
+                norecord: {
+                    title: '警告',
+                    msg: '首先需要选中记录，然后在点击删除按钮'
+                },
+                confirm: {
+                    title: '确认',
+                    msg: '是否删除选中记录?'
+                }
+            },
+            onSuccess: function (index, result) {
+                console.log(result);
+                $("#msgBox").text(result.msg);
+                grid.datagrid("load");
+            },
+            onDestroy: function (index, result) {
+                console.log(result);
+                $("#msgBox").text(result.msg);
+            }
+        });
+    });
 		
 		
-	})
 	
+	function delete_member(){
+			
+	}
+	
+	function addForm() {
+        $('#formMember').form('reset');
+        $('#memberFormContainer').dialog({
+            onClose: function () {grid.datagrid('reload');}
+        }).dialog('open').dialog('setTitle', '添加亲属');
+    }
 	
 	</script>
 	

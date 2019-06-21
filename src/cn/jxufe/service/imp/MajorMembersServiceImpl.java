@@ -29,4 +29,5 @@ public class MajorMembersServiceImpl extends QueryServiceImpl<MajorMembers> impl
 		return majorMembersDao;
 	}
 
+
 }
