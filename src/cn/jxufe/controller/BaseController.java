@@ -130,25 +130,6 @@ public class BaseController {
         return url;
     }
 	
-	/**
-	 * 页面跳转到首页
-	 * @return
-	 */
-	@RequestMapping(value = "/workbench")
-	 public String welcome() {
-		
-        return "base/workbench";
-    }
-	/**
-	 * 页面跳转到信息录入
-	 * @return
-	 */
-	@RequestMapping(value = "/basic_info/{account}")
-	 public String basic_info(@PathVariable String account,Model model) {
-		User user=userService.findByAccount(account);
-		model.addAttribute("curUser", user);
-        return "base/basic_info";
-    }
 	
 	/**
 	 * 获取静态png验证码
