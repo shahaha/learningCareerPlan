@@ -159,18 +159,23 @@
 				
 				
 				<div id="memberFormContainer" class="easyui-dialog" 
-					style="width:80%;height:16%;vertical-align: center" closed="true" buttons="#memberFormBtns">
+					style="width:45%;height:32%;vertical-align: center" closed="true" buttons="#memberFormBtns">
 				    <form id="formMember" method="POST" novalidate>
-				        <table class='kv-table'>
-				        	<tr class="family-table">
+				        <table class='kv-table' style='border-collapse:separate; border-spacing:0px 10px;'>
+				        	<tr>
 								<td class="kv-label">成员姓名</td>
 								<td class="kv-content">
 									<input name="membersName" type="text">
 								</td>
+							</tr>
+							<tr >
+								
 								<td class="kv-label">与学生的关系</td>
 								<td class="kv-content">
 									<input name="membersRelationship" type="text">
 								</td>
+							</tr>
+							<tr>
 								<td class="kv-label">成员工作</td>
 								<td class="kv-content">
 									<input name="membersJob" type="text">
