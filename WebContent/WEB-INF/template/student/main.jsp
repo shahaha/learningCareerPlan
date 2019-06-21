@@ -99,7 +99,7 @@
 
                 <ul class="sider-nav">
                      <li class="current">
-                        <a onclick="addTab('学生信息录入','basic_info.jsp?${curUser.account}')">
+                        <a onclick="addTab('学生信息录入','basic_info/${curUser.account}')">
                             <span class="iconfont sider-nav-icon">&#xe620;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">学生信息录入</span>
                             <i class="iconfont">&#xe642;</i>
@@ -144,7 +144,7 @@
             <div id="pf-page">
                 <div id="menuTabs" class="easyui-tabs" style="width:100%;height:100%;">
                   <div title="首页" style="padding:10px 5px 5px 10px;">
-                    <iframe class="page-iframe" src="workbench.jsp" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
+                    <iframe class="page-iframe" src="workbench" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                   </div>
                 </div>
 				

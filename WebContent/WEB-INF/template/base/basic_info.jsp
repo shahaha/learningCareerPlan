@@ -38,7 +38,7 @@
 					<tbody>
 						<tr>
 							<td class="kv-label">姓名</td>
-							<td class="kv-content"><input id="userName"/></td>
+							<td class="kv-content"><input id="userName" value="${curUser.name }" readonly="readonly"/></td>
 							<td class="kv-label">性别</td>
 							<td class="kv-content">
 								<input style="width:80%;" placeholder="必填" name="stuSex" class="easyui-combobox"
@@ -196,7 +196,7 @@
 				
 				<!--亲属成员清单表格  -->
 				<table id="grid"></table>
-		    	
+		    </div>
 		</div>
 	</div>
 </div>
@@ -209,21 +209,21 @@
 	var grid = null;
 	var family_count=0;
 	
-	function add(){
+	/* function add(){
 		var tempMembers = $(".family-modle").clone(true).css("display","block").appendTo(".family-table");
 		tempMembers.removeClass();
 		family_count++;
 		tempMembers.addClass("Member"+family_count);
-	}
+	} */
 	
 	//该代码为获取后台用户数据，自动添加用户姓名
 	$(document).ready(function () {
-		var test=window.location.search;
+		//var test=window.location.search;
 		//alert(test);
-		var url= new Array();
-		url=test.split("?"); //字符分割 
+		//var url= new Array();
+		//url=test.split("?"); //字符分割 
 		//alert(url[url.length-1]);
-		var account = url[url.length-1];//取出当前用户账号
+		//var account = url[url.length-1];//取出当前用户账号
 		/*
 		var user=$.ajax({
 			data: {
@@ -234,7 +234,7 @@
 			async : false
 		});
 		*/
-		$('#userName').val(account);//自动填写姓名
+		//$('#userName').val(account);//自动填写姓名
 		
 		grid = $('#grid').edatagrid({
             title: '亲属成员清单',
