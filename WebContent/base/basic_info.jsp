@@ -117,7 +117,7 @@
 					</tbody>
 				</table>
 				<div >
-					<a style="float:right;" id="commit-baseInfo" onclick="commit-baseInfo()" class="easyui-linkbutton c4" iconCls="icon-ok" >提交</a>
+					<a style="float:right;" id="commit-baseInfo" onclick="commit_baseInfo()" class="easyui-linkbutton c4" iconCls="icon-ok" >提交</a>
 					
 				</div>
 				
@@ -159,24 +159,24 @@
 				
 				
 				<div id="memberFormContainer" class="easyui-dialog" 
-					style="width:45%;height:32%;vertical-align: center" closed="true" buttons="#memberFormBtns">
+					style="width:45%;height:40%;vertical-align: center" closed="true" buttons="#memberFormBtns">
 				    <form id="formMember" method="POST" novalidate>
-				        <table class='kv-table' style='border-collapse:separate; border-spacing:0px 10px;'>
-				        	<tr>
-								<td class="kv-label">成员姓名</td>
+				        <table class='kv-table' style='width:80%;height:75%;border-collapse:separate; border-spacing:0px 25px;margin:0 auto;'>
+				        	<tr >
+								<td class="kv-label" style="text-align:center;width:25%;" >成员姓名</td>
 								<td class="kv-content">
 									<input name="membersName" type="text">
 								</td>
 							</tr>
 							<tr >
 								
-								<td class="kv-label">与学生的关系</td>
+								<td class="kv-label" style="text-align:center;width:25%;" >与学生的关系</td>
 								<td class="kv-content">
 									<input name="membersRelationship" type="text">
 								</td>
 							</tr>
-							<tr>
-								<td class="kv-label">成员工作</td>
+							<tr >
+								<td class="kv-label" style="text-align:center;width:25%;">成员工作</td>
 								<td class="kv-content">
 									<input name="membersJob" type="text">
 								</td>
@@ -241,10 +241,10 @@
             height: '240px',
             fitColumns: true,
             method: 'post',
-            url: '<%=basePath%>/seeds',
-            saveUrl: '<%=basePath%>/createSeed.do',
-            updateUrl: '<%=basePath%>/createSeed.do',
-            destroyUrl: '<%=basePath%>/delSeed.do',
+            url: '<%=basePath%>/member',
+            saveUrl: '<%=basePath%>/saveMember.do',
+            updateUrl: '<%=basePath%>/saveMember.do',
+            destroyUrl: '<%=basePath%>/delMember.do',
             border: false,
             rownumbers: true,
             remoteSort: true,
@@ -287,8 +287,8 @@
 		
 		
 	
-	function delete_member(){
-			
+	function commit_baseInfo(){
+		
 	}
 	
 	function addForm() {
@@ -297,6 +297,7 @@
             onClose: function () {grid.datagrid('reload');}
         }).dialog('open').dialog('setTitle', '添加亲属');
     }
+	
 	
 	</script>
 	
