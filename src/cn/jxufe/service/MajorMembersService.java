@@ -2,7 +2,6 @@ package cn.jxufe.service;
 
 import cn.jxufe.bean.Message;
 import cn.jxufe.entity.MajorMembers;
-
 public interface MajorMembersService extends QueryService<MajorMembers>{
 	/**
 	 * 保存家庭成员信息

@@ -1,5 +1,6 @@
 package cn.jxufe.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -38,7 +39,7 @@ public class Role extends EntityID{
 	 */
 	@ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
 	@JoinTable(name="user_role",joinColumns=@JoinColumn(name="roleId"),inverseJoinColumns=@JoinColumn(name="userId"))
-	private Set<User> users;
+	private Set<User> users = new HashSet<User>();
 	
 	/**
 	 * 普通无参构造函数

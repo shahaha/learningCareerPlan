@@ -1,5 +1,6 @@
 package cn.jxufe.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -45,13 +46,16 @@ public class User extends EntityID{
 	 */
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinTable(name="user_role",joinColumns=@JoinColumn(name="userId"),inverseJoinColumns=@JoinColumn(name="roleId"))
-	private Set<Role> roles;
+	private Set<Role> roles = new HashSet<Role>();
 	
 	
 	/**
 	 * 普通无参构造函数
 	 */
-	public User() {}
+	public User() {
+		
+		
+	}
 	/**
 	 * 带String类型的id的构造函数，setId时要把id转成Long型
 	 * @param id 前台传来的String类型的id

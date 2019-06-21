@@ -141,8 +141,8 @@ body, button, input, select, textarea {
 
 @font-face {
     font-family: 'iconfont';
-    src: url('../fonts/iconfont.eot?1464535104');
-    src: url('../fonts/iconfont.eot?&1464535104#iefix') format("embedded-opentype"), url('../fonts/iconfont.woff?1464535104') format("woff"), url('../fonts/iconfont.ttf?1464535104') format("truetype"), url('../fonts/iconfont.svg?1464535104#iconfont') format("svg")
+    src: url('fonts/iconfont.eot?1464535104');
+    src: url('fonts/iconfont.eot?&1464535104#iefix') format("embedded-opentype"), url('fonts/iconfont.woff?1464535104') format("woff"), url('../fonts/iconfont.ttf?1464535104') format("truetype"), url('fonts/iconfont.svg?1464535104#iconfont') format("svg")
 }
 
 .iconfont {
@@ -239,25 +239,4 @@ table.kv-table .kv-content {
 
 table.kv-table .textarea-wrap textarea {
     width: 98%
-}
-
-.showmsg {
-  position: absolute;
-  width: 100%;
-  bottom: 60%;
-  height: 40px;
-  display: none;
-  z-index: 2015;
-  text-align: center;
-  /* left: 50%;
-  top: 50%; */
-}
-.showmsg>span {
-  color: #ffffff;
-  line-height: 40px;
-  font-size: 15px;
-  padding: 10px 15px;
-  border-radius: 5px;
-  background-color: #918585;
-  font-family: -webkit-body;
 }

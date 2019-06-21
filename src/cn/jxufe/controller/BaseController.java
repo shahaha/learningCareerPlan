@@ -122,9 +122,10 @@ public class BaseController {
 		for (Role role : roles) {
 			if ("学生".equals(role.getRole())) {
 				Student student = studentService.get(curUser.getId());
+				System.err.println(student.getTrems());
 				Set<Trem> trems = student.getTrems();
 				int curTrem = 1;
-				if (!trems.isEmpty()) {
+				if (trems != null && !trems.isEmpty()) {
 					for (Trem trem : trems) {
 						if (trem.getSemester() > curTrem) {
 							curTrem = trem.getSemester();

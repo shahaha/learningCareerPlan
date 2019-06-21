@@ -30,7 +30,6 @@ public class MajorMembersServiceImpl extends QueryServiceImpl<MajorMembers> impl
 	public JpaRepository<MajorMembers, Long> getDao() {
 		return majorMembersDao;
 	}
-
 	/* (non-Javadoc)
 	 * @see cn.jxufe.service.MajorMembersService#save(cn.jxufe.entity.MajorMembers)
 	 */

@@ -1,6 +1,7 @@
 package cn.jxufe.entity;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -74,12 +75,12 @@ public class Student extends User{
 	 * 该生的主要家庭成员
 	 */
 	@OneToMany(mappedBy="student",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<MajorMembers> members;
+	private Set<MajorMembers> members = new HashSet<MajorMembers>();
 	/**
 	 * 该生各个学期信息
 	 */
 	@OneToMany(mappedBy="student",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<Trem> trems;
+	private Set<Trem> trems = new HashSet<Trem>();
 	
 	public Student() {};
 	
