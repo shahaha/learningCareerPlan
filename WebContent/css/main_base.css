@@ -240,3 +240,24 @@ table.kv-table .kv-content {
 table.kv-table .textarea-wrap textarea {
     width: 98%
 }
+
+.showmsg {
+  position: absolute;
+  width: 100%;
+  bottom: 60%;
+  height: 40px;
+  display: none;
+  z-index: 2015;
+  text-align: center;
+  /* left: 50%;
+  top: 50%; */
+}
+.showmsg>span {
+  color: #ffffff;
+  line-height: 40px;
+  font-size: 15px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #918585;
+  font-family: -webkit-body;
+}

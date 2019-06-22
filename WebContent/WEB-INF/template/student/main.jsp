@@ -54,7 +54,7 @@
         <div id="pf-hd">
 			<div class="pf-term">
 				<i class="iconfont term-icon">&#xe653;</i>
-                <span class="pf-term-name">当前为第&nbsp;6&nbsp;学期</span>
+                <span class="pf-term-name">当前为第&nbsp;${curTrem}&nbsp;学期</span>
 			</div>
 			
             <div class="pf-user">
@@ -99,10 +99,9 @@
 
                 <ul class="sider-nav">
                      <li class="current">
-                        <a onclick="addTab('学生信息录入','basic_info.jsp?${curUser.account}')">
+                        <a onclick='addTab("学生信息录入","student/eStuInfo","{\"stuId\": ${curUser.id}}")'>
                             <span class="iconfont sider-nav-icon">&#xe620;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">学生信息录入</span>
-                            <i class="iconfont">&#xe642;</i>
                         </a>
                      </li>
                      <li>
@@ -144,7 +143,7 @@
             <div id="pf-page">
                 <div id="menuTabs" class="easyui-tabs" style="width:100%;height:100%;">
                   <div title="首页" style="padding:10px 5px 5px 10px;">
-                    <iframe class="page-iframe" src="workbench.jsp" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
+                    <iframe class="page-iframe" src="<%=basePath %>base/workbench" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                   </div>
                 </div>
 				
@@ -162,19 +161,16 @@
               <i class="iconfont" >&#xe6ff;</i>
             </div>
         </div>
-		
+		<div id="queryresult"></div>
 		
     </div> 
     <script type="text/javascript">
+    var basePath = '<%=basePath%>';
     var mainPlatform = {
-
     		init: function(){
-
     			this.bindEvent();
     		},
-
     		bindEvent: function(){
-    			
     			//加载UR下拉菜单
     	        $(document).on('click', '.sider-nav li', function() {
     	            $('.sider-nav li').removeClass('current');
@@ -189,21 +185,35 @@
     	            },300)
     	        });
     		}
-
     	};
-
     mainPlatform.init();
     
-	function addTab(title, url){
+	function addTab(title, url, parameter){
 		if ($('#menuTabs').tabs('exists', title)){
 			$('#menuTabs').tabs('select', title);
 		} else {
-			var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
+			console.log(parameter);
+			console.log($.parseJSON(parameter));
+			request( "POST",basePath+url,JSON.parse(parameter),addTabSuccess,serverError,true);
+			function addTabSuccess(data) {
+				var content = $('<iframe></iframe>',{
+					srcdoc: data,
+					scrolling: "auto",
+					frameborder: "0",
+					style: "width:100%;height:100%;"
+				});
+				$('#menuTabs').tabs('add',{
+					title:title,
+					content: content,
+					closable:true
+				});
+			}
+			/* var content = '<iframe scrolling="auto" frameborder="0"  src="'+basePath+'student/eStuInfo?id=24" style="width:100%;height:100%;"></iframe>';
 			$('#menuTabs').tabs('add',{
 				title:title,
 				content:content,
 				closable:true
-			});
+			}); */
 		}
 	}
     </script>

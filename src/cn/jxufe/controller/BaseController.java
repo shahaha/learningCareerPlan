@@ -38,6 +38,15 @@ public class BaseController {
 	@Autowired
 	TremService tremService;
 	
+	/**
+	 * 页面跳转到首页
+	 * @return
+	 */
+	@RequestMapping(value = "/workbench")
+	 public String welcome() {
+	        return "base/workbench";
+	}
+	
 	
 	/**
 	 * 管理员专用登录通道
