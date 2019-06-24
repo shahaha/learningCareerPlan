@@ -33,11 +33,12 @@
 		      <div  class="basic-info">
 		      	<hr>
 		      	<div class="column"><span class="current">基本信息</span></div>
+		      	<form id="basicInfoForm" method="POST" novalidate>
 		      	<table class="kv-table">
 					<tbody>
 						<tr>
 							<td class="kv-label">姓名</td>
-							<td class="kv-content">${curStu.name }</td>
+							<td class="kv-content" style="font-size:12px;">${curStu.name } ${curStu.id }<input name="id" value="${curStu.id}" style="display:none;" /></td>
 							<td class="kv-label">性别</td>
 							<td class="kv-content">
 								<input style="width:80%;" placeholder="必填" id="stuSex" name="stuSex" class="easyui-combobox"
@@ -47,7 +48,7 @@
                                     textField:'name',
                                     panelHeight:'auto',
                                     data:[{'id':'true','name':'男'},{'id':'false','name':'女'}],
-                                    value: ${curStu.stuSex }">
+                                    value: '${curStu.stuSex }'">
 							</td>
 							<td class="kv-label">户籍</td>
 							<td class="kv-content">
@@ -57,8 +58,8 @@
                                     valueField:'id',
                                     textField:'registeredResidence',
                                     panelHeight:'auto',
-                                    data:[{'id':'true','registeredResidence':'城镇'},{'id':'false','registeredResidence':'农村'}],
-                                    value: ${curStu.registeredResidence }">
+                                    data:[{'id':'','registeredResidence':'请选择'},{'id':'true','registeredResidence':'城镇'},{'id':'false','registeredResidence':'农村'}],
+                                    value: '${curStu.registeredResidence }'">
 							</td>
 						</tr>
 						<tr>
@@ -72,13 +73,19 @@
                                     panelHeight:'auto',
                                     <%-- url:'<%=basePath%>/seedType/data' --%>
                                     data:[{'id':10421,'collegeName':'江西财经大学'}],
-                                    value: ${curStu.college.id }">
+                                    value: '${curStu.college.id }'">
 							</td>
 							
 							
 							<td class="kv-label">所在班级</td>
 							<td class="kv-content">
-								<input placeholder="必填" name="classes" type="text" value="${curStu.classes.name }" class="easyui-validatebox" data-options="required:true"/>
+								<input style="width:80%;" placeholder="必填" name="classes" value="${curStu.classes.name }" class="easyui-combobox" data-options="editable:false,
+									required:true,
+                                    valueField:'id',
+                                    textField:'name',
+                                    panelHeight:'auto',
+                                    <%-- url:'<%=basePath%>/seedType/data' --%>
+                                    data:[{'id':1,'name':'电信161'},{'id':2,'name':'电信162'}]"/>
 							</td>
 							<td class="kv-label">家庭经济情况</td>
 							<td class="kv-content">
@@ -90,7 +97,7 @@
                                     panelHeight:'auto',
                                     <%-- url:'<%=basePath%>/seedType/data' --%>
                                     data:[{'id':1,'economyState':'贫困'},{'id':2,'economyState':'一般'},{'id':3,'economyState':'富裕'}],
-                                    value: ${curStu.economy.id }" />
+                                    value: '${curStu.economy.id }'" />
 							</td>
 						</tr>
 						<tr>
@@ -112,7 +119,7 @@
                                     panelHeight:'auto',
                                     <%-- url:'<%=basePath%>/seedType/data' --%>
                                     data:[{'id':1,'employment':'考研'},{'id':2,'employment':'考公务员'},{'id':3,'employment':'签约就业'}],
-                                    value: ${curStu.target.id }"/>
+                                    value: '${curStu.target.targetCaption }'"/>
 							</td>
 						</tr>
 						<tr>
@@ -122,7 +129,9 @@
 							</td>
 						</tr>
 					</tbody>
+					
 				</table>
+				</form>
 				<div >
 					<a style="float:right;" id="commit-baseInfo" onclick="commit_baseInfo()" class="easyui-linkbutton c4" iconCls="icon-ok" >提交</a>
 					
@@ -156,10 +165,10 @@
 				</table> -->
 				
 				<div id="controlBox">
-				    <a href="#" class="easyui-linkbutton c2" iconCls="icon-add" onclick="addForm()">添加</a>
-				    <a href="#" class="easyui-linkbutton c4" iconCls="icon-edit" onclick="loadForm()">编辑</a>
-				    <a href="#" class="easyui-linkbutton c3" iconCls="icon-remove" onclick="javascript:grid.edatagrid('cancelRow')">取消</a>
-				    <a href="#" class="easyui-linkbutton c5" iconCls="icon-cancel" onclick="javascript:grid.edatagrid('destroyRow')">删除</a>
+				    <a href="javascript:void(0)" class="easyui-linkbutton c2" iconCls="icon-add" onclick="addForm()">添加</a>
+				    <a href="javascript:void(0)" class="easyui-linkbutton c4" iconCls="icon-edit" onclick="loadForm()">编辑</a>
+				    <a href="javascript:void(0)" class="easyui-linkbutton c3" iconCls="icon-remove" onclick="javascript:grid.edatagrid('cancelRow')">取消</a>
+				    <a href="javascript:void(0)" class="easyui-linkbutton c5" iconCls="icon-cancel" onclick="javascript:grid.edatagrid('destroyRow')">删除</a>
 				</div>
 				
 				
@@ -207,14 +216,14 @@
 	        mode: 'insert'
 	    };
 	var grid = null;
-	var family_count=0;
+	/* var family_count=0;
 	
 	function add(){
 		var tempMembers = $(".family-modle").clone(true).css("display","block").appendTo(".family-table");
 		tempMembers.removeClass();
 		family_count++;
 		tempMembers.addClass("Member"+family_count);
-	}
+	} */
 	
 	//该代码为获取后台用户数据，自动添加用户姓名
 	$(document).ready(function () {
@@ -281,9 +290,29 @@
 		
 		
 	
-	function commit_baseInfo(){
+function commit_baseInfo(){
 		
-	}
+	 $('#basicInfoForm').form('submit', {
+         url: '<%=basePath%>student/save',
+         onSubmit: function (param) {
+             param.id = params.id;
+             param.mode = params.mode;
+             return $(this).form('validate');
+         },
+         success: function (result) {
+             var result = eval('(' +result+ ')');
+             console.log(result);
+             if (result.code == 200) {
+            	 location.reload();
+             }
+             $.messager.show({
+                 title: "消息",
+                 msg: result.msg
+             });
+         }
+     }); 
+     }
+		
 	function loadForm() {
         var row = grid.datagrid('getSelected');
         if (row) {
@@ -302,14 +331,14 @@
 	
 	function saveForm() {
         $('#formMember').form('submit', {
-            url: '<%=basePath%>/student/addMember',
+            url: '<%=basePath%>student/addMember',
             onSubmit: function (param) {
                 param.id = params.id;
                 param.mode = params.mode;
                 return $(this).form('validate');
             },
             success: function (result) {
-                var result = eval('(' + result + ')');
+                var result = eval('(' +result+ ')');
                 console.log(result);
                 if (result.code == 200) {
                     $('#memberFormContainer').dialog('close');

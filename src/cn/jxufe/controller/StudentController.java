@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -94,9 +95,10 @@ public class StudentController{
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="save",produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="save",method = { RequestMethod.POST })
     @ResponseBody
     public Message save(Student student,Model model){
+		System.err.println(student.getAccount());
         return studentService.save(student);
     }
 

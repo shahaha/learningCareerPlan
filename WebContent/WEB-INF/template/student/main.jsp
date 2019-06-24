@@ -105,14 +105,14 @@
                         </a>
                      </li>
                      <li>
-                        <a onclick="addTab('学习规划录入','http://jquery.com/')">
+                        <a onclick='addTab("学习规划录入","http://jquery.com/","")'>
                             <span class="iconfont sider-nav-icon">&#xe6db;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">学习规划录入</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
                      </li>
                      <li>
-                        <a onclick="addTab('评语查看','http://jquery.com/')">
+                        <a onclick="addTab('评语查看','http://jquery.com/','')">
                             <span class="iconfont sider-nav-icon">&#xe6c2;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">评语查看</span>
                             <i class="iconfont">&#xe642;</i>
@@ -125,8 +125,8 @@
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
-                           <li class="active"><a style="cursor:pointer;" onclick="addTab('学生基本信息打印','basic_info.html')">学生基本信息打印</a></li>
-                           <li class="active"><a style="cursor:pointer;" onclick="addTab('学生学期规划打印','basic_info.html')">学生学期规划打印</a></li>
+                           <li class="active"><a style="cursor:pointer;" onclick="addTab('学生基本信息打印','basic_info.html','')">学生基本信息打印</a></li>
+                           <li class="active"><a style="cursor:pointer;" onclick="addTab('学生学期规划打印','basic_info.html','')">学生学期规划打印</a></li>
                         </ul>
                      </li>
                      <li>
@@ -188,6 +188,8 @@
     	};
     mainPlatform.init();
     
+    
+    /* frame右侧窗口 */
 	function addTab(title, url, parameter){
 		if ($('#menuTabs').tabs('exists', title)){
 			$('#menuTabs').tabs('select', title);
