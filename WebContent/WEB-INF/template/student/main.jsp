@@ -105,14 +105,14 @@
                         </a>
                      </li>
                      <li>
-                        <a onclick='addTab("学习规划录入","http://jquery.com/","")'>
+                        <a onclick='addTab("学习规划录入","student/eTermPlan","{\"stuId\": ${curUser.id},\"semester\": ${curTrem}}")'>
                             <span class="iconfont sider-nav-icon">&#xe6db;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">学习规划录入</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
                      </li>
                      <li>
-                        <a onclick="addTab('评语查看','http://jquery.com/','')">
+                        <a onclick='addTab("评语查看","student/viewComments","{\"stuId\": ${curUser.id},\"semester\": ${curTrem}}")'>
                             <span class="iconfont sider-nav-icon">&#xe6c2;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">评语查看</span>
                             <i class="iconfont">&#xe642;</i>
@@ -194,8 +194,9 @@
 		if ($('#menuTabs').tabs('exists', title)){
 			$('#menuTabs').tabs('select', title);
 		} else {
-			console.log(parameter);
-			console.log($.parseJSON(parameter));
+			//console.log(parameter);
+			//console.log(JSON.parse(parameter));
+			
 			request( "POST",basePath+url,JSON.parse(parameter),addTabSuccess,serverError,true);
 			function addTabSuccess(data) {
 				var content = $('<iframe></iframe>',{
