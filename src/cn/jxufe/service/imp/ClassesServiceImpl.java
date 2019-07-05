@@ -4,7 +4,6 @@ package cn.jxufe.service.imp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +42,6 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	 * @see cn.jxufe.service.ClassesService#save(cn.jxufe.entity.Classes)
 	 */
 	@Override
-	@CachePut(value="myCache",key="#classes.id")
 	public Message save(Classes classes) {
 		Message message = new Message();
 		try {
@@ -63,7 +61,7 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	 * @see cn.jxufe.service.ClassesService#findByGrade(java.lang.String, org.springframework.data.domain.Pageable)
 	 */
 	@Override
-	@Cacheable(value="myCache")
+	//@Cacheable(value="myCache")
 	public EasyUIData<Classes> findByGrade(String year, Pageable pageable) {
 		Page<Classes> page = classesDao.findByGrade(year, pageable);
 		EasyUIData<Classes> easyUIData = new EasyUIData<Classes>();
@@ -76,7 +74,7 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	 * @see cn.jxufe.service.ClassesService#findByProfession(cn.jxufe.entity.Profession, org.springframework.data.domain.Pageable)
 	 */
 	@Override
-	@Cacheable(value="myCache")
+	//@Cacheable(value="myCache")
 	public EasyUIData<Classes> findByProfession(Profession profession, Pageable pageable) {
 		Page<Classes> page = classesDao.findByProfession(profession, pageable);
 		EasyUIData<Classes> easyUIData = new EasyUIData<Classes>();
@@ -89,7 +87,7 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	 * @see cn.jxufe.service.ClassesService#findByProfessionAndGrade(cn.jxufe.entity.Profession, java.lang.String, org.springframework.data.domain.Pageable)
 	 */
 	@Override
-	@Cacheable(value="myCache")
+	//@Cacheable(value="myCache")
 	public EasyUIData<Classes> findByProfessionAndGrade(Profession profession, String year, Pageable pageable) {
 		Page<Classes> page = classesDao.findByProfessionAndGrade(profession, year, pageable);
 		EasyUIData<Classes> easyUIData = new EasyUIData<Classes>();
@@ -101,7 +99,7 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	 * @see cn.jxufe.service.ClassesService#findByNameLike(java.lang.String, org.springframework.data.domain.Pageable)
 	 */
 	@Override
-	@Cacheable(value="myCache")
+	//@Cacheable(value="myCache")
 	public EasyUIData<Classes> findByNameLike(String name, Pageable pageable) {
 		Page<Classes> page = classesDao.findByNameLike(name, pageable);
 		EasyUIData<Classes> easyUIData = new EasyUIData<Classes>();
@@ -113,7 +111,7 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	 * @see cn.jxufe.service.ClassesService#findByTeacher(cn.jxufe.entity.User, org.springframework.data.domain.Pageable)
 	 */
 	@Override
-	@Cacheable(value="myCache")
+	//@Cacheable(value="myCache")
 	public EasyUIData<Classes> findByTeacher(User teacher, Pageable pageable) {
 		Page<Classes> page = classesDao.findByTeacher(teacher, pageable);
 		EasyUIData<Classes> easyUIData = new EasyUIData<Classes>();
@@ -126,7 +124,7 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	 * @see cn.jxufe.service.ClassesService#findByGrade(java.lang.String)
 	 */
 	@Override
-	@Cacheable(value="myCache",key="#year")
+	//@Cacheable(value="myCache",key="#year")
 	public List<Classes> findByGrade(String year) {
 		return classesDao.findByGrade(year);
 	}
@@ -135,7 +133,7 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	 * @see cn.jxufe.service.ClassesService#findByProfession(cn.jxufe.entity.Profession)
 	 */
 	@Override
-	@Cacheable(value="myCache",key="#profession.id")
+	//@Cacheable(value="myCache",key="#profession.id")
 	public List<Classes> findByProfession(Profession profession) {
 		return classesDao.findByProfession(profession);
 	}
@@ -144,7 +142,7 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	 * @see cn.jxufe.service.ClassesService#findByProfessionAndGrade(cn.jxufe.entity.Profession, java.lang.String)
 	 */
 	@Override
-	@Cacheable(value="myCache")
+	//@Cacheable(value="myCache")
 	public List<Classes> findByProfessionAndGrade(Profession profession, String year) {
 		return findByProfessionAndGrade(profession, year);
 	}

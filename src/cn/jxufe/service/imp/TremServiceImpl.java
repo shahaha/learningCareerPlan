@@ -37,7 +37,7 @@ public class TremServiceImpl extends QueryServiceImpl<Trem> implements TremServi
 	 * @see cn.jxufe.service.TremService#save(cn.jxufe.entity.Trem)
 	 */
 	@Override
-	@CachePut(value="myCache",key="#trem.id")
+	//@CachePut(value="myCache",key="#trem.id")
 	public Message save(Trem trem) {
 		Message message = new Message();
 		try {
@@ -55,7 +55,7 @@ public class TremServiceImpl extends QueryServiceImpl<Trem> implements TremServi
 	 * @see cn.jxufe.service.TremService#findByStudentAndSemester(cn.jxufe.entity.Student, java.lang.Integer)
 	 */
 	@Override
-	@Cacheable(value="myCache")
+	//@Cacheable(value="myCache")
 	public Trem findByStudentAndSemester(Student student, Integer semester) {
 		return tremDao.findByStudentAndSemester(student, semester);
 	}

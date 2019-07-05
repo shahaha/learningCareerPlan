@@ -38,15 +38,6 @@ public class BaseController {
 	@Autowired
 	TremService tremService;
 	
-	/**
-	 * 页面跳转到首页
-	 * @return
-	 */
-	@RequestMapping(value = "/workbench")
-	 public String welcome() {
-	        return "base/workbench";
-	}
-	
 	
 	/**
 	 * 管理员专用登录通道
@@ -131,7 +122,6 @@ public class BaseController {
 		for (Role role : roles) {
 			if ("学生".equals(role.getRole())) {
 				Student student = studentService.get(curUser.getId());
-				System.err.println(student.getTrems());
 				Set<Trem> trems = student.getTrems();
 				int curTrem = 1;
 				if (trems != null && !trems.isEmpty()) {
@@ -155,6 +145,18 @@ public class BaseController {
 			}
 		}
         return url;
+    }
+	
+	
+	/**
+	 * 退出登录，返回到登录页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/loginout")
+    public String loginout(HttpServletRequest request) {
+		request.getSession().removeAttribute("loginUser");
+        return "redirect:/login.jsp";
     }
 	
 	/**

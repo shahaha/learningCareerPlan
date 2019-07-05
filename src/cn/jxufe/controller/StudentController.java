@@ -51,6 +51,11 @@ public class StudentController{
         return "student/editStudentInfo";
     }
 	
+	/**
+	 * 查询家庭成员
+	 * @param pageRequest
+	 * @return
+	 */
 	@RequestMapping(value = "gridMemberData",produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public EasyUIData<MajorMembers> gridMemberData(EasyUIDataPageRequest pageRequest) {
@@ -111,6 +116,7 @@ public class StudentController{
     public String editTermPlanning(Long stuId,Integer semester,Model model){
 		Student student = studentService.get(stuId);
 		Trem tremBySS = tremService.findByStudentAndSemester(student, semester);
+		System.err.println(tremBySS);
 		Trem trem = new Trem();
 		trem.setId(0);
 		if (tremBySS != null) {

@@ -37,7 +37,7 @@ public class UserServiceImpl extends QueryServiceImpl<User> implements UserServi
 	 * @see cn.jxufe.service.UserService#save(cn.jxufe.entity.User)
 	 */
 	@Override
-	@CachePut(value="myCache",key="#user.id")
+	//@CachePut(value="myCache",key="#user.id")
 	public Message save(User user) {
 		Message message = new Message();
 		try {
@@ -55,7 +55,7 @@ public class UserServiceImpl extends QueryServiceImpl<User> implements UserServi
 	 * @see cn.jxufe.service.UserService#isExist(cn.jxufe.entity.User)
 	 */
 	@Override
-	@Cacheable(value="myCache",key="#user.account")
+	//@Cacheable(value="myCache",key="#user.account")
 	public boolean isExist(User user) {
 		return userDao.findByAccount(user.getAccount()) != null;
 	}
@@ -64,7 +64,7 @@ public class UserServiceImpl extends QueryServiceImpl<User> implements UserServi
 	 * @see cn.jxufe.service.UserService#findByAccount(java.lang.String)
 	 */
 	@Override
-	@Cacheable(value="myCache",key="#account")
+	//@Cacheable(value="myCache",key="#account")
 	public User findByAccount(String account) {
 		return userDao.findByAccount(account);
 	}

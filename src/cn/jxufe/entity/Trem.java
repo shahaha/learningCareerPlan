@@ -101,7 +101,7 @@ public class Trem extends EntityID{
 	 * @return true 已结束 false 未结束
 	 */
 	public Boolean isEnd() {
-		if (this.teacherComment != null || this.score != null || !"".equals(this.teacherComment)) {
+		if ((this.teacherComment != null && !("".equals(this.teacherComment))) || this.score != null) {
 			return true;
 		}
 		return false;

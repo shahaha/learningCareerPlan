@@ -40,7 +40,7 @@ public class StudentServiceImpl extends QueryServiceImpl<Student> implements Stu
 	 * @see cn.jxufe.service.StudentService#save(cn.jxufe.entity.Student)
 	 */
 	@Override
-	@CachePut(value="myCache",key="#student.id")
+	//@CachePut(value="myCache",key="#student.id")
 	public Message save(Student student) {
 		Message message = new Message();
 		try {
@@ -55,7 +55,7 @@ public class StudentServiceImpl extends QueryServiceImpl<Student> implements Stu
 	}
 
 	@Override
-	@Cacheable(value="myCache")
+	//@Cacheable(value="myCache")
 	public EasyUIData<Student> findByClasses(Classes classes, Pageable pageable) {
 		Page<Student> page = studentDao.findByClasses(classes, pageable);
 		EasyUIData<Student> easyUIData = new EasyUIData<Student>();

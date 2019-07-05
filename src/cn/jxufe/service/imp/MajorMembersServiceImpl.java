@@ -34,7 +34,7 @@ public class MajorMembersServiceImpl extends QueryServiceImpl<MajorMembers> impl
 	 * @see cn.jxufe.service.MajorMembersService#save(cn.jxufe.entity.MajorMembers)
 	 */
 	@Override
-	@CachePut(value="myCache",key="#majorMembers.id")
+	//@CachePut(value="myCache",key="#majorMembers.id")
 	public Message save(MajorMembers majorMembers) {
 		Message message = new Message();
 		try {
@@ -54,8 +54,9 @@ public class MajorMembersServiceImpl extends QueryServiceImpl<MajorMembers> impl
 	@Override
 	public Message delete(Long id) {
 		Message message = new Message();
+		MajorMembers majorMember = majorMembersDao.findOne(id);
 		try {
-			majorMembersDao.delete(id);
+			majorMembersDao.delete(majorMember);
 			message.setCode(200);
 			message.setMsg("删除成功");
 		} catch (Exception e) {

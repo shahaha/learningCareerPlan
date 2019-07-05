@@ -35,7 +35,7 @@ public class QueryServiceImpl<T> implements QueryService<T>{
 	 * @see cn.jxufe.service.QueryService#findAll(org.springframework.data.domain.Pageable)
 	 */
 	@Override
-	@Cacheable(value="myCache")
+	//@Cacheable(value="myCache")
 	public EasyUIData<T> findAll(Pageable pageable) {
 		Page<T> page = getDao().findAll(pageable);
 		EasyUIData<T> easyUIData = new EasyUIData<T>();
@@ -48,7 +48,7 @@ public class QueryServiceImpl<T> implements QueryService<T>{
 	 * @see cn.jxufe.service.QueryService#findAll()
 	 */
 	@Override
-	@Cacheable(value="myCache")
+	//@Cacheable(value="myCache")
 	public List<T> findAll() {
 		return getDao().findAll();
 	}
@@ -57,7 +57,7 @@ public class QueryServiceImpl<T> implements QueryService<T>{
 	 * @see cn.jxufe.service.QueryService#get(java.lang.Long)
 	 */
 	@Override
-	@Cacheable(value="myCache",key="#id")
+	//@Cacheable(value="myCache",key="#id")
 	public T get(Long id) {
 		return getDao().findOne(id);
 	}
