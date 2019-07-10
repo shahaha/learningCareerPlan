@@ -141,8 +141,8 @@ body, button, input, select, textarea {
 
 @font-face {
     font-family: 'iconfont';
-    src: url('fonts/iconfont.eot?1464535104');
-    src: url('fonts/iconfont.eot?&1464535104#iefix') format("embedded-opentype"), url('fonts/iconfont.woff?1464535104') format("woff"), url('../fonts/iconfont.ttf?1464535104') format("truetype"), url('fonts/iconfont.svg?1464535104#iconfont') format("svg")
+    src: url('../fonts/iconfont.eot?1464535104');
+    src: url('../fonts/iconfont.eot?&1464535104#iefix') format("embedded-opentype"), url('../fonts/iconfont.woff?1464535104') format("woff"), url('../fonts/iconfont.ttf?1464535104') format("truetype"), url('../fonts/iconfont.svg?1464535104#iconfont') format("svg")
 }
 
 .iconfont {

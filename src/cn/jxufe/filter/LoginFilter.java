@@ -79,8 +79,7 @@ public class LoginFilter extends OncePerRequestFilter{
         
         // 含有notFilter中的任何一个则不进行拦截
         for (String s : notFilter) {
-            if (last_url[length-1].equals(s)) {
-            	
+            if (last_url[length-1].equals(s) || last_url[length-2].equals("test")) {
                 return false;
             }
         }

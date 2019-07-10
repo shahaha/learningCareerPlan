@@ -1,29 +1,26 @@
 package cn.jxufe.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.jxufe.bean.EasyUIData;
-import cn.jxufe.bean.EasyUIDataPageRequest;
 import cn.jxufe.bean.Message;
+import cn.jxufe.bean.Result;
 import cn.jxufe.entity.MajorMembers;
 import cn.jxufe.entity.Student;
 import cn.jxufe.entity.Trem;
+import cn.jxufe.entity.User;
 import cn.jxufe.service.MajorMembersService;
 import cn.jxufe.service.StudentService;
 import cn.jxufe.service.TremService;
+import cn.jxufe.service.UserService;
 
 @Controller
 @RequestMapping("student")
@@ -35,6 +32,8 @@ public class StudentController{
 	MajorMembersService majorMembersService;
 	@Autowired
 	TremService tremService;
+	@Autowired
+	UserService userService;
 	
 	/**
 	 * 进入学生信息编辑页面
@@ -44,29 +43,21 @@ public class StudentController{
 	 */
 	@RequestMapping(value="eStuInfo",produces=MediaType.APPLICATION_JSON_VALUE)
     public String editStudentInfo(Long stuId,Model model){
-		System.err.println(stuId);
 		Student student = studentService.get(stuId);
-		System.err.println(student);
 		model.addAttribute("curStu", student);
         return "student/editStudentInfo";
     }
 	
 	/**
-	 * 查询家庭成员
-	 * @param pageRequest
+	 * 查询学生家庭成员
+	 * @param stuId 学生id
 	 * @return
 	 */
-	@RequestMapping(value = "gridMemberData",produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "gridOneStuMemberData",produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public EasyUIData<MajorMembers> gridMemberData(EasyUIDataPageRequest pageRequest) {
-		List<Sort.Order> orders = new ArrayList<Sort.Order>();
-        if(pageRequest.getOrder().equals("asc")) {
-            orders.add(new Sort.Order(Direction.ASC,pageRequest.getSort()));
-        }else {
-            orders.add(new Sort.Order(Direction.DESC,pageRequest.getSort()));
-        }
-        Pageable pageable = new PageRequest(pageRequest.getPage()-1, pageRequest.getRows(), new Sort(orders));
-		return majorMembersService.findAll(pageable);
+	public List<MajorMembers> gridOneStuMemberData(Long stuId) {
+		Student student = studentService.get(stuId);
+		return majorMembersService.findByStudent(student);
 	}
 	
 	/**
@@ -89,8 +80,8 @@ public class StudentController{
 	 */
 	@RequestMapping(value="deleteMember",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Message deleteMember(MajorMembers majorMembers,Model model){
-        return majorMembersService.save(majorMembers);
+    public Message deleteMember(Long id,Model model){
+        return majorMembersService.delete(id);
     }
 	
 	/**
@@ -99,10 +90,15 @@ public class StudentController{
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="save",produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="save",method = { RequestMethod.POST })
     @ResponseBody
-    public Message save(Student student,Model model){
-        return studentService.save(student);
+    public Result save(Student student,Model model){
+		User user = userService.get(student.getId());
+		student.setAccount(user.getAccount());
+		student.setName(user.getName());
+		student.setPassword(user.getPassword());
+		student.setRoles(user.getRoles());
+        return new Result(studentService.save(student), student);
     }
 
 	/**
@@ -116,7 +112,6 @@ public class StudentController{
     public String editTermPlanning(Long stuId,Integer semester,Model model){
 		Student student = studentService.get(stuId);
 		Trem tremBySS = tremService.findByStudentAndSemester(student, semester);
-		System.err.println(tremBySS);
 		Trem trem = new Trem();
 		trem.setId(0);
 		if (tremBySS != null) {

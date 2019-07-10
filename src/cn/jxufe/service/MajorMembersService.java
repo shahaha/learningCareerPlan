@@ -1,7 +1,10 @@
 package cn.jxufe.service;
 
+import java.util.List;
+
 import cn.jxufe.bean.Message;
 import cn.jxufe.entity.MajorMembers;
+import cn.jxufe.entity.Student;
 public interface MajorMembersService extends QueryService<MajorMembers>{
 	/**
 	 * 保存家庭成员信息
@@ -15,4 +18,10 @@ public interface MajorMembersService extends QueryService<MajorMembers>{
 	 * @return
 	 */
 	public Message delete(Long id);
+	/**
+	 * 按学生查找家庭成员
+	 * @param student 学生
+	 * @return Student类的实体集
+	 */
+	public List<MajorMembers> findByStudent(Student student);
 }

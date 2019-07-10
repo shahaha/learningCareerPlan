@@ -144,7 +144,7 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	@Override
 	//@Cacheable(value="myCache")
 	public List<Classes> findByProfessionAndGrade(Profession profession, String year) {
-		return findByProfessionAndGrade(profession, year);
+		return classesDao.findByProfessionAndGrade(profession, year);
 	}
 
 	

@@ -46,6 +46,20 @@
     <filter-name>loginFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <!-- <filter>
+	<filter-name>openEntityManagerInViewFilter</filter-name>
+	<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+	指定org.springframework.orm.jpa.LocalEntityManagerFactoryBean在spring配置文件中的名称,默认值为entityManagerFactory 
+			如果LocalEntityManagerFactoryBean在spring中的名称不是entityManagerFactory,该参数一定要指定,否则会出现找不到entityManagerFactory的例外
+	<init-param>
+		<param-name>entityManagerFactoryBeanName</param-name>
+		<param-value>entityManagerFactory</param-value>
+	</init-param>
+  </filter>
+  <filter-mapping>
+	<filter-name>openEntityManagerInViewFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+  </filter-mapping>  -->
   
   <servlet>
     <servlet-name>springServlet</servlet-name>

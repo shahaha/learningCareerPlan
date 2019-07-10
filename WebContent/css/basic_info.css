@@ -79,7 +79,8 @@ input{
 
 .container .content table.kv-table td.kv-content {
     height: 26px;
-    font-size: 18px
+    font-size: 18px;
+    border: 1px solid #d4d4d4;
 }
 
 .container .content table.kv-table td.kv-content a {

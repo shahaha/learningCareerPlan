@@ -5,7 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import cn.jxufe.bean.EntityID;
 
@@ -15,7 +15,6 @@ import cn.jxufe.bean.EntityID;
  */
 @Table(name="t_majorMembers")
 @Entity
-@JsonIgnoreProperties(value= {"student"})
 public class MajorMembers extends EntityID{
 	
 	/**
@@ -27,6 +26,7 @@ public class MajorMembers extends EntityID{
 	 */
 	@ManyToOne
 	@JoinColumn(name = "stuId")
+	@JsonBackReference
 	private Student student;
 	/**
 	 * 成员姓名

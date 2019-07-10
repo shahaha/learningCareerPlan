@@ -25,7 +25,7 @@ public class JavaCacheTest {
 	@Autowired
 	StudentService studentService;
 
-	/*@Test
+	@Test
 	public void addStudent() {
 		Classes classes = new Classes("2");
 		
@@ -52,7 +52,7 @@ public class JavaCacheTest {
 		student.setTarget(target);
 		student.setId(2);
 		System.out.println(studentService.save(student));	
-	}*/
+	}
 	@Test
 	public void queryTest() {
 		System.out.println("第一次调用");

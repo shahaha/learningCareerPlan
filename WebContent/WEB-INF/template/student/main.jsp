@@ -79,7 +79,7 @@
                             </a>
                         </li>
                         <li class="pf-logout">
-                            <a href="logoutAction">
+                            <a href="<%=basePath%>base/loginout">
                                 <i class="iconfont">&#xe680;</i>
                                 <span class="pf-opt-name">退出</span>
                             </a>
@@ -105,14 +105,14 @@
                         </a>
                      </li>
                      <li>
-                        <a onclick="addTab('学习规划录入','http://jquery.com/')">
+                        <a onclick='addTab("学习规划录入","student/eTermPlan","{\"stuId\": ${curUser.id},\"semester\": ${curTrem}}")'>
                             <span class="iconfont sider-nav-icon">&#xe6db;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">学习规划录入</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
                      </li>
                      <li>
-                        <a onclick="addTab('评语查看','http://jquery.com/')">
+                        <a onclick='addTab("评语查看","student/viewComments","{\"stuId\": ${curUser.id},\"semester\": ${curTrem}}")'>
                             <span class="iconfont sider-nav-icon">&#xe6c2;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">评语查看</span>
                             <i class="iconfont">&#xe642;</i>
@@ -125,8 +125,8 @@
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
-                           <li class="active"><a style="cursor:pointer;" onclick="addTab('学生基本信息打印','basic_info.html')">学生基本信息打印</a></li>
-                           <li class="active"><a style="cursor:pointer;" onclick="addTab('学生学期规划打印','basic_info.html')">学生学期规划打印</a></li>
+                           <li class="active"><a style="cursor:pointer;" onclick="addTab('学生基本信息打印','basic_info.html','')">学生基本信息打印</a></li>
+                           <li class="active"><a style="cursor:pointer;" onclick="addTab('学生学期规划打印','basic_info.html','')">学生学期规划打印</a></li>
                         </ul>
                      </li>
                      <li>
@@ -143,7 +143,7 @@
             <div id="pf-page">
                 <div id="menuTabs" class="easyui-tabs" style="width:100%;height:100%;">
                   <div title="首页" style="padding:10px 5px 5px 10px;">
-                    <iframe class="page-iframe" src="<%=basePath %>base/workbench" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
+                    <iframe class="page-iframe" src="<%=basePath %>assist/workbench" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                   </div>
                 </div>
 				
@@ -188,12 +188,15 @@
     	};
     mainPlatform.init();
     
+    
+    /* frame右侧窗口 */
 	function addTab(title, url, parameter){
 		if ($('#menuTabs').tabs('exists', title)){
 			$('#menuTabs').tabs('select', title);
 		} else {
-			console.log(parameter);
-			console.log($.parseJSON(parameter));
+			//console.log(parameter);
+			//console.log(JSON.parse(parameter));
+			
 			request( "POST",basePath+url,JSON.parse(parameter),addTabSuccess,serverError,true);
 			function addTabSuccess(data) {
 				var content = $('<iframe></iframe>',{

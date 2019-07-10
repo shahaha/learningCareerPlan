@@ -1,6 +1,6 @@
 package cn.jxufe.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
 
 /**
  * 学生类，存储学生基本信息
@@ -21,7 +26,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  */
 @Table(name="t_student")
 @Entity
-@JsonIgnoreProperties(value= {"trems"})
 public class Student extends User{
 	/**
 	 * 
@@ -34,6 +38,7 @@ public class Student extends User{
 	/**
 	 * 生日
 	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date stuBirthday;
 	/**
 	 * 生源地
@@ -74,12 +79,14 @@ public class Student extends User{
 	/**
 	 * 该生的主要家庭成员
 	 */
-	@OneToMany(mappedBy="student",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="student",cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Set<MajorMembers> members = new HashSet<MajorMembers>();
 	/**
 	 * 该生各个学期信息
 	 */
-	@OneToMany(mappedBy="student",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="student",cascade = {CascadeType.REMOVE,CascadeType.PERSIST}, fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Set<Trem> trems = new HashSet<Trem>();
 	
 	public Student() {};
@@ -95,11 +102,9 @@ public class Student extends User{
 		this.stuSex = stuSex;
 	}
 	public Date getStuBirthday() {
-		System.err.println(stuBirthday);
 		return stuBirthday;
 	}
 	public void setStuBirthday(Date stuBirthday) {
-		System.err.println(stuBirthday);
 		this.stuBirthday = stuBirthday;
 	}
 	public String getStuOrgin() {

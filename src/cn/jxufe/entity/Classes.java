@@ -23,7 +23,6 @@ public class Classes extends EntityID {
 	/**
 	 * 班级名称
 	 */
-	@Column(name="name")
 	private String name;
 	/**
 	 * 所属专业
@@ -32,12 +31,11 @@ public class Classes extends EntityID {
 	@JoinColumn(name = "profsId")
 	private Profession profession;
 	/**
-	 * 年级 因为不存在单纯的Year类型，而用Data类型代替会因为字段长度问题导致不能保存
+	 * 年级 因为不存在Year类型，而用Data类型代替会因为字段长度问题导致不能保存
 	 * 所以用String来存储Year类型，而且在数据库中Year类型也是字符串或整型
 	 */
-
 	// @DateTimeFormat(pattern = "yyyy")
-	@Column(name="grade")
+	@Column(name="grade",length = 4)
 	private String grade;
 	/**
 	 * 该班班主任
@@ -51,12 +49,9 @@ public class Classes extends EntityID {
 	 */
 	public Classes() {
 	}
-
 	/**
 	 * 带String类型的id的构造函数，setId时要把id转成Long型
-	 * 
-	 * @param id
-	 *            前台传来的String类型的id
+	 * @param id 前台传来的String类型的id
 	 */
 	public Classes(String id) {
 		setId(Long.valueOf(id));

@@ -2,15 +2,12 @@ package cn.jxufe.entity;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import cn.jxufe.bean.EntityID;
 
@@ -20,7 +17,6 @@ import cn.jxufe.bean.EntityID;
  */
 @Table(name="t_role")
 @Entity
-@JsonIgnoreProperties(value= {"users"})
 public class Role extends EntityID{
 	
 	//public static final Role STUDENT = 
@@ -37,8 +33,8 @@ public class Role extends EntityID{
 	 * 一个角色都对应了多个用户
 	 * joinColumns 用来指定中间表中关联自己ID的字段 inverseJoinColumns 用来指定中间表中关联对方ID的字段
 	 */
-	@ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
-	@JoinTable(name="user_role",joinColumns=@JoinColumn(name="roleId"),inverseJoinColumns=@JoinColumn(name="userId"))
+	@JsonIgnore
+	@ManyToMany(mappedBy = "roles")
 	private Set<User> users = new HashSet<User>();
 	
 	/**
