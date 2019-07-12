@@ -51,7 +51,7 @@
 		                                    textField:'name',
 		                                    panelHeight:'auto',
 		                                    data:[{'id':'true','name':'男'},{'id':'false','name':'女'}],
-		                                    value: '${curStu.stuSex }'">
+		                                    value: ${curStu.stuSex }">
 									</td>
 									<td class="kv-label">户籍</td>
 									<td class="kv-content"><input style="width: 80%;" placeholder="必填" name="registeredResidence" class="easyui-combobox"
@@ -100,8 +100,10 @@
 								</tr>
 								<tr>
 									<td class="kv-label">生日</td>
-									<td class="kv-content">
-										<input style="width: 80%;" placeholder="必填" name="stuBirthday" value="${curStu.stuBirthday }" class="easyui-datebox" data-options="required:true"/>
+									<td class="kv-content"><input style="width: 80%;" placeholder="必填" name="stuBirthday" class="easyui-datebox" 
+										data-options="editable:false,
+											required:true,
+											value: '${curStu.stuBirthday }'"/>
 									</td>
 									<td class="kv-label">生源地</td>
 									<td class="kv-content">
@@ -131,6 +133,7 @@
 					<div>
 						<a style="float: right;" id="commit-baseInfo" onclick="commit_baseInfo()" class="easyui-linkbutton c4" iconCls="icon-ok">提交</a>
 					</div>
+					
 					
 					<hr style="margin-top: 10%;">
 					
@@ -333,6 +336,8 @@
         });
 	});
 	
+	
+	
 	/* 提交基本信息 */
 	function commit_baseInfo(){
 		 $('#basicInfoForm').form('submit', {
@@ -343,13 +348,14 @@
 			 },
 			 success: function (result) {
 				 var result = eval('(' +result+ ')');
-				 console.log(result);
 				 if (result.message.code == 200) {
-					 $('#basicInfoForm').form('load',result.data);
+					 var formData = jsonBoolean2String(result.data);
+					 console.log(formData);
+					 $('#basicInfoForm').form('load',formData);
 				 }
 				 $.messager.show({
 					 title: "消息",
-					 msg: result.msg
+					 msg: result.message.msg
 				 });
 			 }
 		 }); 

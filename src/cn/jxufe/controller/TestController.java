@@ -7,14 +7,17 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.jxufe.bean.Message;
+import cn.jxufe.bean.Result;
 import cn.jxufe.entity.College;
 import cn.jxufe.entity.Economy;
 import cn.jxufe.entity.MajorMembers;
 import cn.jxufe.entity.Student;
 import cn.jxufe.entity.Target;
+import cn.jxufe.entity.User;
 import cn.jxufe.service.CollegeService;
 import cn.jxufe.service.EconomyService;
 import cn.jxufe.service.MajorMembersService;
@@ -25,7 +28,7 @@ import cn.jxufe.service.UserService;
 
 @Controller
 @RequestMapping("test")
-public class TestController {
+public class TestController{
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -108,5 +111,24 @@ public class TestController {
     @ResponseBody
     public Message addMember(MajorMembers majorMembers,Model model){
         return majorMembersService.save(majorMembers);
+    }
+	
+	/**
+	 * 保存编辑后的信息
+	 * @param student实例对象
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="save",method = { RequestMethod.POST })
+    @ResponseBody
+    public Result save(Student student,Model model){
+		User user = userService.get(student.getId());
+		student.setAccount(user.getAccount());
+		student.setName(user.getName());
+		student.setPassword(user.getPassword());
+		student.setRoles(user.getRoles());
+		Result result = studentService.save(student);
+		System.err.println(result.getData() + "llllaaf");
+        return result;
     }
 }

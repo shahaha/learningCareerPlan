@@ -3,7 +3,7 @@ package cn.jxufe.service;
 import org.springframework.data.domain.Pageable;
 
 import cn.jxufe.bean.EasyUIData;
-import cn.jxufe.bean.Message;
+import cn.jxufe.bean.Result;
 import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.Student;
 
@@ -13,7 +13,7 @@ public interface StudentService extends QueryService<Student>{
 	 * @param student实例对象
 	 * @return Message 返回保存结果的信息，成功或失败
 	 */
-	public Message save(Student student);
+	public Result save(Student student);
 	
 	/**
 	 * 根据班级查询学生

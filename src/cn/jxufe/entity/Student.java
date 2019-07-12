@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -39,6 +40,7 @@ public class Student extends User{
 	 * 生日
 	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
 	private Date stuBirthday;
 	/**
 	 * 生源地
@@ -102,9 +104,11 @@ public class Student extends User{
 		this.stuSex = stuSex;
 	}
 	public Date getStuBirthday() {
+		System.err.println("getter:" + stuBirthday);
 		return stuBirthday;
 	}
 	public void setStuBirthday(Date stuBirthday) {
+		System.err.println("setter:" + stuBirthday);
 		this.stuBirthday = stuBirthday;
 	}
 	public String getStuOrgin() {

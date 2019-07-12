@@ -98,7 +98,7 @@ public class StudentController{
 		student.setName(user.getName());
 		student.setPassword(user.getPassword());
 		student.setRoles(user.getRoles());
-        return new Result(studentService.save(student), student);
+        return studentService.save(student);
     }
 
 	/**
@@ -109,7 +109,7 @@ public class StudentController{
 	 * @return
 	 */
 	@RequestMapping(value="eTermPlan",produces=MediaType.APPLICATION_JSON_VALUE)
-    public String editTermPlanning(Long stuId,Integer semester,Model model){
+    public String editTermPlanning(Long stuId,@RequestParam(defaultValue="1")Integer semester,Model model){
 		Student student = studentService.get(stuId);
 		Trem tremBySS = tremService.findByStudentAndSemester(student, semester);
 		Trem trem = new Trem();
@@ -143,12 +143,15 @@ public class StudentController{
 	@RequestMapping(value="viewComments",produces=MediaType.APPLICATION_JSON_VALUE)
     public String viewComments(Long stuId,@RequestParam(defaultValue="1")Integer semester,Model model){
 		Student student = studentService.get(stuId);
-		String url = "error/501";
 		Trem trem = tremService.findByStudentAndSemester(student, semester);
-		if (trem != null) {
-			url = "student/editTermPlanning";
-		}
 		model.addAttribute("showSemester", trem);
-        return url;
+        return "student/viewComments";
+    }
+	
+	@RequestMapping(value="gridComments",produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+    public Trem gridComments(Long stuId,@RequestParam(defaultValue="1")Integer semester){
+		Student student = studentService.get(stuId);
+        return tremService.findByStudentAndSemester(student, semester);
     }
 }

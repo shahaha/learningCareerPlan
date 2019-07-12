@@ -32,4 +32,21 @@ function serverError(XMLHttpRequest, textStatus){
     alert("服务器故障");
 }
 
+function jsonBoolean2String(paramJson) {
+	var newJson = paramJson;
+	for ( var item in newJson) {
+		var temp = newJson[item];
+		console.log(temp);
+		if (typeof(temp) === 'array' && temp.length === undefined) {
+			$.each(temp,function(idx,obj){
+				jsonBoolean2String(obj);
+			});
+		} else if (typeof(temp) === 'object' && temp.length === undefined) {
+			jsonBoolean2String(temp);
+		}else if (temp == true || temp == false) {
+			newJson[item] = String(temp);
+		}
+	}
+	return newJson;
+}
 

@@ -57,7 +57,7 @@
 					<td class="kv-label">学期小目标</td>
 					<td class="kv-content" colspan="5" style="margin: 0;">
 						<input id="id" name="id" value="${editSemester.id}"style="display: none;" />
-						<input id="student" name="student" value="${editSemester.student.id}"style="display: none;" />
+						<%-- <input id="student" name="student" value="${editSemester.student.id}"style="display: none;" /> --%>
 						<div id="targetInfo" class="easyui-texteditor"
 							style="width: 100%; height: 300px;" >${editSemester}</div>
 					</td>
@@ -102,7 +102,6 @@
 				alert("学期没结束，请您学期末填写");
 			}else{
 				/* alert("success"); */
-
 				$('#TargetFeedBackForm').form('submit', {
 	            url: '<%=basePath%>student/saveTrem',
 	            onSubmit: function (param) {
@@ -116,16 +115,13 @@
 	                if (result.code == 200) {
 	                
 	                }
-	                
 	                $.messager.show({
 	                    title: "消息",
 	                    msg: result.msg
 	                });
 	            }
 	       	 }); 
-				
 			}
-			
 		}
 
 		function smallTarget() {

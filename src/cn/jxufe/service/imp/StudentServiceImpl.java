@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import cn.jxufe.bean.EasyUIData;
 import cn.jxufe.bean.Message;
+import cn.jxufe.bean.Result;
 import cn.jxufe.dao.StudentDao;
 import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.Student;
@@ -41,17 +42,19 @@ public class StudentServiceImpl extends QueryServiceImpl<Student> implements Stu
 	 */
 	@Override
 	//@CachePut(value="myCache",key="#student.id")
-	public Message save(Student student) {
+	public Result save(Student student) {
 		Message message = new Message();
+		Result result = new Result(message, null);
 		try {
-			studentDao.save(student);
+			Student data = studentDao.save(student);
 			message.setCode(200);
 			message.setMsg("保存成功");
+			result.setData(data);
 		} catch (Exception e) {
 			message.setCode(202);
 			message.setMsg("保存失败");
 		}
-		return message;
+		return result;
 	}
 
 	@Override

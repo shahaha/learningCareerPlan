@@ -35,39 +35,21 @@
 </head>
 <body>
 
-	<div class="container">
-
-		<span style="font-size: 22px;">第&nbsp;<input id="termSearch"
-			class="easyui-validatebox">&nbsp;学期:
-		</span> <a href="javascript:void(0)" class="easyui-linkbutton c1"
-			iconCls="icon-search" onclick="doSearch()">查询</a>
-
+	
+		<div style="float:left">
+			<span style="font-size: 22px;">第&nbsp;<input id="termSearch"
+				class="easyui-validatebox">&nbsp;学期:
+			</span> <a href="javascript:void(0)" class="easyui-linkbutton c1"
+				iconCls="icon-search" onclick="doSearch()">查询</a>
+		</div>
+		<div class="container">
 		<div class="target">
-			<img id="img1" alt="关于学期小目标"
-				src="<%=basePath%>images/comment/man_student.png">
+			<img class="img_target" id="img_s" alt="关于学期小目标"
+				src="#">
 
 			<div class="box1" tilte="学期小目标">
 				<h1 class="title">学期小目标 &nbsp;:&nbsp; </h1>
-				<p class="p">
-				CSS DEBUG.web.servlet.DispatcherServlet - Null ModelAndView returned
-				to DispatcherServlet with name 'springServlet': assuming
-				HandlerAdapter completed request handling 2019-06-25 15:56:00,716
-				3800025 [http-nio-8080-exec-29] DEBUG .web.servlet.DispatcherServlet
-				- Cleared thread-bound request context:
-				org.apache.catalina.connector.RequestFacade@32441b81 2019-06-25
-				15:56:00,716 3800025 [http-nio-8080-exec-29] DEBUG
-				.web.servlet.DispatcherServlet - Successfully completed request
-				2019-06-25 15:56:00,716 3800025 [http-nio-8080-exec-29] DEBUG
-				pport.XmlWebApplicationContext - Publishing event in
-				WebApplicationContext for namespace 'springServlet-servlet':
-				ServletRequestHandledEvent:
-				url=[/learningCareerPlan/easyui/themes/icons/search.png];
-				client=[127.0.0.1]; method=[GET]; servlet=[springServlet];
-				session=[9D2CCC4ABCDE83FA014DC8591119D8BA]; user=[null]; time=[9ms];
-				status=[OK] 2019-06-25 15:56:00,717 3800026 [http-nio-8080-exec-29]
-				DEBUG pport.XmlWebApplicationContext - Publishing event in Root
-				WebAppl
-				</p>
+				<p class="p" id="smallTarget">${showSemester.smallTarget}</p>
 			</div>
 
 		</div>
@@ -75,26 +57,7 @@
 		<div class="audit">
 			<div class="box2" tilte="班主任对学期小目标评语">CSS
 			<h1 class="title">班主任评语 &nbsp;:&nbsp; </h1>
-				<p class="p">
-				CSS DEBUG.web.servlet.DispatcherServlet - Null ModelAndView returned
-				to DispatcherServlet with name 'springServlet': assuming
-				HandlerAdapter completed request handling 2019-06-25 15:56:00,716
-				3800025 [http-nio-8080-exec-29] DEBUG .web.servlet.DispatcherServlet
-				- Cleared thread-bound request context:
-				org.apache.catalina.connector.RequestFacade@32441b81 2019-06-25
-				15:56:00,716 3800025 [http-nio-8080-exec-29] DEBUG
-				.web.servlet.DispatcherServlet - Successfully completed request
-				2019-06-25 15:56:00,716 3800025 [http-nio-8080-exec-29] DEBUG
-				pport.XmlWebApplicationContext - Publishing event in
-				WebApplicationContext for namespace 'springServlet-servlet':
-				ServletRequestHandledEvent:
-				url=[/learningCareerPlan/easyui/themes/icons/search.png];
-				client=[127.0.0.1]; method=[GET]; servlet=[springServlet];
-				session=[9D2CCC4ABCDE83FA014DC8591119D8BA]; user=[null]; time=[9ms];
-				status=[OK] 2019-06-25 15:56:00,717 3800026 [http-nio-8080-exec-29]
-				DEBUG pport.XmlWebApplicationContext - Publishing event in Root
-				WebAppl
-				</p>
+				<p class="p" id="teacherAudit">${showSemester.teacherAudit}</p>
 				</div>
 			<img id="img2" alt="关于学期小目标的评语"
 				src="<%=basePath%>images/comment/Teacher_male.png">
@@ -103,30 +66,11 @@
 
 
 		<div class="feedBack">
-			<img id="img1" alt="关于目标反馈"
-				src="<%=basePath%>images/comment/man_student.png">
+			<img class="img_feedBack" id="img_s" alt="关于目标反馈"
+				src="#">
 			<div class="box1" tilte="目标反馈">
 				<h1 class="title">目标反馈 &nbsp;:&nbsp; </h1>
-				<p class="p">
-				CSS DEBUG.web.servlet.DispatcherServlet - Null ModelAndView returned
-				to DispatcherServlet with name 'springServlet': assuming
-				HandlerAdapter completed request handling 2019-06-25 15:56:00,716
-				3800025 [http-nio-8080-exec-29] DEBUG .web.servlet.DispatcherServlet
-				- Cleared thread-bound request context:
-				org.apache.catalina.connector.RequestFacade@32441b81 2019-06-25
-				15:56:00,716 3800025 [http-nio-8080-exec-29] DEBUG
-				.web.servlet.DispatcherServlet - Successfully completed request
-				2019-06-25 15:56:00,716 3800025 [http-nio-8080-exec-29] DEBUG
-				pport.XmlWebApplicationContext - Publishing event in
-				WebApplicationContext for namespace 'springServlet-servlet':
-				ServletRequestHandledEvent:
-				url=[/learningCareerPlan/easyui/themes/icons/search.png];
-				client=[127.0.0.1]; method=[GET]; servlet=[springServlet];
-				session=[9D2CCC4ABCDE83FA014DC8591119D8BA]; user=[null]; time=[9ms];
-				status=[OK] 2019-06-25 15:56:00,717 3800026 [http-nio-8080-exec-29]
-				DEBUG pport.XmlWebApplicationContext - Publishing event in Root
-				WebAppl
-				</p>
+				<p class="p" id="targetFeedback">${showSemester.targetFeedback}</p>
 				</div>
 
 		</div>
@@ -134,27 +78,9 @@
 		<div class="comment">
 			<div class="box2" tilte="班主任对目标反馈的评语">
 				<h1 class="title">班主任考核意见 &nbsp;:&nbsp; </h1>
-				<p class="p">
-				CSS DEBUG.web.servlet.DispatcherServlet - Null ModelAndView returned
-				to DispatcherServlet with name 'springServlet': assuming
-				HandlerAdapter completed request handling 2019-06-25 15:56:00,716
-				3800025 [http-nio-8080-exec-29] DEBUG .web.servlet.DispatcherServlet
-				- Cleared thread-bound request context:
-				org.apache.catalina.connector.RequestFacade@32441b81 2019-06-25
-				15:56:00,716 3800025 [http-nio-8080-exec-29] DEBUG
-				.web.servlet.DispatcherServlet - Successfully completed request
-				2019-06-25 15:56:00,716 3800025 [http-nio-8080-exec-29] DEBUG
-				pport.XmlWebApplicationContext - Publishing event in
-				WebApplicationContext for namespace 'springServlet-servlet':
-				ServletRequestHandledEvent:
-				url=[/learningCareerPlan/easyui/themes/icons/search.png];
-				client=[127.0.0.1]; method=[GET]; servlet=[springServlet];
-				session=[9D2CCC4ABCDE83FA014DC8591119D8BA]; user=[null]; time=[9ms];
-				status=[OK] 2019-06-25 15:56:00,717 3800026 [http-nio-8080-exec-29]
-				DEBUG pport.XmlWebApplicationContext - Publishing event in Root
-				WebAppl
+				<p class="p" id="teacherComment">${showSemester.teacherComment}
 				</p>
-				<div class="result">成绩：<a style="color:#FF0000;">99</a></div>
+				<div class="result">成绩：<a id="result" style="color:#FF0000;">${showSemester.score}</a></div>
 				</div>
 			<img id="img2" alt="关于学期小目标的评语"
 				src="<%=basePath%>images/comment/Teacher_male.png">
@@ -164,17 +90,104 @@
 	</div>
 
 
-	<script>
+	<script  type="text/javascript">
+	/* var semesterCur = $("#semesterCur"); */
+	var stuId= ${stuId};
+	var result=$("#result");
+	var teacherComment= $("#teacherComment");
+	var targetFeedback= $("#targetFeedback");
+	var teacherAudit= $("#teacherAudit");
+	var smallTarget= $("#smallTarget");
+	var stuSex = ${stuSex};
+	$(document).ready(function () {
+		
+		console.log("reading"+stuId+stuSex);
+		
+		if("${showSemester.teacherComment}"==null || "${showSemester.teacherComment}".length<1){
+			$(".comment").css("display","none");
+		}
+		if("${showSemester.targetFeedback}"==null || "${showSemester.targetFeedback}".length<1){
+			$(".feedBack").css("display","none");
+		}
+		if("${showSemester.teacherAudit}"==null || "${showSemester.teacherAudit}".length<1){
+			$(".audit").css("display","none");
+		}
+		if("${showSemester.smallTarget}"==null || "${showSemester.smallTarget}".length<1){
+			$(".target").css("display","none");
+		}
+		if(stuSex==true){
+			$(".img_target").attr("src","<%=basePath%>images/comment/man_student.png");
+			$(".img_feedBack").attr("src","<%=basePath%>images/comment/man_student.png");
+		}else{
+			$(".img_target").attr("src","<%=basePath%>images/comment/woman_student.png");
+			$(".img_feedBack").attr("src","<%=basePath%>images/comment/woman_student.png");
+		}
 		
 		
+		
+	});
 	
+	function doSearch(){
+		
+		var semester= $("#termSearch").val();
+		
+		if(semester<0 || semester>7){
+			alert("没有该学期，请重新输入1~7");
+			
+		}else{
+		
+		var data = {stuId: stuId,semester: semester};
+		var term= $.ajax({
+			data:data,
+			url: "<%=basePath%>student/girdComments",
+			method: "POST",
+			async : false
+		});
+		
+		if(term.responseText==""){
+			alert("该学期还没开始，请重新输入");
+		}else{
+			var termJson=term.responseJSON;
+			/* semesterCur.html(termJson.semester); */
+			smallTarget.html(termJson.smallTarget);
+			teacherAudit.html(termJson.teacherAudit);
+			targetFeedback.html(termJson.targetFeedback);
+			teacherComment.html(termJson.teacherComment);
+			result.html(termJson.score);
+			//console.log("request success");
 	
-	
-	
+			if(teacherComment.html()==null || teacherComment.html().length<2){
+				$(".comment").css("display","none");
+			}else{
+				$(".comment").css("display","inline");
+			}
+			if(targetFeedback.html()==null || targetFeedback.html().length<2){
+				$(".feedBack").css("display","none");
+			}else{
+				$(".feedBack").css("display","inline");
+			}
+			if(teacherAudit.html()==null || teacherAudit.html().length<2){
+				$(".audit").css("display","none");
+			}else{
+				$(".audit").css("display","inline");
+			}
+			if(smallTarget.html()==null || smallTarget.html().length<2){
+				$(".target").css("display","none");
+			}else{
+				$(".target").css("display","inline");
+			}
+			if(stuSex==true){
+				$(".img_target").attr("src","<%=basePath%>images/comment/man_student.png");
+				$(".img_feedBack").attr("src","<%=basePath%>images/comment/man_student.png");
+			}else{
+				$(".img_target").attr("src","<%=basePath%>images/comment/woman_student.png");
+				$(".img_feedBack").attr("src","<%=basePath%>images/comment/woman_student.png");
+			}
+		}
+		
+		}
+	}
 	</script>
-
-
-
 
 </body>
 </html>
