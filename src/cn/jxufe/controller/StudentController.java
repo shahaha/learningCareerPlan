@@ -142,9 +142,8 @@ public class StudentController{
 	 */
 	@RequestMapping(value="viewComments",produces=MediaType.APPLICATION_JSON_VALUE)
     public String viewComments(Long stuId,@RequestParam(defaultValue="1")Integer semester,Model model){
-		Student student = studentService.get(stuId);
-		Trem trem = tremService.findByStudentAndSemester(student, semester);
-		model.addAttribute("showSemester", trem);
+		model.addAttribute("stuId", stuId);
+		model.addAttribute("semester", semester);
         return "student/viewComments";
     }
 	

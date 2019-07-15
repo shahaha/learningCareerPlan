@@ -170,7 +170,7 @@
 					<div id="memberDialog" class="easyui-dialog" iconCls="icon-man"
 						style="width: 600px; height: 300px;vertical-align: center" data-options="closed:true,modal:true,buttons:'#memberDialogButtons'">
 						<form id="memberForm" method="post">
-							<table class='kv-table' style='border-collapse: separate; border-spacing: 0px 10px; margin: 0 auto;border:"2"'>
+							<table class='kv-table' style='width:85%;padding:4%; border-collapse: separate; border-spacing: 0px 10px; margin: 0 auto;border:"2"'>
 								<tr>
 									<td class="kv-label" style="text-align: center; width: 25%;">成员姓名</td>
 									<td class="kv-content">

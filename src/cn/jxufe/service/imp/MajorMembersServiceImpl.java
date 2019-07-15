@@ -61,7 +61,6 @@ public class MajorMembersServiceImpl extends QueryServiceImpl<MajorMembers> impl
 		Message message = new Message();
 		MajorMembers majorMember = majorMembersDao.findOne(id);
 		try {
-			System.err.println(majorMember.getId() + "sssssdffs" + majorMember.getStudent() + "jkfgsg" + majorMember);
 			majorMembersDao.delete(majorMember);
 			message.setCode(200);
 			message.setMsg("删除成功");

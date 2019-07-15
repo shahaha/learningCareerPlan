@@ -82,16 +82,11 @@ public class BaseController {
 	@RequestMapping(value="loginValidate",produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
     public Message loginValidate(User user,HttpServletRequest request,@RequestParam(defaultValue="") String vcodeText){
-		System.err.println("kijfios");
-		long start1 = System.currentTimeMillis();
 		String vcode = (String) request.getSession().getAttribute("vcode");;
 		vcodeText = vcodeText.toLowerCase();
 		Message message = new Message();
 		if (vcodeText.equals(vcode)) {
-			long start2 = System.currentTimeMillis();
 			User loginUser = userService.findByAccount(user.getAccount());
-			long end2 = System.currentTimeMillis();
-			System.err.println("dbiue" + (end2 - start2));
 			if (loginUser != null) {
 				if (!loginUser.getPassword().equals(user.getPassword())) {
 					message.setCode(202);
@@ -110,8 +105,6 @@ public class BaseController {
 			message.setCode(201);
 			message.setMsg("验证码错误");
 		}
-		long end1 = System.currentTimeMillis();
-		System.err.println("dbiue" + (end1 - start1));
 		return message;
 	}
 	
@@ -123,18 +116,13 @@ public class BaseController {
 	 */
 	@RequestMapping(value = "/loginRole")
     public String loginRole(Model model,HttpServletRequest request) {
-		System.err.println("kijfios");
-		long start = System.currentTimeMillis();
 		User curUser = (User) request.getSession().getAttribute("loginUser");
 		model.addAttribute("curUser", curUser);
 		Set<Role> roles = curUser.getRoles();
 		String url = "error/500";
 		for (Role role : roles) {
 			if ("学生".equals(role.getRole())) {
-				long start2 = System.currentTimeMillis();
 				Student student = studentService.get(curUser.getId());
-				long end2 = System.currentTimeMillis();
-				System.err.println("dbiue" + (end2 - start2));
 				Set<Trem> trems = student.getTrems();
 				int curTrem = 1;
 				if (trems != null && !trems.isEmpty()) {
@@ -157,8 +145,6 @@ public class BaseController {
 				break;
 			}
 		}
-		long end = System.currentTimeMillis();
-		System.err.println("dbiue" + (end - start));
         return url;
     }
 	
