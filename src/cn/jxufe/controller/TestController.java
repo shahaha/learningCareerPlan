@@ -132,19 +132,6 @@ public class TestController{
 		System.err.println(result.getData() + "llllaaf");
         return result;
     }
-	/**
-	 * 保存用户录入的学期规划
-	 * @param trem实例对象
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="saveTrem",produces=MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Message saveTrem(Trem trem,Model model){
-		
-		System.err.println(trem.getId()+"\t"+trem.getStudents());
-        return tremService.save(trem);
-    }
 	
 	@RequestMapping(value="gridStudentTrem",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

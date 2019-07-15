@@ -1,6 +1,7 @@
 .container {
 	width: 95%;
-	margin-left: 8%;
+	margin-left: 3%;
+	padding:5%;
 }
 
 input {
@@ -32,7 +33,7 @@ input {
 	float: left;
 }
 
-#img1 {
+#img_s {
 	margin: 0;
 	float: left;
 	margin-top: 20px;
@@ -48,7 +49,7 @@ input {
 	float: left;
 	margin-left: 15px;
 	margin-top: 20px;
-	width: 80%;
+	width: 1325px;
 	padding: 30px 20px;
 	border: 5px solid #beceeb;
 	position: relative;
@@ -62,7 +63,7 @@ input {
 	float: left;
 	margin-right: 15px;
 	margin-top: 20px;
-	width: 80%;
+	width: 1325px;
 	padding: 30px 20px;
 	border: 5px solid #beceeb;
 	position: relative;

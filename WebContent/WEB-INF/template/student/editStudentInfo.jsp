@@ -349,7 +349,10 @@
 			 success: function (result) {
 				 var result = eval('(' +result+ ')');
 				 if (result.message.code == 200) {
+					 //result.data.stuSex = String(result.data.stuSex);
+					 //result.data.registeredResidence = String(result.data.registeredResidence);
 					 var formData = jsonBoolean2String(result.data);
+					 console.log(formData);
 					 $('#basicInfoForm').form('load',formData);
 				 }
 				 $.messager.show({

@@ -117,7 +117,6 @@ public class StudentController{
 		if (tremBySS != null) {
 			trem = tremBySS;
 		}
-		model.addAttribute("stuId", trem.getStudents().getId());
 		model.addAttribute("editSemester", trem);
         return "student/editTermPlanning";
     }

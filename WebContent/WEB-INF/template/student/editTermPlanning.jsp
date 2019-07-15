@@ -56,10 +56,9 @@
 				<tr>
 					<td class="kv-label">学期小目标</td>
 					<td class="kv-content" colspan="5" style="margin: 0;">
-						<input id="id" name="id" value="${editSemester.id}"style="display: none;" />
-						<%-- <input id="student" name="student" value="${editSemester.student.id}"style="display: none;" /> --%>
-						<div id="targetInfo" class="easyui-texteditor"
-							style="width: 100%; height: 300px;" >${editSemester}</div>
+						<%-- <input id="id" name="id" value="${editSemester.id}"style="display: none;" /> --%>
+						<div id="smallTarget" name="smallTarget" class="easyui-texteditor"
+							style="width: 100%; height: 300px;" >${editSemester.smallTarget}</div>
 					</td>
 				</tr>
 			</table>
@@ -77,8 +76,11 @@
 				<tr>
 					<td class="kv-label">学期目标反馈</td>
 					<td class="kv-content" colspan="5" style="margin: 0;">
+						<input id="semester" name="semester" value="${editSemester.semester}"style="display: none;" />
+						<%-- <input id="student" name="stuId" value="${stuId}"style="display: none;" /> --%>
+						<input id="targetFeedback" name="targetFeedback" style="display: none;" />
 						<div id="feddBackInfo" class="easyui-texteditor"
-							style="width: 100%; height: 300px;"></div>
+							style="width: 100%; height: 300px;"> ${editSemester.targetFeedback}</div>
 					</td>
 				</tr>
 			</table>
@@ -94,10 +96,16 @@
 	        id: '',
 	        mode: 'insert'
 	    };
-	
+	var stuId = ${stuId};
+	var targetFeedback = $("#targetFeedback");
+	var id = ${editSemester.id};
 		function targetFeedBack() {
 			var Audit="${editSemester.teacherAudit}";
+			/* var T = targetFeedback.val($("#feddBackInfo").html());
+			console.log(T); */
 			
+			targetFeedback.val($("#feddBackInfo").text());
+			console.log(targetFeedback.val());
 			if(Audit==null || Audit.length<2){
 				alert("学期没结束，请您学期末填写");
 			}else{
@@ -105,8 +113,8 @@
 				$('#TargetFeedBackForm').form('submit', {
 	            url: '<%=basePath%>student/saveTrem',
 	            onSubmit: function (param) {
-	                param.id = params.id;
-	                param.mode = params.mode;
+	            	param.student = stuId;
+	                param.id = id;
 	                return $(this).form('validate');
 	            },
 	            success: function (result) {
@@ -128,29 +136,24 @@
 			
 			var Trem;
 			
-			var json=eval('(' +"${editSemester}"+ ')');
-			
-			console.log(json);
-			
 			$('#smallTargetForm').form('submit', {
-            url: '<%=basePath%>student/saveTrem',
-            onSubmit: function (param) {
-                param.id = params.id;
-                param.mode = params.mode;
-                return $(this).form('validate');
-            },
-            success: function (result) {
-                var result = eval('(' +result+ ')');
-                console.log(result);
-                if (result.code == 200) {
-                
-                }
-                $.messager.show({
-                    title: "消息",
-                    msg: result.msg
-                });
-            }
-        }); 
+	            url: '<%=basePath%>student/saveTrem',
+	            onSubmit: function (param) {
+	                param.id = id;
+	                return $(this).form('validate');
+	            },
+	            success: function (result) {
+	                var result = eval('(' +result+ ')');
+	                console.log(result);
+	                if (result.code == 200) {
+	                
+	                }
+	                $.messager.show({
+	                    title: "消息",
+	                    msg: result.msg
+	                });
+	            }
+       		 }); 
 			
 	}
 	</script>
