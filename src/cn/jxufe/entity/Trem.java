@@ -1,11 +1,11 @@
 package cn.jxufe.entity;
 
-import javax.persistence.JoinColumn;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import cn.jxufe.bean.EntityID;
 
@@ -49,8 +49,9 @@ public class Trem extends EntityID{
 	 * 多每个学期对应一个学生
 	 * 每个修学正常的学生都有七个学期
 	 */
-	@ManyToOne( fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "stuId")
+	@JsonBackReference
 	private Student student;
 	
 	public Integer getSemester() {

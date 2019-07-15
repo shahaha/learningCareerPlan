@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -88,7 +87,7 @@ public class Student extends User{
 	 * 该生各个学期信息
 	 */
 	@OneToMany(mappedBy="student",cascade = {CascadeType.REMOVE,CascadeType.PERSIST}, fetch = FetchType.EAGER)
-	@JsonIgnore
+	@JsonManagedReference
 	private Set<Trem> trems = new HashSet<Trem>();
 	
 	public Student() {};

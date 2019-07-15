@@ -91,7 +91,6 @@
 
 
 	<script  type="text/javascript">
-	/* var semesterCur = $("#semesterCur"); */
 	var stuId= ${stuId};
 	var result=$("#result");
 	var teacherComment= $("#teacherComment");
@@ -100,7 +99,7 @@
 	var smallTarget= $("#smallTarget");
 	var stuSex = ${stuSex};
 	$(document).ready(function () {
-		
+		console.log("reading");
 		console.log("reading"+stuId+stuSex);
 		
 		if("${showSemester.teacherComment}"==null || "${showSemester.teacherComment}".length<1){
@@ -137,9 +136,10 @@
 		}else{
 		
 		var data = {stuId: stuId,semester: semester};
+		console.log(data);
 		var term= $.ajax({
 			data:data,
-			url: "<%=basePath%>student/girdComments",
+			url: "<%=basePath%>student/gridComments",
 			method: "POST",
 			async : false
 		});
@@ -147,8 +147,8 @@
 		if(term.responseText==""){
 			alert("该学期还没开始，请重新输入");
 		}else{
-			var termJson=term.responseJSON;
-			/* semesterCur.html(termJson.semester); */
+			var termJson = term.responseJSON;
+			
 			smallTarget.html(termJson.smallTarget);
 			teacherAudit.html(termJson.teacherAudit);
 			targetFeedback.html(termJson.targetFeedback);

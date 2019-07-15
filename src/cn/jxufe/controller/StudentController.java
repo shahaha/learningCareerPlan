@@ -117,6 +117,7 @@ public class StudentController{
 		if (tremBySS != null) {
 			trem = tremBySS;
 		}
+		model.addAttribute("stuId", trem.getStudents().getId());
 		model.addAttribute("editSemester", trem);
         return "student/editTermPlanning";
     }
@@ -130,6 +131,8 @@ public class StudentController{
 	@RequestMapping(value="saveTrem",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Message saveTrem(Trem trem,Model model){
+		
+		System.err.println(trem.getId()+"\t"+trem.getStudents());
         return tremService.save(trem);
     }
 	
@@ -144,6 +147,8 @@ public class StudentController{
     public String viewComments(Long stuId,@RequestParam(defaultValue="1")Integer semester,Model model){
 		Student student = studentService.get(stuId);
 		Trem trem = tremService.findByStudentAndSemester(student, semester);
+		model.addAttribute("stuId", student.getId());
+		model.addAttribute("stuSex", student.getStuSex());
 		model.addAttribute("showSemester", trem);
         return "student/viewComments";
     }
@@ -151,7 +156,9 @@ public class StudentController{
 	@RequestMapping(value="gridComments",produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
     public Trem gridComments(Long stuId,@RequestParam(defaultValue="1")Integer semester){
+		System.err.println(stuId);
 		Student student = studentService.get(stuId);
-        return tremService.findByStudentAndSemester(student, semester);
+		Trem trem = tremService.findByStudentAndSemester(student, semester);
+        return trem;
     }
 }
