@@ -14,9 +14,9 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 
@@ -67,6 +67,12 @@ public class Student extends User{
 	@JoinColumn(name = "targetId")
 	private Target target;
 	/**
+	 * 毕业后实际职业情况
+	 */
+	@ManyToOne
+	@JoinColumn(name = "employmentId")
+	private Target employment;
+	/**
 	 * 所在班级
 	 */
 	@ManyToOne
@@ -82,7 +88,7 @@ public class Student extends User{
 	 * 该生的主要家庭成员
 	 */
 	@OneToMany(mappedBy="student",cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
-	@JsonManagedReference
+	@JsonBackReference
 	private Set<MajorMembers> members = new HashSet<MajorMembers>();
 	/**
 	 * 该生各个学期信息

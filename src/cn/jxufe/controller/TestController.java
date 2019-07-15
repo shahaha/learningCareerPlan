@@ -17,6 +17,7 @@ import cn.jxufe.entity.Economy;
 import cn.jxufe.entity.MajorMembers;
 import cn.jxufe.entity.Student;
 import cn.jxufe.entity.Target;
+import cn.jxufe.entity.Trem;
 import cn.jxufe.entity.User;
 import cn.jxufe.service.CollegeService;
 import cn.jxufe.service.EconomyService;
@@ -130,5 +131,25 @@ public class TestController{
 		Result result = studentService.save(student);
 		System.err.println(result.getData() + "llllaaf");
         return result;
+    }
+	/**
+	 * 保存用户录入的学期规划
+	 * @param trem实例对象
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="saveTrem",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Message saveTrem(Trem trem,Model model){
+		
+		System.err.println(trem.getId()+"\t"+trem.getStudents());
+        return tremService.save(trem);
+    }
+	
+	@RequestMapping(value="gridStudentTrem",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Trem gridStudentTrem(Long stuId,int semester){
+		Student student = studentService.get(stuId);
+        return tremService.findByStudentAndSemester(student, semester);
     }
 }

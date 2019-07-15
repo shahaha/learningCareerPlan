@@ -117,6 +117,7 @@ public class StudentController{
 		if (tremBySS != null) {
 			trem = tremBySS;
 		}
+		model.addAttribute("stuId", trem.getStudents().getId());
 		model.addAttribute("editSemester", trem);
         return "student/editTermPlanning";
     }
@@ -148,6 +149,12 @@ public class StudentController{
         return "student/viewComments";
     }
 	
+	/**
+	 * 查询单个学期的评语
+	 * @param stuId
+	 * @param semester
+	 * @return
+	 */
 	@RequestMapping(value="gridComments",produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
     public Trem gridComments(Long stuId,@RequestParam(defaultValue="1")Integer semester){

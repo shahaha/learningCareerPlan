@@ -36,7 +36,6 @@ function jsonBoolean2String(paramJson) {
 	var newJson = paramJson;
 	for ( var item in newJson) {
 		var temp = newJson[item];
-		console.log(temp);
 		if (typeof(temp) === 'array' && temp.length === undefined) {
 			$.each(temp,function(idx,obj){
 				jsonBoolean2String(obj);

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import cn.jxufe.bean.EntityID;
 
@@ -100,6 +101,7 @@ public class Trem extends EntityID{
 	 * 判断该学期有没有结束
 	 * @return true 已结束 false 未结束
 	 */
+	@Transient
 	public Boolean isEnd() {
 		if ((this.teacherComment != null && !("".equals(this.teacherComment))) || this.score != null) {
 			return true;

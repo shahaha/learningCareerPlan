@@ -350,7 +350,6 @@
 				 var result = eval('(' +result+ ')');
 				 if (result.message.code == 200) {
 					 var formData = jsonBoolean2String(result.data);
-					 console.log(formData);
 					 $('#basicInfoForm').form('load',formData);
 				 }
 				 $.messager.show({

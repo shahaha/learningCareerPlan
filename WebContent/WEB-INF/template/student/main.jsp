@@ -163,8 +163,8 @@
         </div>
 		<div id="queryresult"></div>
 		
-    </div> 
-    <script type="text/javascript">
+    </div>
+<script type="text/javascript">
     var basePath = '<%=basePath%>';
     var mainPlatform = {
     		init: function(){
@@ -219,6 +219,6 @@
 			}); */
 		}
 	}
-    </script>
+</script>
 </body> 
 </html>
