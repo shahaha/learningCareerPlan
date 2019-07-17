@@ -1,0 +1,20 @@
+
+.layui-elem-quote{
+	
+	border-left:5px solid #1AA094;
+	background:#F2F2F2;
+    margin-left:0px;
+	height:45px;
+    width:99%;
+    margin-bottom:10px;
+	position:relative;
+}
+
+.head{
+	left:18px;
+	top:-18px;
+	position:absolute;
+	color:#6AC7BB;
+	font-size:24px;
+	
+}
