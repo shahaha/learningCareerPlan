@@ -88,13 +88,12 @@ public class Trem extends EntityID{
 	public void setScore(Integer score) {
 		this.score = score;
 	}
-	public Student getStudents() {
+	public Student getStudent() {
 		return student;
 	}
-	public void setStudents(Student student) {
+	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
 	/**
 	 * 判断该学期有没有结束
 	 * @return true 已结束 false 未结束

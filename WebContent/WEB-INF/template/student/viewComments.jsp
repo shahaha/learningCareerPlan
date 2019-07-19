@@ -85,30 +85,30 @@
 	</c:if> --%>
 	<div id="notComment" style="top:50%;lefe:50%;display:none">
 			<span style="font-size: 50px;">您要查看的学期不存在！</span>
-		</div>
+	</div>
 	<div class="container">
-		<div class="target">
+		<div class="target" style="display: none;">
 			<img class="img_target" id="img_s" alt="关于学期小目标" src="#">
 			<div class="box1" tilte="学期小目标">
 				<h1 class="title">学期小目标 &nbsp;:&nbsp; </h1>
 				<p class="p" id="smallTarget"></p>
 			</div>
 		</div>
-		<div class="audit">
+		<div class="audit" style="display: none;">
 			<div class="box2" tilte="班主任对学期小目标评语">
 				<h1 class="title">班主任评语 &nbsp;:&nbsp; </h1>
 				<p class="p" id="teacherAudit"></p>
 			</div>
 			<img id="img2" alt="关于学期小目标的评语" src="<%=basePath%>images/comment/Teacher_male.png">
 		</div>
-		<div class="feedBack">
+		<div class="feedBack" style="display: none;">
 			<img class="img_feedBack" id="img_s" alt="关于目标反馈" src="#">
 			<div class="box1" tilte="目标反馈">
 				<h1 class="title">目标反馈 &nbsp;:&nbsp; </h1>
 				<p class="p" id="targetFeedback"></p>
 			</div>
 		</div>
-		<div class="comment">
+		<div class="comment" style="display: none;">
 			<div class="box2" tilte="班主任对目标反馈的评语">
 				<h1 class="title">班主任考核意见 &nbsp;:&nbsp; </h1>
 				<p class="p" id="teacherComment"></p>
@@ -139,7 +139,7 @@
         }).done(showComment).fail(serverError);
 	});
 	function changeNo(rec){
-		console.log(rec);
+		//console.log(rec);
 		var requestParam = {
 				"stuId": ${stuId},
 				"semester": rec.id
@@ -202,7 +202,9 @@
 	
 	function showComment(showSemester) {
 		console.log(showSemester);
-		if (showSemester != null) {
+		if (showSemester != null && showSemester != "") {
+			$(".container").css("display","block");
+			$("#notComment").css("display","none");
 			smallTarget.html(showSemester.smallTarget);
 			teacherAudit.html(showSemester.teacherAudit);
 			targetFeedback.html(showSemester.targetFeedback);
@@ -228,7 +230,7 @@
 			}else{
 				$(".target").css("display","inline");
 			}
-			if(showSemester.students.stuSex==true){
+			if(showSemester.student.stuSex==true){
 				$(".img_target").attr("src",basePath+"images/comment/man_student.png");
 				$(".img_feedBack").attr("src",basePath+"images/comment/man_student.png");
 			}else{
@@ -236,7 +238,8 @@
 				$(".img_feedBack").attr("src",basePath+"images/comment/woman_student.png");
 			}
 		}else {
-			$("#notComment").css("display","block")
+			$("#notComment").css("display","block");
+			$(".container").css("display","none");
 		}
 	}
 </script>

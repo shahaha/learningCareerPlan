@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.jxufe.bean.Message;
@@ -138,5 +139,39 @@ public class TestController{
     public Trem gridStudentTrem(Long stuId,int semester){
 		Student student = studentService.get(stuId);
         return tremService.findByStudentAndSemester(student, semester);
+    }
+	
+	/**
+	 * 进入学期规划页面
+	 * @param stuId 学生Id
+	 * @param semester 当前学期号，即要编辑的学期号
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="eTermPlan",produces=MediaType.APPLICATION_JSON_VALUE)
+    public String editTermPlanning(Long stuId,@RequestParam(defaultValue="1")Integer semester,Model model){
+		Student student = studentService.get(stuId);
+		Trem tremBySS = tremService.findByStudentAndSemester(student, semester);
+		Trem trem = new Trem();
+		trem.setId(0);
+		trem.setStudent(student);
+		trem.setSemester(semester);
+		if (tremBySS != null) {
+			trem = tremBySS;
+		}
+		model.addAttribute("editSemester", trem);
+        return "student/editTermPlanning";
+    }
+	
+	/**
+	 * 保存用户录入的学期规划
+	 * @param trem实例对象
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="saveTrem",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Message saveTrem(Trem trem,Model model){
+        return tremService.save(trem);
     }
 }

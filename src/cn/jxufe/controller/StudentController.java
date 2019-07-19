@@ -114,6 +114,8 @@ public class StudentController{
 		Trem tremBySS = tremService.findByStudentAndSemester(student, semester);
 		Trem trem = new Trem();
 		trem.setId(0);
+		trem.setStudent(student);
+		trem.setSemester(semester);
 		if (tremBySS != null) {
 			trem = tremBySS;
 		}
