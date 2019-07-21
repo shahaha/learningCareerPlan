@@ -1,28 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%>  
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-            + path + "/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="<%=basePath%>/images/school.png" type="image/x-icon" />
+<link rel="icon" href="<%=basePath%>/images/school.png"
+	type="image/x-icon" />
 <title>学习规划</title>
 <link href="<%=basePath%>css/main_base.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/color.css">
-<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/texteditor.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath%>easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath%>easyui/themes/color.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath%>easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath%>easyui/texteditor.css">
 <script type="text/javascript" src="<%=basePath%>easyui/jquery.min.js"></script>
-<script type="text/javascript" src="<%=basePath%>easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="<%=basePath%>easyui/plugins/jquery.edatagrid.js"></script>
-<script type="text/javascript" src="<%=basePath%>easyui/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="<%=basePath%>easyui/jquery.texteditor.js"></script>
+<script type="text/javascript"
+	src="<%=basePath%>easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="<%=basePath%>easyui/plugins/jquery.edatagrid.js"></script>
+<script type="text/javascript"
+	src="<%=basePath%>easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript"
+	src="<%=basePath%>easyui/jquery.texteditor.js"></script>
 </head>
 <style>
 .column {
@@ -48,115 +58,85 @@
 	<%--  ${editSemester}  --%>
 	<div style="width: 75%; margin: 0 auto; padding-top: 3%;">
 		<div class="column">
-			<span class="current">学期小目标信息</span>
+			<span class="current">学期规划信息</span>
 		</div>
 
-		<form id="smallTargetForm" method="POST" style="margin-top: 2%;">
+		<form id="targetForm" method="POST" style="margin-top: 2%;">
 			<table class="kv-table">
-				<tr>
+				
+				<tr id="smallTargetInfo">
 					<td class="kv-label">学期小目标</td>
+					
 					<td class="kv-content" colspan="5" style="margin: 0;">
-						<%-- <input id="id" name="id" value="${editSemester.id}"style="display: none;" /> --%>
-						<div id="smallTarget" name="smallTarget" class="easyui-texteditor"
-							style="width: 100%; height: 300px;" >${editSemester.smallTarget}</div>
+						<div id="targetInfo" name="smallTarget" class="easyui-texteditor"
+							style="width: 100%; height: 300px;">${editSemester.smallTarget}</div>
 					</td>
 				</tr>
-			</table>
-		</form>
-		<div>
-			<a style="float: right;" id="smallTarget" onclick="smallTarget()" class="easyui-linkbutton c4" iconCls="icon-ok">提交</a>
-		</div>
-		<br> <br>
-		<br>
-		<div class="column">
-			<span class="current">目标反馈信息</span>
-		</div>
-		<form id="TargetFeedBackForm"  method="POST" style="margin-top: 2%;">
-			<table class="kv-table">
-				<tr>
+				<tr id="targetFeedbackInfo">
 					<td class="kv-label">学期目标反馈</td>
 					<td class="kv-content" colspan="5" style="margin: 0;">
-						<input id="semester" name="semester" value="${editSemester.semester}"style="display: none;" />
-						<%-- <input id="student" name="stuId" value="${stuId}"style="display: none;" /> --%>
-						<input id="targetFeedback" name="targetFeedback" style="display: none;" />
-						<div id="feddBackInfo" class="easyui-texteditor"
-							style="width: 100%; height: 300px;"> ${editSemester.targetFeedback}</div>
+						<input id="semester" name="semester" value="${editSemester.semester}" style="display: none;" /> 
+						<div id="feddBackInfo" name="targetFeedback" class="easyui-texteditor"
+						style="width: 100%; height: 300px;">${editSemester.targetFeedback}</div>
 					</td>
 				</tr>
 			</table>
 		</form>
 		<div>
-			<a style="float: right;" id="targetFeedBack" onclick="targetFeedBack()" class="easyui-linkbutton c4" iconCls="icon-ok">提交</a>
+			<a style="float: right;" href="javascript:void(0)" onclick="targetCommit()" class="easyui-linkbutton c4" iconCls="icon-ok">提交</a>
 		</div>
-	<br>
+		<br>
 	</div>
-	<script>
-		
+<script type="text/javascript">
 	var params = {
 	        id: '',
 	        mode: 'insert'
 	    };
-	var stuId = ${stuId};
-	var targetFeedback = $("#targetFeedback");
+	var stuId = ${editSemester.student.id};
 	var id = ${editSemester.id};
-		function targetFeedBack() {
-			var Audit="${editSemester.teacherAudit}";
-			/* var T = targetFeedback.val($("#feddBackInfo").html());
-			console.log(T); */
-			
-			targetFeedback.val($("#feddBackInfo").text());
-			console.log(targetFeedback.val());
-			if(Audit==null || Audit.length<2){
-				alert("学期没结束，请您学期末填写");
-			}else{
-				/* alert("success"); */
-				$('#TargetFeedBackForm').form('submit', {
-	            url: '<%=basePath%>student/saveTrem',
-	            onSubmit: function (param) {
-	            	param.student = stuId;
-	                param.id = id;
-	                return $(this).form('validate');
-	            },
-	            success: function (result) {
-	                var result = eval('(' +result+ ')');
-	                console.log(result);
-	                if (result.code == 200) {
-	                
-	                }
-	                $.messager.show({
-	                    title: "消息",
-	                    msg: result.msg
-	                });
-	            }
-	       	 }); 
+	
+	
+	
+	$(document).ready(function () {
+		console.log(stuId);
+		console.log(id);
+		
+		var Audit = "${editSemester.teacherAudit}";
+		var teacherComment = "${editSemester.teacherComment}";
+		if(Audit==null || Audit.length<2){
+			$("#targetFeedbackInfo").css("display","none");
+		}else{
+			$("#targetInfo").attr("contenteditable",false)//contenteditable="true"属性则可以对该标签进行编辑,相当与只读
+			if(teacherComment ==null ||  teacherComment.length<2){
+				$("#feddBackInfo").attr("contenteditable",false)//contenteditable="true"属性则可以对该标签进行编辑,相当与只读
 			}
+			
 		}
+		
+	}); 
+	
+	function targetCommit() {
+		$('#targetForm').form('submit', {
+	         url: '<%=basePath%>student/saveTrem',
+				onSubmit : function(param) {
+					param.student = stuId;
+					param.id = id;
+					return $(this).form('validate');
+				},
+				success : function(result) {
+					var result = eval('(' + result + ')');
+					console.log(result);
+					if (result.code == 200) {
 
-		function smallTarget() {
-			
-			var Trem;
-			
-			$('#smallTargetForm').form('submit', {
-	            url: '<%=basePath%>student/saveTrem',
-	            onSubmit: function (param) {
-	                param.id = id;
-	                return $(this).form('validate');
-	            },
-	            success: function (result) {
-	                var result = eval('(' +result+ ')');
-	                console.log(result);
-	                if (result.code == 200) {
-	                
-	                }
-	                $.messager.show({
-	                    title: "消息",
-	                    msg: result.msg
-	                });
-	            }
-       		 }); 
-			
-	}
-	</script>
+					}
+					$.messager.show({
+						title : "消息",
+						msg : result.msg
+					});
+				}
+			});
+		}
+</script>
 
 
 

@@ -51,7 +51,7 @@
 		                                    textField:'name',
 		                                    panelHeight:'auto',
 		                                    data:[{'id':'true','name':'男'},{'id':'false','name':'女'}],
-		                                    value: ${curStu.stuSex }">
+		                                    value: ${curStu.stuSex}">
 									</td>
 									<td class="kv-label">户籍</td>
 									<td class="kv-content"><input style="width: 80%;" placeholder="必填" name="registeredResidence" class="easyui-combobox"

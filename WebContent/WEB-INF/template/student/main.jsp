@@ -24,9 +24,126 @@
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/color.css">
+	
 </head>
-
 <style>
+#pf-hd {
+    height: 70px;
+    position: relative;
+    z-index: 2;
+    background:url(<%=basePath%>/images/head.jpg) no-repeat;
+    background-size:100%;
+  }
+  
+#pf-hd .pf-user .pf-user-panel li:hover {
+    background: #f1f1f1;
+}
+
+#pf-hd .pf-user .pf-user-panel li:hover .iconfont {
+    color: #1da02b
+}
+
+#pf-hd .pf-user .xiala {
+    color:white;
+    position: relative;
+    top: -1px
+}
+
+
+#pf-hd .pf-user .pf-user-name {
+    float: left;
+    max-width: 150px;
+    color: white;
+    font-weight:bold;
+    font-size: 14px;
+    margin-right: 5px
+}
+
+
+
+#pf-hd .pf-user:hover {
+    background:#34495e;
+  }
+
+  #pf-bd #pf-sider {
+    float: left;
+    height: 100%;
+    margin-left: -220px;
+    width: 220px;
+    background: #34495E;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1;
+    transition: all 0.3s ease
+}
+
+#pf-bd #pf-sider .pf-model-name .toggle-icon {
+    position: absolute;
+    right: 0;
+    top: 14px;
+    width: 19px;
+    height: 22px;
+    background-position: 0 0;
+    cursor: pointer;
+  
+}
+
+
+#pf-bd #pf-sider .pf-model-name {
+    position: relative;
+    padding: 0 20px;
+    height: 49px;
+    line-height: 49px;
+    color: #2d4112;
+    background: #E0ECFF;
+    border-bottom: 1px solid #bdbdbd;
+    font-size: 16px
+}
+
+#pf-bd #pf-sider .sider-nav > li .sider-nav-icon {
+    float: left;
+    margin: 0 10px 0 0;
+    color: #FF4500;
+    font-size: 20px;
+}
+
+#pf-bd #pf-sider .sider-nav > li {
+    border-bottom: 1px solid #dbdbdb;
+    background: #34495E;
+  
+}
+
+#pf-bd #pf-sider .sider-nav > li a {
+    display: block;
+    padding: 0 15px;
+    height: 100%;
+    height: 50px;
+    line-height: 50px;
+     color:white;
+    font-size: 14px;
+    text-decoration: none
+}
+
+#pf-bd #pf-sider .sider-nav > li.current {
+    border-bottom: none;
+    background: #89D5C8;
+}
+
+
+#pf-bd #pf-sider .pf-model-name .iconfont {
+    font-size: 20px;
+	color:#FF4500;
+}
+
+#pf-bd #pf-sider .pf-model-name .pf-sider-icon {
+    float: left;
+    margin: 10px 15px 0 0;
+    width: 20px;
+    height: 20px;
+    font-size: 20px
+}
+</style>
+<%-- <style>
 #pf-hd {
     background: url('<%=basePath%>images/main/xg_left.png?1464005190') left center no-repeat, url('<%=basePath%>images/main/xg_right.png?1464005212') right center no-repeat, url('<%=basePath%>images/main/top_bottombg.png?1464006836') left bottom repeat-x;
 }
@@ -47,7 +164,7 @@
     background: url('<%=basePath%>images/main/tabs_close_hover.png?1464355659')
 }
 
-</style>
+</style> --%>
 
 <body>
     <div class="container">
@@ -59,7 +176,7 @@
 			
             <div class="pf-user">
                 <div class="pf-user-photo">
-                    <img src="<%=basePath%>images/user.png" alt="me">
+                     <img id="avatar" src="<%=basePath%>images/man.png" style="width:30px;margin-left:10px;height:30px;" alt="me" id="img">
                 </div>
                 <h4 class="pf-user-name ellipsis">${curUser.name }</h4>
                 <i class="iconfont xiala">&#xe607;</i>
@@ -125,8 +242,8 @@
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
-                           <li class="active"><a style="cursor:pointer;" onclick="addTab('学生基本信息打印','basic_info.html','')">学生基本信息打印</a></li>
-                           <li class="active"><a style="cursor:pointer;" onclick="addTab('学生学期规划打印','basic_info.html','')">学生学期规划打印</a></li>
+                           <li class="active"><a style="cursor:pointer;" onclick='addTab("学生基本信息打印","student/printBasicInfo","{\"stuId\": ${curUser.id},\"semester\": ${curTrem}}")'>学生基本信息打印</a></li>
+                           <li class="active"><a style="cursor:pointer;" onclick='addTab("学生学期规划打印","student/printTermInfo","{\"stuId\": ${curUser.id},\"semester\": ${curTrem}}")'>学生学期规划打印</a></li>
                         </ul>
                      </li>
                      <li>
@@ -166,6 +283,15 @@
     </div>
 <script type="text/javascript">
     var basePath = '<%=basePath%>';
+    var sex = ${curUser.stuSex};
+    
+    //页面初始化
+    $(document).ready(function () {
+    	//console.log("${curStu}");
+    	show();
+    	
+    });
+    
     var mainPlatform = {
     		init: function(){
     			this.bindEvent();
@@ -188,6 +314,14 @@
     	};
     mainPlatform.init();
     
+    //根据性别修改头像
+    function show(){
+		if(sex==true){
+   			$("#avatar").attr("src","<%=basePath%>images/man.png");
+		}else{
+  			$("#avatar").attr("src","<%=basePath%>images/woman.png");
+		}
+	}
     
     /* frame右侧窗口 */
 	function addTab(title, url, parameter){

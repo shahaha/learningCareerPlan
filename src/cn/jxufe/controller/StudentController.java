@@ -1,7 +1,7 @@
 package cn.jxufe.controller;
 
 import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -132,7 +132,17 @@ public class StudentController{
 	@RequestMapping(value="saveTrem",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Message saveTrem(Trem trem,Model model){
-        return tremService.save(trem);
+		//System.err.println("规划记录 ID"+ "\t"+trem.getId()+" \t传入的trem对象："+"\t"+trem);
+		if(trem.getId()!=0) {
+			Trem trems = tremService.get(trem.getId());
+			trems.setSmallTarget(trem.getSmallTarget());
+			trems.setTargetFeedback(trem.getTargetFeedback());
+			 return tremService.save(trems);
+		}else {
+			return tremService.save(trem);
+		}
+		
+       
     }
 	
 	/**
@@ -161,4 +171,33 @@ public class StudentController{
 		Student student = studentService.get(stuId);
         return tremService.findByStudentAndSemester(student, semester);
     }
+	/**
+	 * 打印基本信息页面
+	 * @param stuId 学生Id
+	 * @param semester 当前学期
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="printBasicInfo",produces=MediaType.APPLICATION_JSON_VALUE)
+	public String printBasicInfo(Long stuId,Integer semester,HttpServletRequest request){
+	  Student student = studentService.get(stuId);
+	  request.getSession().setAttribute("curStu", student);
+	  String url="student/printBasicInfo";
+	  return url;
+	}
+	/**
+	 * 打印学期信息页面
+	 * @param stuId 学生Id
+	 * @param semester 当前学期
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="printTermInfo",produces=MediaType.APPLICATION_JSON_VALUE)
+	public String printTermInfo(Long stuId,Integer semester,HttpServletRequest request){
+		
+	    String url="student/printTermInfo";
+	    return url;
+	}
+	
+	
 }

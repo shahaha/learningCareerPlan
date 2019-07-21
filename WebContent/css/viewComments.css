@@ -36,13 +36,16 @@ input {
 #img_s {
 	margin: 0;
 	float: left;
+	margin-left:15px;
 	margin-top: 20px;
 }
 
 #img2 {
 	margin: 0;
-	float: left;
+	float:right;
+	margin-right:15px;
 	margin-top: 20px;
+	
 }
 
 .box1 {
@@ -74,7 +77,7 @@ input {
 }
 
 .title{
-	margin-top:-20px;
+	margin-top:125px;
 	font-size:20px;
 	color:#fafafa;
 	letter-spacing:0;
@@ -92,6 +95,7 @@ input {
 }
 .result{
 	margin-top:20px;
+	float:right;
     -webkit-text-stroke: 1px black;
 	letter-spacing: 0.04em;
 	text-indent:25px;
