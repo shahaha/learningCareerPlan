@@ -1,6 +1,11 @@
 package cn.jxufe.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.jxufe.bean.Message;
+import cn.jxufe.bean.Result;
 import cn.jxufe.entity.Role;
 import cn.jxufe.entity.Student;
 import cn.jxufe.entity.Trem;
@@ -125,13 +131,23 @@ public class BaseController {
 	@RequestMapping(value = "/loginRole")
     public String loginRole(Model model,HttpServletRequest request) {
 		User curUser = (User) request.getSession().getAttribute("loginUser");
-		model.addAttribute("curUser", curUser);
+		request.getSession().setAttribute("curUser", curUser);
 		Set<Role> roles = curUser.getRoles();
 		String url = "error/500";
 		for (Role role : roles) {
 			if ("学生".equals(role.getRole())) {
 				Student student = studentService.get(curUser.getId());
-				Set<Trem> trems = student.getTrems();
+				Set<Trem> trems =student.getTrems();
+				
+				//对trems进行排序
+				List<Trem> tremsList = new ArrayList<Trem>(trems); 
+				 Collections.sort(tremsList, new Comparator<Trem>() {    
+					  public int compare(Trem arg0, Trem arg1) {    
+					     return arg0.getSemester().compareTo(arg1.getSemester()); // 按照id排列    
+					  }    
+					});    
+				request.getSession().setAttribute("tremsList", tremsList);
+				
 				int curTrem = 1;
 				if (trems != null && !trems.isEmpty()) {
 					for (Trem trem : trems) {
@@ -222,4 +238,30 @@ public class BaseController {
 	}
 	
 	
+	/**
+	 * 跳转至修改密码页面
+	 *  @param model
+	 */
+	 @RequestMapping("changePass")
+	 public String changePass(Long stuId,Model model) {
+		 User user = userService.get(stuId);
+		 model.addAttribute("curUser",user);
+		 String url="base/changePass";
+		 return url;
+	 }
+	
+	     /**
+		 * 修改密码
+		 *  @param model
+		 */
+	 @RequestMapping("updatePass")
+	 @ResponseBody
+	 public Message save(User user,HttpServletRequest request){
+	    String id =request.getParameter("id").trim();
+	    Long uId= Long.parseLong(id);
+	    User u= userService.get(uId);
+	    u.setPassword(user.getPassword());
+		System.err.println("id:"+id+" Password:"+user.getPassword());
+		return userService.save(u);
+	 }
 }

@@ -1,6 +1,8 @@
 package cn.jxufe.controller;
 
 import java.util.List;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,6 +23,7 @@ import cn.jxufe.service.MajorMembersService;
 import cn.jxufe.service.StudentService;
 import cn.jxufe.service.TremService;
 import cn.jxufe.service.UserService;
+import net.sf.json.JSON;
 
 @Controller
 @RequestMapping("student")
@@ -182,9 +185,12 @@ public class StudentController{
 	public String printBasicInfo(Long stuId,Integer semester,HttpServletRequest request){
 	  Student student = studentService.get(stuId);
 	  request.getSession().setAttribute("curStu", student);
+	  Set<MajorMembers> member=student.getMembers();
+	  request.getSession().setAttribute("member",member);
 	  String url="student/printBasicInfo";
 	  return url;
 	}
+	
 	/**
 	 * 打印学期信息页面
 	 * @param stuId 学生Id

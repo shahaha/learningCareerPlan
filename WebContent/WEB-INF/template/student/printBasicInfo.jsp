@@ -12,24 +12,15 @@
 <head>
 <meta charset="utf-8">
 <title>学生基本信息打印</title>
-<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/color.css">
-<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/default/easyui.css">
 <script type="text/javascript" src="<%=basePath%>js/main.js"></script>
 <script type="text/javascript" src="<%=basePath%>easyui/jquery.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>easyui/plugins/jquery.edatagrid.js"></script>
 <script type="text/javascript" src="<%=basePath%>easyui/locale/easyui-lang-zh_CN.js"></script>
-	
-<script type="text/javascript">
-   function show(){
-   var sex=${curStu.stuSex};
-   if(sex==true){
-	   $("#sex").css("display","block");//显示
-   }
-   }
-   </script>	
-	
+<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/color.css">
+		
 	
 <style type="text/css">
 
@@ -98,8 +89,9 @@ table.k-table td.t-content{
 
 
 
+
 </head>
-<body onload="show()">
+<body>
 <div class="content">
 <div class="container">
 <h1 style="margin-left:130px;">${curStu.college.collegeName }学生基本情况表</h1>
@@ -117,11 +109,22 @@ table.k-table td.t-content{
 
 <tr>
 <td class="k-label">性别</td>
-<td class="k-content" >
-<span id="sex">${curStu.stuSex}</span>
-</td>
+<c:if  test="${curUser.stuSex==true }" >
+<td class="k-content">男</td>
+</c:if>
+<c:if  test="${curUser.stuSex==false }" >
+<td class="k-content" >女</td>
+</c:if>
 <td class="k-label">户籍</td>
-<td class="k-content">${curUser.registeredResidence }</td>
+<c:if  test="${curUser.registeredResidence==null }" >
+<td class="k-content">未填写</td>
+</c:if>
+<c:if  test="${curUser.registeredResidence==true }" >
+<td class="k-content">城镇</td>
+</c:if>
+<c:if  test="${curUser.registeredResidence==false }" >
+<td class="k-content">农村</td>
+</c:if>
 </tr>
 
 <tr>
@@ -135,7 +138,7 @@ table.k-table td.t-content{
 <td class="k-label">家庭经济情况</td>
 <td class="k-content">${curStu.economy.economyState }</td>
 <td class="k-label">生日</td>
-<td class="k-content">${curUser.stuBirthday}</td>
+<td class="k-content"><fmt:formatDate value="${curUser.stuBirthday}" pattern="yyyy-mm-dd"/></td>
 </tr>
 
 <tr>
@@ -178,7 +181,11 @@ table.k-table td.t-content{
 
 </div>
 
+
+
 <script type="text/javascript">
+
+  
 
 function $(selector){
     return document.querySelector(selector);

@@ -158,10 +158,10 @@
 					<div class="easyui-layout" >
 						<div id="memberDatagridToolbar" region="north" border="false" style="border-bottom: 1px solid #ddd; height: 32px; padding: 2px 5px; background: #fafafa;">
 							<div style="float: left;">
-								<a data-url="addMember" href="javascript:void(0)" class="easyui-linkbutton c1" iconCls="icon-add">添加</a> 
-								<a data-url="updateMember" href="javascript:void(0)" class="easyui-linkbutton c2" iconCls="icon-edit">编辑</a> 
-								<a data-url="removeMember" href="javascript:void(0)" class="easyui-linkbutton c3" iconCls="icon-remove">删除</a>
-								<a data-url="reloadMember" href="javascript:void(0)" class="easyui-linkbutton c4" iconCls="icon-reload">刷新</a>
+								<a data-url="addMember" href="javascript:void(0)" class="easyui-linkbutton c1"  plain="true" iconCls="icon-add">添加</a> 
+								<a data-url="updateMember" href="javascript:void(0)" class="easyui-linkbutton c2"  plain="true" iconCls="icon-edit">编辑</a> 
+								<a data-url="removeMember" href="javascript:void(0)" class="easyui-linkbutton c3"  plain="true" iconCls="icon-remove">删除</a>
+								<a data-url="reloadMember" href="javascript:void(0)" class="easyui-linkbutton c4"  plain="true" iconCls="icon-reload">刷新</a>
 							</div>
 						</div>
 					</div>
@@ -174,19 +174,19 @@
 								<tr>
 									<td class="kv-label" style="text-align: center; width: 25%;">成员姓名</td>
 									<td class="kv-content">
-										<input id="membersName" name="membersName"type="text">
+										<input class="easyui-validatebox" data-options="required:true" id="membersName" name="membersName"type="text">
 									</td>
 								</tr>
 								<tr>
 									<td class="kv-label" style="text-align: center; width: 25%;">与学生的关系</td>
 									<td class="kv-content">
-										<input id="membersRelationship" name="membersRelationship" type="text">
+										<input class="easyui-validatebox" data-options="required:true" id="membersRelationship" name="membersRelationship" type="text">
 									</td>
 								</tr>
 								<tr>
 									<td class="kv-label" style="text-align: center; width: 25%;">成员工作</td>
 									<td class="kv-content">
-										<input id="membersJob" name="membersJob" type="text">
+										<input class="easyui-validatebox" data-options="required:true" id="membersJob" name="membersJob" type="text">
 									</td>
 								</tr>
 							</table>

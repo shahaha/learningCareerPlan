@@ -106,7 +106,7 @@ table.k-table tr td.k-content:last-child {
 <td class="k-content">${curUser.account }</td>
 </tr>
 
-<c:forEach items="${trems}" var="t" varStatus="st">
+<c:forEach items="${tremsList}" var="t" varStatus="st">
 <tr>
 <td class="k-label">第${t.semester }学期小目标</td>
 <td class="k-content" colspan="3">${t.smallTarget}</td>

@@ -1,6 +1,8 @@
 package cn.jxufe.service;
 
 import cn.jxufe.bean.Message;
+import cn.jxufe.bean.Result;
+import cn.jxufe.entity.Student;
 import cn.jxufe.entity.User;
 
 public interface UserService extends QueryService<User>{
@@ -27,4 +29,5 @@ public interface UserService extends QueryService<User>{
 	 * @return 是否存在的boolean值
 	 */
 	//public boolean isStudent(User user);
+	
 }

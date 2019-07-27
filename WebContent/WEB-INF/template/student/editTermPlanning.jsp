@@ -83,7 +83,7 @@
 			</table>
 		</form>
 		<div>
-			<a style="float: right;" href="javascript:void(0)" onclick="targetCommit()" class="easyui-linkbutton c4" iconCls="icon-ok">提交</a>
+			<a style="float: right; margin-top:10px" href="javascript:void(0)" onclick="targetCommit()" class="easyui-linkbutton c4" iconCls="icon-ok">提交</a>
 		</div>
 		<br>
 	</div>
@@ -107,7 +107,10 @@
 			$("#targetFeedbackInfo").css("display","none");
 		}else{
 			$("#targetInfo").attr("contenteditable",false)//contenteditable="true"属性则可以对该标签进行编辑,相当与只读
-			if(teacherComment ==null ||  teacherComment.length<2){
+			console.log(teacherComment.length);
+			if(teacherComment.length<2 || teacherComment ==null){
+				$("#feddBackInfo").attr("contenteditable",true)//contenteditable="true"属性则可以对该标签进行编辑,相当与只读
+			}else{
 				$("#feddBackInfo").attr("contenteditable",false)//contenteditable="true"属性则可以对该标签进行编辑,相当与只读
 			}
 			

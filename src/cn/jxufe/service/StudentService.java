@@ -8,6 +8,7 @@ import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.Student;
 
 public interface StudentService extends QueryService<Student>{
+	
 	/**
 	 * 保存一个实例对象
 	 * @param student实例对象

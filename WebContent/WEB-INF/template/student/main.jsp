@@ -33,7 +33,7 @@
     z-index: 2;
     background:url(<%=basePath%>/images/head.jpg) no-repeat;
     background-size:100%;
-  }
+}
   
 #pf-hd .pf-user .pf-user-panel li:hover {
     background: #f1f1f1;
@@ -65,7 +65,7 @@
     background:#34495e;
   }
 
-  #pf-bd #pf-sider {
+#pf-bd #pf-sider {
     float: left;
     height: 100%;
     margin-left: -220px;
@@ -142,6 +142,9 @@
     height: 20px;
     font-size: 20px
 }
+#pf-bd #pf-sider .pf-model-name .toggle-icon {
+    background: url(<%=basePath%>images/main/sider-toggle.png) no-repeat;
+}
 </style>
 <%-- <style>
 #pf-hd {
@@ -183,14 +186,8 @@
 
                 <div class="pf-user-panel">
                     <ul class="pf-user-opt">
-                        <li class="pf-info-item">
-                            <a onclick="addTab('用户信息','person_info.html')">
-                                <i class="iconfont">&#xe60d;</i>
-                                <span class="pf-opt-name">用户信息</span>
-                            </a>
-                        </li>
                         <li class="pf-modify-pwd">
-                            <a onclick="addTab('修改密码','modify.html')">
+                            <a onclick='addTab("修改密码","base/changePass","{\"stuId\": ${curUser.id}}")'>
                                 <i class="iconfont">&#xe634;</i>
                                 <span class="pf-opt-name">修改密码</span>
                             </a>
