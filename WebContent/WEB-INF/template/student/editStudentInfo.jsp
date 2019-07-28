@@ -72,21 +72,27 @@
 		                                    valueField:'id',
 		                                    textField:'collegeName',
 		                                    panelHeight:'auto',
+		                                    panelMaxHeight:200,
 		                                    url:'<%=basePath%>assist/collegeList',
 		                                    value: '${curStu.college.id }'">
 									</td>
 
 
 									<td class="kv-label">所在班级</td>
-									<td class="kv-content"><input style="width: 80%;" placeholder="必填" name="classes" class="easyui-combobox"
+									<td class="kv-content" style="font-size: 14px;">${curStu.classes.name }</td>
+									<!-- 班级下拉选择 -->
+									<%-- <td class="kv-content"><input style="width: 80%;" placeholder="必填" name="classes" class="easyui-combobox"
 										data-options="editable:false,
 											required:true,
 		                                    valueField:'id',
 		                                    textField:'name',
 		                                    panelHeight:'auto',
-		                                    data:[{'id':1,'name':'电信161'},{'id':2,'name':'电信162'},{'id':3,'name':'电信163'},{'id':4,'name':'电信164'}],
+		                                    panelMaxHeight:200,
+		                                    url: '<%=basePath%>/assist/fdAll',
 		                                    value: '${curStu.classes.id }'" />
-									</td>
+									</td> --%>
+									
+									
 									<td class="kv-label">家庭经济情况</td>
 									<td class="kv-content"><input style="width: 80%;" placeholder="必填" name="economy" class="easyui-combobox"
 										data-options="editable:false,

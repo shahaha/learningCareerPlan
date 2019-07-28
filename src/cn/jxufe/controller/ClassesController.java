@@ -41,6 +41,16 @@ public class ClassesController {
     }
 	//========查询=====================================================================================================
 	/**
+	 * 查询所有班级列表
+	 * @return 班级实体集
+	 */
+	@RequestMapping(value="fdAll",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Classes> fdAll(){
+        return classesService.findAll();
+    }
+	
+	/**
 	 * 按专业查询班级列表
 	 * @param profession 专业
 	 * @return 班级实体集

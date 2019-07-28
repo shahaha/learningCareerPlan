@@ -103,8 +103,8 @@ height:30px;
 </form>
 
 <div style="float:right;margin:10px 80px 0px 0px;"> 
-<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">Submit</a>
-<a href="javascript:void(0)"  class="easyui-linkbutton" onclick="clearForm()">Clear</a></div>
+<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
+<!-- <a href="javascript:void(0)"  class="easyui-linkbutton" onclick="clearForm()">清空</a></div> -->
 </div>
 
 

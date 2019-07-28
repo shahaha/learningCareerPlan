@@ -169,13 +169,13 @@ float:right;
 				<h1 class="title">学期小目标 &nbsp;&nbsp; </h1>
 			</div>
 			<div class="left" style=" margin-left:120px; margin-top:10px;">
-				<p class="p" id="smallTarget"></p>
-			</div>
+				<p class="p" id="smallTarget" style="margin-bottom:25px;"></p>
+			</div >
 		</div>
 		
 		<div class="audit" style="display: none;">
 		  <div class="right" tilte="班主任对学期小目标评语" style=" margin-right:150px;margin-bottom:-240px;">
-				<p class="p" id="teacherAudit"></p>
+				<p class="p" id="teacherAudit" style="margin-bottom:25px;"></p>
 			</div>
 			<div style="float:right;" >
 				<img id="img2" alt="关于学期小目标的评语" src="<%=basePath%>images/comment/Teacher_male.png">
@@ -189,14 +189,14 @@ float:right;
 				<h1 class="title">目标反馈 &nbsp;&nbsp; </h1>
 			</div>
 			<div class="left" tilte="目标反馈" style=" margin-left:100px;margin-top:45px;">
-				<p class="p" id="targetFeedback"></p>
+				<p class="p" id="targetFeedback" style="margin-bottom:25px;"></p>
 			</div>
 		</div>
 		
 		<div class="comment" style="display: none;">
 			<div class="right" tilte="班主任对目标反馈的评语" style="margin-right:170px;margin-bottom:-240px;">
 				<p class="p" id="teacherComment"></p>
-				<div class="result">成绩：<a id="result" style="color:#FF0000;"></a></div>
+				<div class="result" style="margin-bottom:25px;">成绩：<a id="result" style="color:#FF0000;"></a></div>
 			</div>
 			<div style="float:right;">
 				<img id="img2" alt="关于学期小目标的评语" src="<%=basePath%>images/comment/Teacher_male.png">

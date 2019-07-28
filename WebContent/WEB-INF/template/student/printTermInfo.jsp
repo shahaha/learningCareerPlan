@@ -143,7 +143,7 @@ table.k-table tr td.k-content:last-child {
 
 <div id="print">
 <hr style="width:362%; margin-left:-800px;"></hr>
-<a class="easyui-linkbutton" data-options="iconCls:'icon-print'" style="width:80px">Print</a>
+<a class="easyui-linkbutton" data-options="iconCls:'icon-print'" style="width:80px">打印</a>
 </div>
 </div>
 
