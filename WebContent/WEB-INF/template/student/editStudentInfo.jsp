@@ -79,7 +79,9 @@
 
 
 									<td class="kv-label">所在班级</td>
-									<td class="kv-content" style="font-size: 14px;">${curStu.classes.name }</td>
+									<td class="kv-content" style="font-size: 14px;">${curStu.classes.name }
+										<input style="display:none;" style="width: 80%;" placeholder="必填" name="classes" value= '${curStu.classes.id }' />
+									</td>
 									<!-- 班级下拉选择 -->
 									<%-- <td class="kv-content"><input style="width: 80%;" placeholder="必填" name="classes" class="easyui-combobox"
 										data-options="editable:false,
