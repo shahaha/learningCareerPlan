@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import cn.jxufe.bean.EntityID;
 
 /**
@@ -35,6 +37,7 @@ public class User extends EntityID{
 	/**
 	 * 密码
 	 */
+	@JsonIgnore
 	private String password;
 	/**
 	 * 姓名

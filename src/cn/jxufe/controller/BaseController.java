@@ -47,15 +47,7 @@ public class BaseController {
     public String adminLogin() {
         return "admin/login";
     }
-
-	/**
-	 * 首页
-	 * @return
-	 */
-	@RequestMapping(value = "/workbench")
-    public String workbench() {
-        return "base/workbench";
-    }
+	
 	
 	/**
 	 * 登录管理员角色

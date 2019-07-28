@@ -193,12 +193,7 @@
 			"stuId": ${stuId},
 			"semester": ${semester}
 		};
-		$.ajax({
-            url: basePath+"student/gridComments",
-            async: true,
-            data: requestParam,
-            method: "POST"
-        }).done(showComment).fail(serverError);
+		request("POST",basePath+"student/gridComments",requestParam,showComment,serverError,true);
 	});
 	function changeNo(rec){
 		//console.log(rec);
@@ -210,7 +205,6 @@
 	}
 	
 	function showComment(showSemester) {
-		
 		if (showSemester != null && showSemester != "") {
 			$(".container").css("display","block");
 			$("#notComment").css("display","none");
