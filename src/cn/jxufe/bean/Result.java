@@ -9,6 +9,9 @@ public class Result {
 		this.data = data;
 	}
 
+	public Result() {
+	}
+
 	public Message getMessage() {
 		return message;
 	}

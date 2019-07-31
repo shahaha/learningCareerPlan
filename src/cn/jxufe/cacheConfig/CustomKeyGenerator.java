@@ -1,88 +1,60 @@
 package cn.jxufe.cacheConfig;
 
-import org.springframework.cache.interceptor.KeyGenerator;
-import org.springframework.context.annotation.Configuration;
-
-import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.nio.charset.Charset;
 
-/**
- * <b><code>CustomKeyGenerator</code></b>
- * <p>
- * Description: custom key generator of spring cache.
- * <p>
- * <b>Creation Time:</b> 2018/9/6 16:46
- *
- * @date 2018/9/6
- * @since JDK 1.7
- */
-@Configuration
-public class CustomKeyGenerator implements KeyGenerator {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.interceptor.KeyGenerator;
+import org.springframework.util.ClassUtils;
 
-	@Override
-	public Object generate(Object target, Method method, Object... params) {
-		System.err.println(target.getClass() + "_" + method.getName() + "_" + params);
-		return new CustomKey(target.getClass(), method.getName(), params);
-	}
+import com.google.common.hash.Hashing;
 
-	/**
-	 * Like {@link org.springframework.cache.interceptor.SimpleKey} but considers
-	 * the method.
-	 */
-	static final class CustomKey implements Serializable{
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		private final Class<?> clazz;
-		private final String methodName;
-		private final Object[] params;
-		private final int hashCode;
-
-		/**
-		 * Initialize a key.
-		 *
-		 * @param clazz
-		 *            the receiver class
-		 * @param methodName
-		 *            the method name
-		 * @param params
-		 *            the method parameters
-		 */
-		CustomKey(Class<?> clazz, String methodName, Object[] params) {
-			this.clazz = clazz;
-			this.methodName = methodName;
-			this.params = params;
-			int code = Arrays.deepHashCode(params);
-			code = 31 * code + clazz.hashCode();
-			code = 31 * code + methodName.hashCode();
-			this.hashCode = code;
+public class CustomKeyGenerator implements KeyGenerator{
+	private static Logger log = LoggerFactory.getLogger(CustomKeyGenerator.class);
+	public static final int NO_PARAM_KEY = 0;
+    public static final int NULL_PARAM_KEY = -1;
+    public static final String IGNORE_METHOD = "method";
+    
+    @Override
+    public Object generate(Object target, Method method, Object... params) {
+ 
+        StringBuilder key = new StringBuilder();
+        key.append(target.getClass().getSimpleName()).append(".");//.append(method.getName()).append(":");
+        if ("get".equals(method.getName()) || method.getName().startsWith("save")
+        		|| method.getName().startsWith("update")) {
+			key.append(IGNORE_METHOD).append(":");
+		} else {
+			key.append(method.getName()).append(":");
 		}
-
-		@Override
-		public int hashCode() {
-			return this.hashCode;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj) {
-				return true;
-			}
-			if (!(obj instanceof CustomKey)) {
-				return false;
-			}
-			CustomKey other = (CustomKey) obj;
-			if (this.hashCode != other.hashCode) {
-				return false;
-			}
-
-			return this.clazz.equals(other.clazz) && this.methodName.equals(other.methodName)
-					&& Arrays.deepEquals(this.params, other.params);
-		}
-
-	}
+        if (params.length == 0) {
+            return key.append(NO_PARAM_KEY).toString();
+        }
+        for (Object param : params) {
+            if (param == null) {
+                log.warn("input null param for Spring cache, use default key={}", NULL_PARAM_KEY);
+                key.append(NULL_PARAM_KEY);
+            } else if (ClassUtils.isPrimitiveArray(param.getClass())) {
+                int length = Array.getLength(param);
+                for (int i = 0; i < length; i++) {
+                    key.append(Array.get(param, i));
+                    key.append(',');
+                }
+            } else if (ClassUtils.isPrimitiveOrWrapper(param.getClass()) || param instanceof String) {
+                key.append(param);
+            } else {
+                log.warn("Using an object as a cache key may lead to unexpected results. " +
+                        "Either use @Cacheable(key=..) or implement CacheKey. Method is " + target.getClass() + "#" + method.getName());
+                key.append(param.hashCode());
+            }
+            key.append('-');
+        }
+        String finalKey = key.toString();
+        long cacheKeyHash = Hashing.murmur3_128().hashString(finalKey, Charset.defaultCharset()).asLong();
+        log.debug("using cache key={} hashCode={}", finalKey, cacheKeyHash);
+        log.error(finalKey);
+        return cacheKeyHash;
+    }
 
 }

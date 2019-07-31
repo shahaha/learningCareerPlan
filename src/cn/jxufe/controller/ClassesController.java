@@ -36,10 +36,26 @@ public class ClassesController {
 	@RequestMapping(value="save",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Message save(Classes classes){
-		System.err.println(classes.toString());
-        return classesService.save(classes);
+		Message message = new Message();
+		try {
+			classesService.save(classes);
+			message.success("保存成功！");
+		} catch (Exception e) {
+			message.error500("保存失败！");
+		}
+        return message;
     }
 	//========查询=====================================================================================================
+	/**
+	 * 查询所有班级列表
+	 * @return 班级实体集
+	 */
+	@RequestMapping(value="fdAll",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Classes> fdAll(){
+        return classesService.findAll();
+    }
+	
 	/**
 	 * 按专业查询班级列表
 	 * @param profession 专业

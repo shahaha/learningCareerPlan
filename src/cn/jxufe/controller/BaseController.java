@@ -1,5 +1,9 @@
 package cn.jxufe.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -89,21 +93,16 @@ public class BaseController {
 			User loginUser = userService.findByAccount(user.getAccount());
 			if (loginUser != null) {
 				if (!loginUser.getPassword().equals(user.getPassword())) {
-					message.setCode(202);
-					message.setMsg("密码不正确");
+					message.error500("密码不正确");
 				} else{
 					request.getSession().setAttribute("loginUser", loginUser);
-					message.setCode(200);
-					message.setMsg("正在登录");
-					
+					message.success("正在登录");
 				}
 			}else {
-				message.setCode(400);
-				message.setMsg("用户不存在");
+				message.error500("用户不存在");
 			}
 		}else {
-			message.setCode(201);
-			message.setMsg("验证码错误");
+			message.error500("验证码错误");
 		}
 		return message;
 	}
@@ -117,13 +116,23 @@ public class BaseController {
 	@RequestMapping(value = "/loginRole")
     public String loginRole(Model model,HttpServletRequest request) {
 		User curUser = (User) request.getSession().getAttribute("loginUser");
-		model.addAttribute("curUser", curUser);
+		request.getSession().setAttribute("curUser", curUser);
 		Set<Role> roles = curUser.getRoles();
 		String url = "error/500";
 		for (Role role : roles) {
 			if ("学生".equals(role.getRole())) {
 				Student student = studentService.get(curUser.getId());
-				Set<Trem> trems = student.getTrems();
+				Set<Trem> trems =student.getTrems();
+				
+				//对trems进行排序
+				List<Trem> tremsList = new ArrayList<Trem>(trems); 
+				Collections.sort(tremsList, new Comparator<Trem>() {    
+				  public int compare(Trem arg0, Trem arg1) {    
+				     return arg0.getSemester().compareTo(arg1.getSemester()); // 按照id排列    
+				  }    
+				});    
+				request.getSession().setAttribute("tremsList", tremsList);
+				
 				int curTrem = 1;
 				if (trems != null && !trems.isEmpty()) {
 					for (Trem trem : trems) {
@@ -214,4 +223,46 @@ public class BaseController {
 	}
 	
 	
+	/**
+	 * 跳转至修改密码页面
+	 *  @param model
+	 */
+	 @RequestMapping("changePass")
+	 public String changePass(Long stuId,Model model) {
+		 User user = userService.get(stuId);
+		 model.addAttribute("curUser",user);
+		 String url="base/changePass";
+		 return url;
+	 }
+	
+     /**
+	 * 修改密码
+	 *  @param model
+	 */
+	 @RequestMapping("updatePass")
+	 @ResponseBody
+	 public Message save(Long uId, String password){
+		 Message message = new Message();
+		 if (password == null || password.length() < 6 || password.length() > 18) {
+			 message.error500("修改失败，请确保密码长度在6~18位之间！");
+		}else {
+			User user = userService.get(uId);
+			if (user != null) {
+				if (user.getPassword().equals(password)) {
+					message.error500("修改失败，新密码不能与旧密码相同！");
+				}else {
+					user.setPassword(password);
+					try {
+						userService.save(user);
+						message.success("修改成功！");
+					} catch (Exception e) {
+						message.error500("修改失败，服务器故障！");
+					}
+				}
+			}else {
+				message.error500("修改失败，用户不存在");
+			}
+		}
+		return message;
+	 }
 }

@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.College;
 import cn.jxufe.entity.Economy;
 import cn.jxufe.entity.Target;
+import cn.jxufe.service.ClassesService;
 import cn.jxufe.service.CollegeService;
 import cn.jxufe.service.EconomyService;
 import cn.jxufe.service.StudentService;
@@ -33,6 +35,8 @@ public class AssistController {
 	EconomyService economyService;
 	@Autowired
 	TargetService targetService;
+	@Autowired
+	ClassesService classesService;
 	
 	
 	/**
@@ -74,5 +78,14 @@ public class AssistController {
         return targetService.findAll();
     }
 	
+	/**
+	 * 查询所有班级列表
+	 * @return 班级实体集
+	 */
+	@RequestMapping(value="fdAll",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Classes> fdAll(){
+        return classesService.findAll();
+    }
 	
 }

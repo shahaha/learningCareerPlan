@@ -94,5 +94,4 @@ public class Classes extends EntityID {
 		return "Classes [name=" + name + ", profession=" + profession + ", grade=" + grade + ", teacher=" + teacher
 				+ "]";
 	}
-
 }

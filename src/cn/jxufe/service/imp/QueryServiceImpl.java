@@ -20,7 +20,9 @@ public class QueryServiceImpl<T> implements QueryService<T>{
 	/**
 	 * 用于接收各类型的Dao接口
 	 * 每个继承该类的Impl类最好都重写getDao方法
+	 * (或许用@Autowired注解，就不用重写getDao方法)
 	 */
+	
 	protected JpaRepository<T, Long> dao;
 
 	/**
@@ -35,7 +37,6 @@ public class QueryServiceImpl<T> implements QueryService<T>{
 	 * @see cn.jxufe.service.QueryService#findAll(org.springframework.data.domain.Pageable)
 	 */
 	@Override
-	@Cacheable(value="myCache",keyGenerator="customKeyGenerator")
 	public EasyUIData<T> findAll(Pageable pageable) {
 		Page<T> page = getDao().findAll(pageable);
 		EasyUIData<T> easyUIData = new EasyUIData<T>();

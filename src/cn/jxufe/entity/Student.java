@@ -110,11 +110,9 @@ public class Student extends User{
 		this.stuSex = stuSex;
 	}
 	public Date getStuBirthday() {
-		System.err.println("getter:" + stuBirthday);
 		return stuBirthday;
 	}
 	public void setStuBirthday(Date stuBirthday) {
-		System.err.println("setter:" + stuBirthday);
 		this.stuBirthday = stuBirthday;
 	}
 	public String getStuOrgin() {

@@ -1,6 +1,7 @@
 package cn.jxufe.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,7 +17,6 @@ import cn.jxufe.bean.Result;
 import cn.jxufe.entity.MajorMembers;
 import cn.jxufe.entity.Student;
 import cn.jxufe.entity.Trem;
-import cn.jxufe.entity.User;
 import cn.jxufe.service.MajorMembersService;
 import cn.jxufe.service.StudentService;
 import cn.jxufe.service.TremService;
@@ -69,7 +69,14 @@ public class StudentController{
 	@RequestMapping(value="addMember",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Message addMember(MajorMembers majorMembers,Model model){
-        return majorMembersService.save(majorMembers);
+		Message message = new Message();
+		try {
+			majorMembersService.save(majorMembers);
+			message.success("保存成功！");
+		} catch (Exception e) {
+			message.error500("保存失败！");
+		}
+        return message;
     }
 	
 	/**
@@ -93,12 +100,16 @@ public class StudentController{
 	@RequestMapping(value="save",method = { RequestMethod.POST })
     @ResponseBody
     public Result save(Student student,Model model){
-		User user = userService.get(student.getId());
-		student.setAccount(user.getAccount());
-		student.setName(user.getName());
-		student.setPassword(user.getPassword());
-		student.setRoles(user.getRoles());
-        return studentService.save(student);
+		Message message = new Message();
+		Result result = new Result();
+		try {
+			Student student2 = studentService.save(student);
+			result.setMessage(message.success("保存成功！"));
+			result.setData(student2);
+		} catch (Exception e) {
+			result.setMessage(message.error500("保存失败！"));
+		}
+        return result;
     }
 
 	/**
@@ -132,16 +143,20 @@ public class StudentController{
 	@RequestMapping(value="saveTrem",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Message saveTrem(Trem trem,Model model){
-		//System.err.println("规划记录 ID"+ "\t"+trem.getId()+" \t传入的trem对象："+"\t"+trem);
+		Message message = new Message();
 		if(trem.getId()!=0) {
 			Trem trems = tremService.get(trem.getId());
 			trems.setSmallTarget(trem.getSmallTarget());
 			trems.setTargetFeedback(trem.getTargetFeedback());
-			 return tremService.save(trems);
-		}else {
-			return tremService.save(trem);
+			trem = trems;
 		}
-		
+		try {
+			tremService.save(trem);
+			message.success("保存成功！");
+		} catch (Exception e) {
+			message.error500("保存失败！");
+		}
+		return message;
        
     }
 	
@@ -182,8 +197,12 @@ public class StudentController{
 	public String printBasicInfo(Long stuId,Model model){
 	  Student student = studentService.get(stuId);
 	  model.addAttribute("curStu", student);
-	  return "student/printBasicInfo";
+	  Set<MajorMembers> member=student.getMembers();
+	  model.addAttribute("member",member);
+	  String url="student/printBasicInfo";
+	  return url;
 	}
+	
 	/**
 	 * 打印学期信息页面
 	 * @param stuId 学生Id

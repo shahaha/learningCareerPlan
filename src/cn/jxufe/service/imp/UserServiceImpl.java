@@ -2,12 +2,12 @@ package cn.jxufe.service.imp;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import cn.jxufe.bean.Message;
 import cn.jxufe.dao.UserDao;
 import cn.jxufe.entity.User;
 import cn.jxufe.service.UserService;
@@ -37,25 +37,16 @@ public class UserServiceImpl extends QueryServiceImpl<User> implements UserServi
 	 * @see cn.jxufe.service.UserService#save(cn.jxufe.entity.User)
 	 */
 	@Override
-	//@CachePut(value="myCache",key="#user.id")
-	public Message save(User user) {
-		Message message = new Message();
-		try {
-			userDao.save(user);
-			message.setCode(200);
-			message.setMsg("保存成功");
-		} catch (Exception e) {
-			message.setCode(202);
-			message.setMsg("保存失败");
-		}
-		return message;
+	@CachePut(value="myCache",keyGenerator="customKeyGenerator")
+	public User save(User user) {
+		return userDao.save(user);
 	}
 
 	/* (non-Javadoc)
 	 * @see cn.jxufe.service.UserService#isExist(cn.jxufe.entity.User)
 	 */
 	@Override
-	//@Cacheable(value="myCache",key="#user.account")
+	@Cacheable(value="myCache",keyGenerator="customKeyGenerator")
 	public boolean isExist(User user) {
 		return userDao.findByAccount(user.getAccount()) != null;
 	}
@@ -64,8 +55,16 @@ public class UserServiceImpl extends QueryServiceImpl<User> implements UserServi
 	 * @see cn.jxufe.service.UserService#findByAccount(java.lang.String)
 	 */
 	@Override
-	//@Cacheable(value="myCache",key="#account")
 	public User findByAccount(String account) {
 		return userDao.findByAccount(account);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.jxufe.service.UserService#updatePassword(cn.jxufe.entity.User)
+	 */
+	@Override
+	@CacheEvict(value="myCache",keyGenerator="customKeyGenerator")
+	public void updatePassword(User user) {
+		userDao.save(user);
 	}
 }

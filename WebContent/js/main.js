@@ -34,16 +34,20 @@ function serverError(XMLHttpRequest, textStatus){
 
 function jsonBoolean2String(paramJson) {
 	var newJson = paramJson;
-	for ( var item in newJson) {
-		var temp = newJson[item];
-		if (typeof(temp) === 'array' && temp.length === undefined) {
-			$.each(temp,function(idx,obj){
-				jsonBoolean2String(obj);
-			});
-		} else if (typeof(temp) === 'object' && temp.length === undefined) {
-			jsonBoolean2String(temp);
-		}else if (temp == true || temp == false) {
-			newJson[item] = String(temp);
+	if (newJson != null) {
+		for ( var item in newJson) {
+			var temp = newJson[item];
+			if (temp != null) {
+				if (typeof(temp) === 'array' && temp.length === undefined) {
+					$.each(temp,function(idx,obj){
+						jsonBoolean2String(obj);
+					});
+				} else if (typeof(temp) === 'object' && temp.length === undefined) {
+					jsonBoolean2String(temp);
+				}else if (temp == true || temp == false) {
+					newJson[item] = String(temp);
+				}
+			}
 		}
 	}
 	return newJson;

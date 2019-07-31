@@ -66,12 +66,6 @@
 
                 <div class="pf-user-panel">
                     <ul class="pf-user-opt">
-                        <li class="pf-info-item">
-                            <a onclick="addTab('用户信息','#')">
-                                <i class="iconfont">&#xe60d;</i>
-                                <span class="pf-opt-name">用户信息</span>
-                            </a>
-                        </li>
                         <li class="pf-modify-pwd">
                             <a onclick="addTab('修改密码','#')">
                                 <i class="iconfont">&#xe634;</i>

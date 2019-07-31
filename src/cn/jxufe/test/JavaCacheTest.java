@@ -62,4 +62,11 @@ public class JavaCacheTest {
 		System.out.println(studentService.get(2L).getAccount());
 		
 	}
+	
+	@Test
+	public void hascodtest() {
+		Student student = new Student();
+		student.setId(5);
+		System.out.println(student.hashCode());
+	}
 }

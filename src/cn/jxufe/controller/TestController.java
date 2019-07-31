@@ -19,7 +19,6 @@ import cn.jxufe.entity.MajorMembers;
 import cn.jxufe.entity.Student;
 import cn.jxufe.entity.Target;
 import cn.jxufe.entity.Trem;
-import cn.jxufe.entity.User;
 import cn.jxufe.service.CollegeService;
 import cn.jxufe.service.EconomyService;
 import cn.jxufe.service.MajorMembersService;
@@ -112,26 +111,14 @@ public class TestController{
 	@RequestMapping(value="addMember",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Message addMember(MajorMembers majorMembers,Model model){
-        return majorMembersService.save(majorMembers);
-    }
-	
-	/**
-	 * 保存编辑后的信息
-	 * @param student实例对象
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="save",method = { RequestMethod.POST })
-    @ResponseBody
-    public Result save(Student student,Model model){
-		User user = userService.get(student.getId());
-		student.setAccount(user.getAccount());
-		student.setName(user.getName());
-		student.setPassword(user.getPassword());
-		student.setRoles(user.getRoles());
-		Result result = studentService.save(student);
-		System.err.println(result.getData() + "llllaaf");
-        return result;
+		Message message = new Message();
+		try {
+			majorMembersService.save(majorMembers);
+			message.success("保存成功！");
+		} catch (Exception e) {
+			message.error500("保存失败！");
+		}
+        return message;
     }
 	
 	@RequestMapping(value="gridStudentTrem",produces=MediaType.APPLICATION_JSON_VALUE)
@@ -172,6 +159,43 @@ public class TestController{
 	@RequestMapping(value="saveTrem",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Message saveTrem(Trem trem,Model model){
-        return tremService.save(trem);
+		Message message = new Message();
+		if(trem.getId()!=0) {
+			Trem trems = tremService.get(trem.getId());
+			trems.setSmallTarget(trem.getSmallTarget());
+			trems.setTargetFeedback(trem.getTargetFeedback());
+			trem = trems;
+		}
+		try {
+			tremService.save(trem);
+			message.success("保存成功！");
+		} catch (Exception e) {
+			message.error500("保存失败！");
+		}
+		return message;
     }
+	
+	@RequestMapping(value="getStudent",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Student getStudent(Long stuId){
+		System.out.println(stuId);
+		Student student = studentService.get(stuId);
+        return student;
+    }
+	
+	@RequestMapping(value="save",method = { RequestMethod.POST })
+    @ResponseBody
+    public Result save(Student student,Model model){
+		Message message = new Message();
+		Result result = new Result();
+		try {
+			Student student2 = studentService.save(student);
+			result.setMessage(message.success("保存成功！"));
+			result.setData(student2);
+		} catch (Exception e) {
+			result.setMessage(message.error500("保存失败！"));
+		}
+        return result;
+    }
+	
 }

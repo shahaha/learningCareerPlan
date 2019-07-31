@@ -32,5 +32,11 @@ public class EntityID implements Serializable{
     }
     public void setId(long id) {
         this.id = id;
-    }     
+    }
+	@Override
+	public int hashCode() {
+		int result = 1;
+		result = (int) (id ^ (id >>> 32));
+		return result;
+	}
 }

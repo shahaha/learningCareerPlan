@@ -11,7 +11,7 @@ public interface MajorMembersService extends QueryService<MajorMembers>{
 	 * @param majorMembers 实例对象
 	 * @return
 	 */
-	public Message save(MajorMembers majorMembers);
+	public MajorMembers save(MajorMembers majorMembers);
 	/**
 	 * 删除家庭成员信息
 	 * @param id 要删除的实体ID

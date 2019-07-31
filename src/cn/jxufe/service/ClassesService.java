@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import cn.jxufe.bean.EasyUIData;
-import cn.jxufe.bean.Message;
 import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.Profession;
 import cn.jxufe.entity.User;
@@ -16,7 +15,7 @@ public interface ClassesService extends QueryService<Classes>{
 	 * @param 实例对象
 	 * @return Message 返回保存结果的信息，成功或失败
 	 */
-	public Message save(Classes classes);
+	public Classes save(Classes classes);
 	/**
 	 * 按名称查找班级
 	 * @param cName 班级名称

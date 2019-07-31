@@ -25,13 +25,16 @@
 <script type="text/javascript" src="<%=basePath%>easyui/plugins/jquery.edatagrid.js"></script>
 <script type="text/javascript" src="<%=basePath%>easyui/locale/easyui-lang-zh_CN.js"></script>
 
-</head>
-
 <style type="text/css">
 .container {
   margin-left:80px;
-  margin-top:20px;
+  margin-top:50px;
   width:80%;
+}
+
+.search{
+    margin:20px 0px 0px 40px;
+    font-size:16px;
 }
 
 .target {
@@ -47,20 +50,27 @@
 	float:right;
 }
 
+
+
+
 .feedBack {
 	margin-left:10px;
 	width:70%;
     height:200px;
+   margin-top:100px;
+
 }
 
 .comment {
 	width:70%;
  	height:200px;
- 	float:right;
+float:right;
+ 	
 }
 	
+       	
 		 .left{
-            width: 1000px;
+            width: 450px;
             position:relative;
             border: 1px solid lightgreen;
             text-align:center;
@@ -89,8 +99,9 @@
             border-right:8px solid #fff;
         }
 
-		.right{
-            width: 1000px;
+		
+			 .right{
+            width: 450px;
             float:right;
             border: 1px solid lightgreen;
             margin-right:35px;
@@ -121,12 +132,20 @@
             border-bottom: 6px solid transparent;
             border-left:8px solid #fff;
         }
-			
+        
+    .img_target{
+    margin-bottom:15px;
+    }    
+        
+  </style>
+</head>
+
 
 </style>
 <body>
-
-	<div style="float:left">选择要查看的学期：第<input id="curTrem" class="easyui-combobox" name="curTrem" 
+  
+   
+	<div  class="search" >选择要查看的学期: 第<span style="margin:0px 5px 0px 5px"><input id="curTrem" class="easyui-combobox" name="curTrem" 
 											data-options="editable:false,
 											required:true,
 		                                    valueField:'id',
@@ -134,51 +153,58 @@
 		                                    panelHeight:'auto',
 		                                    data:[{'id':1,'name':'1'},{'id':2,'name':'2'},{'id':3,'name':'3'},{'id':4,'name':'4'},{'id':5,'name':'5'},{'id':6,'name':'6'},{'id':7,'name':'7'}],
 		                                    value: '${semester}',
-		                                    onSelect: changeNo" />学期
+		                                    onSelect: changeNo" /></span>学期
 	</div>
 	
-	<div id="notComment" style="top:50%;lefe:50%;display:none">
+	<div id="notComment" style="top:50%; position:relative; left:50%;display:none">
 			<span style="font-size: 50px;">您要查看的学期不存在！</span>
 	</div>
-	<div class="container">
+	
+	 <div class="container">
+	 
 		<div class="target" style="display: none;">
+			
 			<div style="float:left;">
 				<img class="img_target" id="img_s" alt="关于学期小目标" src="#">
 				<h1 class="title">学期小目标 &nbsp;&nbsp; </h1>
 			</div>
-			<div class="left" style=" margin-left:100px; margin-top:45px;">
-				<p class="p" id="smallTarget"></p>
-			</div>
+			<div class="left" style=" margin-left:120px; margin-top:10px;">
+				<p class="p" id="smallTarget" style="margin-bottom:25px;"></p>
+			</div >
 		</div>
+		
 		<div class="audit" style="display: none;">
-			<div class="right" tilte="班主任对学期小目标评语" style=" margin-right:150px;margin-bottom:-125px;">
-				<p class="p" id="teacherAudit"></p>
+		  <div class="right" tilte="班主任对学期小目标评语" style=" margin-right:150px;margin-bottom:-240px;">
+				<p class="p" id="teacherAudit" style="margin-bottom:25px;"></p>
 			</div>
-			<div style="float:right;">
+			<div style="float:right;" >
 				<img id="img2" alt="关于学期小目标的评语" src="<%=basePath%>images/comment/Teacher_male.png">
 				<h1 class="title" style="margin-right:0px;">班主任评语 &nbsp;&nbsp; </h1>
 			</div>
 		</div>
-		<div class="feedBack" style="display: none;">
+		
+		<div class="feedBack" style="display: none; ">
 			<div style="float:left;">
 				<img class="img_feedBack" id="img_s" alt="关于目标反馈" src="#">
 				<h1 class="title">目标反馈 &nbsp;&nbsp; </h1>
 			</div>
 			<div class="left" tilte="目标反馈" style=" margin-left:100px;margin-top:45px;">
-				<p class="p" id="targetFeedback"></p>
+				<p class="p" id="targetFeedback" style="margin-bottom:25px;"></p>
 			</div>
 		</div>
+		
 		<div class="comment" style="display: none;">
-			<div class="right" tilte="班主任对目标反馈的评语" style="margin-right:170px;margin-bottom:-125px;">
+			<div class="right" tilte="班主任对目标反馈的评语" style="margin-right:170px;margin-bottom:-240px;">
 				<p class="p" id="teacherComment"></p>
-				<div class="result">成绩：<a id="result" style="color:#FF0000;"></a></div>
+				<div class="result" style="margin-bottom:25px;">成绩：<a id="result" style="color:#FF0000;"></a></div>
 			</div>
 			<div style="float:right;">
 				<img id="img2" alt="关于学期小目标的评语" src="<%=basePath%>images/comment/Teacher_male.png">
 				<h1 class="title"  style="margin-right:-25px;">班主任考核意见 &nbsp;&nbsp; </h1>
 			</div>
 		</div>
-	</div>
+		
+     </div>
 
 <script  type="text/javascript">
 	/* var semesterCur = $("#semesterCur"); */

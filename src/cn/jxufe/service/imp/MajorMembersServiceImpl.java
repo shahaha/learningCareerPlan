@@ -4,7 +4,6 @@ package cn.jxufe.service.imp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,18 +37,8 @@ public class MajorMembersServiceImpl extends QueryServiceImpl<MajorMembers> impl
 	 * @see cn.jxufe.service.MajorMembersService#save(cn.jxufe.entity.MajorMembers)
 	 */
 	@Override
-	//@CachePut(value="myCache",key="#majorMembers.id")
-	public Message save(MajorMembers majorMembers) {
-		Message message = new Message();
-		try {
-			majorMembersDao.save(majorMembers);
-			message.setCode(200);
-			message.setMsg("保存成功");
-		} catch (Exception e) {
-			message.setCode(202);
-			message.setMsg("保存失败");
-		}
-		return message;
+	public MajorMembers save(MajorMembers majorMembers) {
+		return majorMembersDao.save(majorMembers);
 	}
 
 	/* (non-Javadoc)

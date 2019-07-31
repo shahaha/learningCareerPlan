@@ -1,6 +1,5 @@
 package cn.jxufe.service;
 
-import cn.jxufe.bean.Message;
 import cn.jxufe.entity.User;
 
 public interface UserService extends QueryService<User>{
@@ -9,7 +8,7 @@ public interface UserService extends QueryService<User>{
 	 * @param user实例对象
 	 * @return Message 返回保存结果的信息，成功或失败
 	 */
-	public Message save(User user);
+	public User save(User user);
 	/**
 	 * 判断一个对象是否已存在
 	 * @param user
@@ -22,9 +21,9 @@ public interface UserService extends QueryService<User>{
 	 */
 	public User findByAccount(String account);
 	/**
-	 * 判断一个对象是
+	 * 修改密码
 	 * @param user
-	 * @return 是否存在的boolean值
 	 */
-	//public boolean isStudent(User user);
+	public void updatePassword(User user);
+	
 }
