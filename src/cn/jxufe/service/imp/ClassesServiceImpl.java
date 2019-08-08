@@ -134,5 +134,13 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 		return classesDao.findByProfessionAndGrade(profession, year);
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.jxufe.service.ClassesService#findByTeacher(cn.jxufe.entity.User)
+	 */
+	@Override
+	public List<Classes> findByTeacher(User teacher) {
+		return classesDao.findByTeacher(teacher);
+	}
+
 	
 }

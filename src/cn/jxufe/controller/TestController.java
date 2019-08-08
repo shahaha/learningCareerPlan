@@ -198,4 +198,16 @@ public class TestController{
         return result;
     }
 	
+	/**
+	 * 查询学生家庭成员
+	 * @param stuId 学生id
+	 * @return
+	 */
+	@RequestMapping(value = "gridOneStuMemberData",produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<MajorMembers> gridOneStuMemberData(Long stuId) {
+		Student student = studentService.get(stuId);
+		return majorMembersService.findByStudent(student);
+	}
+	
 }

@@ -1,8 +1,5 @@
 package cn.jxufe.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -122,25 +119,13 @@ public class BaseController {
 		for (Role role : roles) {
 			if ("学生".equals(role.getRole())) {
 				Student student = studentService.get(curUser.getId());
-				Set<Trem> trems =student.getTrems();
-				
-				//对trems进行排序
-				List<Trem> tremsList = new ArrayList<Trem>(trems); 
-				Collections.sort(tremsList, new Comparator<Trem>() {    
-				  public int compare(Trem arg0, Trem arg1) {    
-				     return arg0.getSemester().compareTo(arg1.getSemester()); // 按照id排列    
-				  }    
-				});    
-				request.getSession().setAttribute("tremsList", tremsList);
-				
+				List<Trem> trems = student.getOrdeTrems();
+				request.getSession().setAttribute("tremsList", trems);
+				System.err.println(trems);
 				int curTrem = 1;
 				if (trems != null && !trems.isEmpty()) {
-					for (Trem trem : trems) {
-						if (trem.getSemester() > curTrem) {
-							curTrem = trem.getSemester();
-						}
-					}
-					Trem trem = tremService.findByStudentAndSemester(student, curTrem);
+					curTrem = trems.size();
+					Trem trem = trems.get(trems.size() - 1);
 					if (trem.isEnd()) {
 						curTrem = curTrem + 1;
 					}

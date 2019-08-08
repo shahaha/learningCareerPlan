@@ -72,4 +72,10 @@ public interface ClassesService extends QueryService<Classes>{
 	 */
 	public List<Classes> findByProfessionAndGrade(Profession profession,String year);
 	
+	/**查询班主任所带班级
+	 * @param teacher
+	 * @return
+	 */
+	public List<Classes> findByTeacher(User teacher);
+	
 }

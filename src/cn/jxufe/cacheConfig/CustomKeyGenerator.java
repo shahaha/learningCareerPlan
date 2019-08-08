@@ -53,7 +53,6 @@ public class CustomKeyGenerator implements KeyGenerator{
         String finalKey = key.toString();
         long cacheKeyHash = Hashing.murmur3_128().hashString(finalKey, Charset.defaultCharset()).asLong();
         log.debug("using cache key={} hashCode={}", finalKey, cacheKeyHash);
-        log.error(finalKey);
         return cacheKeyHash;
     }
 

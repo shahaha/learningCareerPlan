@@ -1,7 +1,11 @@
 package cn.jxufe.entity;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -169,6 +174,19 @@ public class Student extends User{
 	public void setTrems(Set<Trem> trems) {
 		this.trems = trems;
 	}
+	
+	@Transient
+	@JsonIgnore
+	public List<Trem> getOrdeTrems() {
+		List<Trem> tremsList = new ArrayList<Trem>(getTrems()); 
+		Collections.sort(tremsList, new Comparator<Trem>() {    
+		  public int compare(Trem t1, Trem t2) {    
+		     return t1.getSemester().compareTo(t2.getSemester()); // 按照semester排列    
+		  }    
+		});
+		return tremsList;
+	}
+	
 	@Override
 	public String toString() {
 		return "Student [stuSex=" + stuSex + ", stuBirthday=" + stuBirthday + ", stuOrgin=" + stuOrgin

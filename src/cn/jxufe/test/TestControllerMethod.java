@@ -1,5 +1,7 @@
 package cn.jxufe.test;
 
+import java.util.Set;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import cn.jxufe.entity.MajorMembers;
 import cn.jxufe.entity.Student;
+import cn.jxufe.entity.Trem;
 import cn.jxufe.service.CollegeService;
 import cn.jxufe.service.EconomyService;
 import cn.jxufe.service.MajorMembersService;
@@ -47,6 +50,16 @@ public class TestControllerMethod {
 		majorMembers.setMembersName("gg");
 		majorMembers.setMembersRelationship("yy");
 		majorMembersService.save(majorMembers);
+	}
+	
+	@Test
+	public void testStudentTrem() {
+		Student student = studentService.get(24L);
+		Set<Trem> trems = student.getTrems();
+		for (Trem trem : trems) {
+			System.err.println(trem);
+		}
+		
 	}
 
 }

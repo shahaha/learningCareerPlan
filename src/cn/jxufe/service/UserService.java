@@ -20,10 +20,5 @@ public interface UserService extends QueryService<User>{
 	 * @return 一个实例对象
 	 */
 	public User findByAccount(String account);
-	/**
-	 * 修改密码
-	 * @param user
-	 */
-	public void updatePassword(User user);
 	
 }

@@ -67,4 +67,9 @@ public interface ClassesDao extends JpaRepository<Classes, Long>{
 	 * @return Classes类的实体集
 	 */
 	public Page<Classes> findByTeacher(User teacher,Pageable pageable);
+	/**查询班主任所带班级
+	 * @param teacher
+	 * @return
+	 */
+	public List<Classes> findByTeacher(User teacher);
 }

@@ -2,7 +2,6 @@ package cn.jxufe.service.imp;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -57,14 +56,5 @@ public class UserServiceImpl extends QueryServiceImpl<User> implements UserServi
 	@Override
 	public User findByAccount(String account) {
 		return userDao.findByAccount(account);
-	}
-
-	/* (non-Javadoc)
-	 * @see cn.jxufe.service.UserService#updatePassword(cn.jxufe.entity.User)
-	 */
-	@Override
-	@CacheEvict(value="myCache",keyGenerator="customKeyGenerator")
-	public void updatePassword(User user) {
-		userDao.save(user);
 	}
 }

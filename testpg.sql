@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 16/07/2019 21:44:01
+ Date: 08/08/2019 14:43:03
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `t_class`  (
   INDEX `profsId`(`profsId`) USING BTREE,
   CONSTRAINT `t_class_ibfk_3` FOREIGN KEY (`profsId`) REFERENCES `t_profession` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `t_class_ibfk_4` FOREIGN KEY (`headmasterId`) REFERENCES `t_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '班级表; InnoDB free: 11264 kB; (`headmasterId`) REFER `graduation_project/t_user`(`' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '班级表; InnoDB free: 11264 kB; (`headmasterId`) REFER `graduation_project/t_user`(`' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for t_college
@@ -42,7 +42,7 @@ CREATE TABLE `t_college`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `collegeName` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '' COMMENT '大学名',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10421 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '大学表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10422 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '大学表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for t_economy
@@ -52,7 +52,7 @@ CREATE TABLE `t_economy`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `economyState` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '' COMMENT '经济状况描述（贫困、一般、富裕...）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '家庭经济状况表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '家庭经济状况表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for t_majormembers
@@ -67,7 +67,7 @@ CREATE TABLE `t_majormembers`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `stuId`(`stuId`) USING BTREE,
   CONSTRAINT `t_majormembers_ibfk_1` FOREIGN KEY (`stuId`) REFERENCES `t_student` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '主要家庭成员表; InnoDB free: 11264 kB; (`stuId`) REFER `graduation_project/t_student`(`' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '主要家庭成员表; InnoDB free: 11264 kB; (`stuId`) REFER `graduation_project/t_student`(`' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for t_profession
@@ -77,7 +77,7 @@ CREATE TABLE `t_profession`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `profsName` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '专业名',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '专业表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '专业表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for t_role
@@ -87,7 +87,17 @@ CREATE TABLE `t_role`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '' COMMENT '角色',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '角色表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '角色表' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for t_state
+-- ----------------------------
+DROP TABLE IF EXISTS `t_state`;
+CREATE TABLE `t_state`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `stateDes` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_student
@@ -104,7 +114,7 @@ CREATE TABLE `t_student`  (
   `targetId` int(11) NULL DEFAULT NULL COMMENT '毕业后目标（下拉框[考研、就业、创业...]）',
   `classId` int(11) NULL DEFAULT NULL COMMENT '班级ID',
   `collegeId` int(11) NULL DEFAULT NULL COMMENT '大学ID',
-  `employmentId` int(11) NULL DEFAULT NULL,
+  `employmentId` int(11) NULL DEFAULT NULL COMMENT '毕业后实际情况',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `collegeId`(`collegeId`) USING BTREE,
   INDEX `cId`(`classId`) USING BTREE,
@@ -112,7 +122,6 @@ CREATE TABLE `t_student`  (
   INDEX `economyId`(`economyId`) USING BTREE,
   INDEX `employmentId`(`employmentId`) USING BTREE,
   INDEX `FK4B90757039C79A18`(`employmentId`) USING BTREE,
-  CONSTRAINT `FK4B90757039C79A18` FOREIGN KEY (`employmentId`) REFERENCES `t_target` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `t_student_ibfk_11` FOREIGN KEY (`id`) REFERENCES `t_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `t_student_ibfk_12` FOREIGN KEY (`employmentId`) REFERENCES `t_target` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `t_student_ibfk_4` FOREIGN KEY (`collegeId`) REFERENCES `t_college` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -129,7 +138,7 @@ CREATE TABLE `t_target`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `targetCaption` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '' COMMENT '目标',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '目标表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '目标表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for t_trem
@@ -148,7 +157,7 @@ CREATE TABLE `t_trem`  (
   INDEX `stuId`(`stuId`) USING BTREE,
   INDEX `id`(`id`) USING BTREE,
   CONSTRAINT `t_trem_ibfk_1` FOREIGN KEY (`stuId`) REFERENCES `t_student` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 7194 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '学期表，表示每个学期学生的状态; InnoDB free: 11264 kB; (`stuId`) REFER `graduation_project/t_st' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8395 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '学期表，表示每个学期学生的状态; InnoDB free: 11264 kB; (`stuId`) REFER `graduation_project/t_st' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for t_user
@@ -161,7 +170,7 @@ CREATE TABLE `t_user`  (
   `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '' COMMENT '姓名',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `account`(`account`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1273 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '教师表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1283 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '教师表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for user_role

@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.College;
 import cn.jxufe.entity.Economy;
+import cn.jxufe.entity.State;
 import cn.jxufe.entity.Target;
 import cn.jxufe.service.ClassesService;
 import cn.jxufe.service.CollegeService;
 import cn.jxufe.service.EconomyService;
+import cn.jxufe.service.StateService;
 import cn.jxufe.service.StudentService;
 import cn.jxufe.service.TargetService;
 import cn.jxufe.service.TremService;
@@ -37,6 +39,8 @@ public class AssistController {
 	TargetService targetService;
 	@Autowired
 	ClassesService classesService;
+	@Autowired
+	StateService stateService;
 	
 	
 	/**
@@ -82,10 +86,20 @@ public class AssistController {
 	 * 查询所有班级列表
 	 * @return 班级实体集
 	 */
-	@RequestMapping(value="fdAll",produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="classesList",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<Classes> fdAll(){
+    public List<Classes> classesList(){
         return classesService.findAll();
+    }
+	
+	/**
+	 * 查询所有班级列表
+	 * @return 班级实体集
+	 */
+	@RequestMapping(value="stateList",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<State> stateList(){
+        return stateService.findAll();
     }
 	
 }
