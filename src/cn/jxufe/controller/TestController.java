@@ -1,8 +1,13 @@
 package cn.jxufe.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.jxufe.bean.EasyUIData;
+import cn.jxufe.bean.EasyUIDataPageRequest;
 import cn.jxufe.bean.Message;
 import cn.jxufe.bean.Result;
 import cn.jxufe.entity.College;
@@ -19,6 +26,7 @@ import cn.jxufe.entity.MajorMembers;
 import cn.jxufe.entity.Student;
 import cn.jxufe.entity.Target;
 import cn.jxufe.entity.Trem;
+import cn.jxufe.qo.TeacherQueryObject;
 import cn.jxufe.service.CollegeService;
 import cn.jxufe.service.EconomyService;
 import cn.jxufe.service.MajorMembersService;
@@ -210,4 +218,24 @@ public class TestController{
 		return majorMembersService.findByStudent(student);
 	}
 	
+	/**
+	 * 根据查询条件返回分页列表
+	 * @param pageRequest
+	 * @param terQO
+	 * @return
+	 */
+	@RequestMapping(value="terQueryStuList",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public EasyUIData<Student> mngFdByProfsAdGrade(EasyUIDataPageRequest pageRequest,TeacherQueryObject terQO){
+		System.err.println(pageRequest);
+		System.err.println(terQO);
+		List<Sort.Order> orders = new ArrayList<Sort.Order>();
+        if(pageRequest.getOrder().equals("asc")) {
+            orders.add(new Sort.Order(Direction.ASC,pageRequest.getSort()));
+        }else {
+            orders.add(new Sort.Order(Direction.DESC,pageRequest.getSort()));
+        }
+        Pageable pageable = new PageRequest(pageRequest.getPage()-1, pageRequest.getRows(), new Sort(orders));       
+        return studentService.findByQO(terQO,pageable);
+    }
 }

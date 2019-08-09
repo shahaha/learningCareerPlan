@@ -2,6 +2,7 @@ package cn.jxufe.service.imp;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,9 +76,9 @@ public class StudentServiceImpl extends QueryServiceImpl<Student> implements Stu
 	 * @see cn.jxufe.service.StudentService#findByQO(cn.jxufe.qo.TeacherQueryObject, org.springframework.data.domain.Pageable)
 	 */
 	@Override
-	public Page<Student> findByQO(TeacherQueryObject terQO, Pageable pageable) {
-		List<Student> sList = new ArrayList<>();
-		Page<Student> page = new PageImpl<>(sList, pageable, null != sList ? sList.size() : 0L);
+	public EasyUIData<Student> findByQO(TeacherQueryObject terQO, Pageable pageable) {
+		EasyUIData<Student> easyUIData = new EasyUIData<Student>();         
+		List<Student> sList = new ArrayList<>();		
 		if (terQO.getClasses() != null) {
 			if (terQO.getTarget() != null) {
 				sList = studentDao.findByClassesAndTarget(terQO.getClasses(),terQO.getTarget());
@@ -91,39 +92,50 @@ public class StudentServiceImpl extends QueryServiceImpl<Student> implements Stu
 				}
 			}
 		}
-		return page;
+		Page<Student> page = new PageImpl<>(sList, pageable, null != sList ? sList.size() : 0L);
+		easyUIData.setTotal(page.getTotalElements());
+        easyUIData.setRows(page.getContent());
+		return easyUIData;
 	}
 	
 	/**
 	 * 根据查询状态筛选学生列表
+	 * 用sList.remove会出现线程并发异常，所以换成iterator.remove();
+	 * 具体解释https://www.cnblogs.com/snowater/p/8024776.html
 	 * @param sList
 	 * @param state
 	 * @return
 	 */
 	public List<Student> screenStudent(List<Student> sList,int state) {
-		for (Student student : sList) {
+		Iterator<Student> iterator = sList.iterator();
+		while (iterator.hasNext()) {
+			Student student = (Student) iterator.next();
 			List<Trem> ordeTrems = student.getOrdeTrems();
 			int count = ordeTrems.size();
 			Trem lastTrem = ordeTrems.get(count - 1);
 			switch (state) {
 			case 1:
 				if (StringUtils.isNotBlank(lastTrem.getSmallTarget())) {
-					sList.remove(student);
+					iterator.remove();
+					//sList.remove(student);
 				}
 				break;
 			case 2:
 				if (StringUtils.isNotBlank(lastTrem.getTeacherAudit())) {
-					sList.remove(student);
+					iterator.remove();
+					//sList.remove(student);
 				}
 				break;
 			case 3:
 				if (StringUtils.isNotBlank(lastTrem.getTargetFeedback())) {
-					sList.remove(student);
+					iterator.remove();
+					//sList.remove(student);
 				}
 				break;
 			case 4:
 				if (StringUtils.isNotBlank(lastTrem.getTeacherComment()) && lastTrem.getTeacherComment() != null) {
-					sList.remove(student);
+					iterator.remove();
+					//sList.remove(student);
 				}
 				break;
 			}

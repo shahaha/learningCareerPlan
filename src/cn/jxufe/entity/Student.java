@@ -23,6 +23,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import cn.jxufe.utils.StringUtils;
+
 
 
 /**
@@ -175,6 +177,15 @@ public class Student extends User{
 		this.trems = trems;
 	}
 	
+	@Override
+	public String toString() {
+		return "Student [stuSex=" + stuSex + ", stuBirthday=" + stuBirthday + ", stuOrgin=" + stuOrgin
+				+ ", registeredResidence=" + registeredResidence + ", stuIdeal=" + stuIdeal + ", economy=" + economy
+				+ ", target=" + target + ", classes=" + classes + ", college=" + college + ", members=" + members
+				+ ", trems=" + trems + "]";
+	}
+	
+	
 	@Transient
 	@JsonIgnore
 	public List<Trem> getOrdeTrems() {
@@ -182,17 +193,25 @@ public class Student extends User{
 		Collections.sort(tremsList, new Comparator<Trem>() {    
 		  public int compare(Trem t1, Trem t2) {    
 		     return t1.getSemester().compareTo(t2.getSemester()); // 按照semester排列    
-		  }    
+		  }
 		});
 		return tremsList;
 	}
-	
-	@Override
-	public String toString() {
-		return "Student [stuSex=" + stuSex + ", stuBirthday=" + stuBirthday + ", stuOrgin=" + stuOrgin
-				+ ", registeredResidence=" + registeredResidence + ", stuIdeal=" + stuIdeal + ", economy=" + economy
-				+ ", target=" + target + ", classes=" + classes + ", college=" + college + ", members=" + members
-				+ ", trems=" + trems + "]";
+	@Transient
+	public String getTremState() {
+		List<Trem> ordeTrems = getOrdeTrems();
+		int count = ordeTrems.size();
+		Trem lastTrem = ordeTrems.get(count - 1);
+		if (StringUtils.isNotBlank(lastTrem.getSmallTarget()) && StringUtils.isBlank(lastTrem.getTeacherAudit())) {
+			return "未审核";
+		}
+		if (StringUtils.isNotBlank(lastTrem.getTeacherAudit()) && StringUtils.isBlank(lastTrem.getTargetFeedback())) {
+			return "未填写反馈";
+		}
+		if (StringUtils.isNotBlank(lastTrem.getTargetFeedback()) && StringUtils.isBlank(lastTrem.getTeacherComment())) {
+			return "未评价";
+		}
+		return "学期已结束";
 	}
 	
 }

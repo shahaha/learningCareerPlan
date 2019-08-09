@@ -1,6 +1,5 @@
 package cn.jxufe.service;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import cn.jxufe.bean.EasyUIData;
@@ -31,5 +30,5 @@ public interface StudentService extends QueryService<Student>{
 	 * @param pageable
 	 * @return
 	 */
-	public Page<Student> findByQO(TeacherQueryObject terQO, Pageable pageable);
+	public EasyUIData<Student> findByQO(TeacherQueryObject terQO, Pageable pageable);
 }

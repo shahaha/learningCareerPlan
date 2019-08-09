@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -51,7 +50,12 @@ public class TeacherController {
         return "teacher/editStudentReviews";
     }
 	
-	
+	/**
+	 * 根据查询条件返回分页列表
+	 * @param pageRequest
+	 * @param terQO
+	 * @return
+	 */
 	@RequestMapping(value="terQueryStuList",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public EasyUIData<Student> mngFdByProfsAdGrade(EasyUIDataPageRequest pageRequest,TeacherQueryObject terQO){
@@ -61,12 +65,8 @@ public class TeacherController {
         }else {
             orders.add(new Sort.Order(Direction.DESC,pageRequest.getSort()));
         }
-        Pageable pageable = new PageRequest(pageRequest.getPage()-1, pageRequest.getRows(), new Sort(orders));        
-        EasyUIData<Student> easyUIData = new EasyUIData<Student>();
-        Page<Student> page = studentService.findByQO(terQO,pageable);
-        easyUIData.setTotal(page.getTotalElements());
-        easyUIData.setRows(page.getContent());        
-        return easyUIData;
+        Pageable pageable = new PageRequest(pageRequest.getPage()-1, pageRequest.getRows(), new Sort(orders));       
+        return studentService.findByQO(terQO,pageable);
     }
 	
 }
