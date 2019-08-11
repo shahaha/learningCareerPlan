@@ -32,18 +32,54 @@
     </style>
 </head>
 <body>
-<div id="controlBox">
-    <span style="color: white;">学生姓名:</span>
-    <input id="seedSearch" class="easyui-validatebox">
-
-    <a href="#" class="easyui-linkbutton c1" iconCls="icon-search" onclick="doSearch()">查询</a>
-    <a href="#" class="easyui-linkbutton c3" iconCls="icon-remove"
-       onclick="javascript:grid.edatagrid('cancelRow')">取消</a>
+<div id="controlBox" style="margin-top:30px;">
+<table style="border-collapse: separate; border-spacing: 150px 0px;">
+	<tr>
+		<td >
+			<span>班级:</span>
+		    <input id="classes" id="seedSearch" placeholder="必选"  class="easyui-combobox"
+										data-options="editable:false,
+											required:true,
+		                                    valueField:'id',
+		                                    textField:'name',
+		                                    panelHeight:'auto',
+		                                    panelMaxHeight:200,
+		                                    url: '<%=basePath%>/assist/classesList',
+		                                    value: '${curStu.classes.id }'">
+	    </td>
+	    <td >
+			<span>目标:</span>
+		    <input id="target" id="seedSearch" placeholder="必选" class="easyui-combobox"
+										data-options="editable:false,
+											required:true,
+		                                    valueField:'id',
+		                                    textField:'targetCaption',
+		                                    panelHeight:'auto',
+		                                    panelMaxHeight:200,
+		                                    url: '<%=basePath%>/assist/targetList',
+		                                    value: '${curStu.classes.id }'">
+	    </td>
+	    <td >
+			<span>状态:</span>
+		    <input id="tremState" id="seedSearch" placeholder="必选" class="easyui-combobox"
+										data-options="editable:false,
+											required:true,
+		                                    valueField:'id',
+		                                    textField:'stateDes',
+		                                    panelHeight:'auto',
+		                                    panelMaxHeight:200,
+		                                    url: '<%=basePath%>/assist/stateList',
+		                                    value: '${curStu.classes.id }'">
+	    </td> 
+	    </tr>
+   </table>
+   <a style="float:right;margin-right:5%;" class="easyui-linkbutton c1" iconCls="icon-search" onclick="doSearch()">查询</a>
 </div>
 
+<hr style="border:1px dotted;width:100%;margin-top:3%;">
 
 <!--种子清单表格  -->
-<table id="grid"></table>
+<table id="grid" style="width:100%;margin-top:50px;"></table>
 <!-- 成长阶段的编辑窗口 -->
 <div id="growStagesWin">
 <iframe id="growStagesFrame" width="100%" height="100%" scrolling="no" style="border-width:0px">
@@ -59,17 +95,27 @@
     var grid = null;
     var growStagesWin = null;
     $(document).ready(function () {
+    	
+    	
+    	
+    	var htmlObj = $.ajax({
+			url : "<%=basePath%>/teacher/terQueryStuList",
+			type : "post",
+			async : false
+		});//得到用户背包
+		var json = htmlObj.responseJSON;
+		//var json = JSON.parse(text);//购买在包袱的所有种子
+		
+		console.log(json);
+    	
         //配置表格
         growStagesWin = $('#growStagesWin');
         grid = $('#grid').edatagrid({
             title: '学生名单',
-            height: '450px',
+            height: '640px',
             fitColumns: true,
             method: 'post',
-            url: '<%=basePath%>/seeds',
-            saveUrl: '<%=basePath%>/createSeed.do',
-            updateUrl: '<%=basePath%>/createSeed.do',
-            destroyUrl: '<%=basePath%>/delSeed.do',
+            url: '<%=basePath%>/teacher/terQueryStuList',
             border: false,
             rownumbers: true,
             remoteSort: true,
@@ -146,7 +192,9 @@
 
     function doSearch() {
         grid.datagrid("load", {
-            seedName: $('#seedSearch').val()
+        	classes: $('#classes').val(),
+        	target: $('#target').val(),
+        	tremState: $('#tremState').val()
         });
     }
 

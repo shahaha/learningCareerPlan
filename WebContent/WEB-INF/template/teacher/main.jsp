@@ -93,14 +93,14 @@
 
                 <ul class="sider-nav">
                      <li class="current">
-                        <a onclick='addTab("学生目标审核","teacher/audit","{\"id\": ${curUser.id}}")'>
+                        <a onclick='addTab("学生目标审核","teacher/eStuReviews","{\"terId\": ${curUser.id}}")'>
                             <span class="iconfont sider-nav-icon">&#xe645;</span>
-                            <span class="sider-nav-title" style="cursor:pointer;">学生目标审核</span>
+                            <span class="sider-nav-title" style="cursor:pointer;">评审学生</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
                      </li>
                      <li>
-                        <a onclick='addTab("学生目标反馈考核","teacher/eTermPlan","{\"id\": ${curUser.id},\"semester\": ${curTrem}}")'>
+                        <a onclick='addTab("学生目标反馈考核","teacher/eTermPlan","{\"terId\": ${curUser.id},\"semester\": ${curTrem}}")'>
                             <span class="iconfont sider-nav-icon">&#xe6db;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">学生目标反馈考核</span>
                             <i class="iconfont">&#xe642;</i>
