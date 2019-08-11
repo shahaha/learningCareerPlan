@@ -30,20 +30,20 @@
 #pf-hd {
     background: url('<%=basePath%>images/main/xg_left.png?1464005190') left center no-repeat, url('<%=basePath%>images/main/xg_right.png?1464005212') right center no-repeat, url('<%=basePath%>images/main/top_bottombg.png?1464006836') left bottom repeat-x;
 }
-#pf-hd .pf-user:hover {
+#pf-hd .pf-user:hover{
     background: url('<%=basePath%>images/main/top_userbg.png?1464007598');
 }
-#pf-bd #pf-sider .pf-model-name .toggle-icon {
+#pf-bd #pf-sider .pf-model-name .toggle-icon{
     background: url(<%=basePath%>images/main/sider-toggle.png) no-repeat;
 }
-#pf-bd #pf-sider .sider-nav > li .sider-nav-s a {
+#pf-bd #pf-sider .sider-nav > li .sider-nav-s a{
     background: url('<%=basePath%>images/main/left_list.png?1463555463') no-repeat 30px center;
 }
-#pf-bd #pf-page .easyui-tabs1 .tabs li a.tabs-close {
+#pf-bd #pf-page .easyui-tabs1 .tabs li a.tabs-close{
     background: url('<%=basePath%>images/main/tabs_close_pf.png?1464531592')
 }
 
-#pf-bd #pf-page .easyui-tabs1 .tabs li:hover a.tabs-close {
+#pf-bd #pf-page .easyui-tabs1 .tabs li:hover a.tabs-close{
     background: url('<%=basePath%>images/main/tabs_close_hover.png?1464355659')
 }
 
@@ -67,13 +67,13 @@
                 <div class="pf-user-panel">
                     <ul class="pf-user-opt">
                         <li class="pf-modify-pwd">
-                            <a onclick="addTab('修改密码','#')">
+                            <a onclick='addTab("修改密码","base/changePass","{\"id\": ${curUser.id}}")'>
                                 <i class="iconfont">&#xe634;</i>
                                 <span class="pf-opt-name">修改密码</span>
                             </a>
                         </li>
                         <li class="pf-logout">
-                            <a href="#">
+                            <a href="<%=basePath%>base/loginout">
                                 <i class="iconfont">&#xe680;</i>
                                 <span class="pf-opt-name">退出</span>
                             </a>
@@ -93,14 +93,14 @@
 
                 <ul class="sider-nav">
                      <li class="current">
-                        <a onclick='addTab("学生目标审核","student/eStuInfo","{\"stuId\": ${curUser.id}}")'>
+                        <a onclick='addTab("学生目标审核","teacher/audit","{\"id\": ${curUser.id}}")'>
                             <span class="iconfont sider-nav-icon">&#xe645;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">学生目标审核</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
                      </li>
                      <li>
-                        <a onclick='addTab("学生目标反馈考核","student/eTermPlan","{\"stuId\": ${curUser.id},\"semester\": ${curTrem}}")'>
+                        <a onclick='addTab("学生目标反馈考核","teacher/eTermPlan","{\"id\": ${curUser.id},\"semester\": ${curTrem}}")'>
                             <span class="iconfont sider-nav-icon">&#xe6db;</span>
                             <span class="sider-nav-title" style="cursor:pointer;">学生目标反馈考核</span>
                             <i class="iconfont">&#xe642;</i>

@@ -213,8 +213,8 @@ public class BaseController {
 	 *  @param model
 	 */
 	 @RequestMapping("changePass")
-	 public String changePass(Long stuId,Model model) {
-		 User user = userService.get(stuId);
+	 public String changePass(Long id,Model model) {
+		 User user = userService.get(id);
 		 model.addAttribute("curUser",user);
 		 String url="base/changePass";
 		 return url;
