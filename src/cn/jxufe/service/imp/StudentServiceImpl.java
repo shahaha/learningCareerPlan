@@ -14,10 +14,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import cn.jxufe.bean.EasyUIData;
+import cn.jxufe.dao.ClassesDao;
 import cn.jxufe.dao.StudentDao;
+import cn.jxufe.dao.TargetDao;
 import cn.jxufe.dao.UserDao;
 import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.Student;
+import cn.jxufe.entity.Target;
 import cn.jxufe.entity.Trem;
 import cn.jxufe.entity.User;
 import cn.jxufe.qo.TeacherQueryObject;
@@ -37,6 +40,10 @@ public class StudentServiceImpl extends QueryServiceImpl<Student> implements Stu
 	private StudentDao studentDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private ClassesDao classesDao;
+	@Autowired
+	private TargetDao targetDao;
 	
 	/* (non-Javadoc)
 	 * @see cn.jxufe.service.imp.QueryServiceImpl#getDao()
@@ -77,10 +84,15 @@ public class StudentServiceImpl extends QueryServiceImpl<Student> implements Stu
 	 */
 	@Override
 	public EasyUIData<Student> findByQO(TeacherQueryObject terQO, Pageable pageable) {
-		EasyUIData<Student> easyUIData = new EasyUIData<Student>();         
+		EasyUIData<Student> easyUIData = new EasyUIData<Student>();
+		
+		Classes classes = classesDao.findOne(terQO.getClasses().getId());
+		Target target = targetDao.findOne(terQO.getTarget().getId());
+		
+		
 		List<Student> sList = new ArrayList<>();		
-		if (terQO.getClasses() != null) {
-			if (terQO.getTarget() != null) {
+		if (classes != null) {
+			if (target != null) {
 				sList = studentDao.findByClassesAndTarget(terQO.getClasses(),terQO.getTarget());
 				if (terQO.getTremState() != null) {
 					sList = screenStudent(sList, terQO.getTremState());

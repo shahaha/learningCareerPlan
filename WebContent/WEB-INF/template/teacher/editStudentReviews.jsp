@@ -43,9 +43,7 @@
 		                                    valueField:'id',
 		                                    textField:'name',
 		                                    panelHeight:'auto',
-		                                    panelMaxHeight:200,
-		                                    url: '<%=basePath%>/assist/classesList',
-		                                    value: '${curStu.classes.id }'">
+		                                    url: '<%=basePath%>/classes/mngFdByteacher/${curter.account}'">
 	    </td>
 	    <td >
 			<span>目标:</span>
@@ -56,8 +54,7 @@
 		                                    textField:'targetCaption',
 		                                    panelHeight:'auto',
 		                                    panelMaxHeight:200,
-		                                    url: '<%=basePath%>/assist/targetList',
-		                                    value: '${curStu.classes.id }'">
+		                                    url: '<%=basePath%>/assist/targetList'">
 	    </td>
 	    <td >
 			<span>状态:</span>
@@ -68,8 +65,7 @@
 		                                    textField:'stateDes',
 		                                    panelHeight:'auto',
 		                                    panelMaxHeight:200,
-		                                    url: '<%=basePath%>/assist/stateList',
-		                                    value: '${curStu.classes.id }'">
+		                                    url: '<%=basePath%>/assist/stateList'">
 	    </td> 
 	    </tr>
    </table>
@@ -96,7 +92,7 @@
     var growStagesWin = null;
     $(document).ready(function () {
     	
-    	
+    	console.log("${curter}");
     	
     	var htmlObj = $.ajax({
 			url : "<%=basePath%>/teacher/terQueryStuList",

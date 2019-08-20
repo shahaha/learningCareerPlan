@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +20,9 @@ import cn.jxufe.bean.EasyUIDataPageRequest;
 import cn.jxufe.bean.Message;
 import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.Profession;
+import cn.jxufe.entity.User;
 import cn.jxufe.service.ClassesService;
+import cn.jxufe.service.UserService;
 
 @Controller
 @RequestMapping("classes")
@@ -27,6 +30,8 @@ public class ClassesController {
 	
 	@Autowired
 	ClassesService classesService;
+	@Autowired
+	UserService userService;
 	
 	/**
 	 * 保存或修改一个Classes
@@ -143,6 +148,23 @@ public class ClassesController {
         Pageable pageable = new PageRequest(pageRequest.getPage()-1, pageRequest.getRows(), new Sort(orders));
 		return classesService.findByProfessionAndGrade(profession, year, pageable);
     }
+	
+	/**
+	 * 按教师查询班级列表并分页管理
+	 * @param pageRequest 分页属性
+	 * @param name 前台参数，教师实体
+	 * @return 班级实体集
+	 */
+	@RequestMapping(value="mngFdByteacher/{account}",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Classes> mngFdByteacher(EasyUIDataPageRequest pageRequest,@PathVariable("account")String account){
+		
+		System.err.println("account \t" +account);
+		User teacher = userService.findByAccount(account);
+		return classesService.findByTeacher(teacher);
+    }
+	
+	
 	/**
 	 * 按班级名称模糊查询班级列表并分页管理
 	 * @param pageRequest 分页属性

@@ -143,6 +143,9 @@
     </div> 
     <script type="text/javascript">
     var basePath = '<%=basePath%>';
+    
+  
+    
     var mainPlatform = {
     		init: function(){
     			this.bindEvent();
