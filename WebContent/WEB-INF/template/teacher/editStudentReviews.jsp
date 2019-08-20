@@ -92,18 +92,6 @@
     var growStagesWin = null;
     $(document).ready(function () {
     	
-    	console.log("${curter}");
-    	
-    	var htmlObj = $.ajax({
-			url : "<%=basePath%>/teacher/terQueryStuList",
-			type : "post",
-			async : false
-		});//得到用户背包
-		var json = htmlObj.responseJSON;
-		//var json = JSON.parse(text);//购买在包袱的所有种子
-		
-		console.log(json);
-    	
         //配置表格
         growStagesWin = $('#growStagesWin');
         grid = $('#grid').edatagrid({
@@ -129,20 +117,30 @@
                 {field: 'account', title: '学号', width: 70, sortable: true, align: 'center', halign: 'center'},
                 {field: 'name', title: '姓名', width: 80, align: 'center', halign: 'center'},
                 {
-                    field: 'stuSex', title: '性别', width: 80, align: 'center', halign: 'center'
+                    field: 'stuSex', title: '性别', width: 80, align: 'center', halign: 'center',
+                    formatter: function (value, row) {
+                    	if(value==true)
+                        	return '男';
+                    	else if(value==false)
+                    		return '女';
+                    }
                 },
                 {
-                    field: 'collegeId', title: '学校', width: 100, align: 'center', halign: 'center'
+                    field: 'college', title: '学校', width: 100, align: 'center', halign: 'center',
+                    formatter: function (obj, row) {
+                        return obj.collegeName;
+                    }
                 },
                 {
-                    field: 'classId', title: '班级', width: 80, align: 'center', halign: 'center'
+                    field: 'classes', title: '班级', width: 80, align: 'center', halign: 'center',
+                    formatter: function (obj, row) {
+                        return obj.name+'班';
+                    }
                 },
-                {field: 'grade', title: '年级', width: 100, align: 'center', halign: 'center'},
-                {field: 'profsId', title: '专业', width: 100, align: 'center', halign: 'center'},
                 {
                     field: 'opt', title: '操作', width: 100, align: 'center',
                     formatter: function (value, rec) {
-                        var btn = '<a name="opera" onclick="drawGrowStagesGrid('+ rec.id+')" class="op-linkbutton"' +
+                        var btn = '<a id="opera" name="opera" onclick="drawGrowStagesGrid('+ rec.id+')" class="op-linkbutton"' +
                             ' style="background:#8DB6CD" href="javascript:void(0)">详情</a>';
                         return btn;
                     }
@@ -185,6 +183,10 @@
             }, 
         });
     });
+    
+    $('#opera').linkbutton({
+        iconCls: 'icon-edit'
+    });
 
     function doSearch() {
         grid.datagrid("load", {
@@ -194,57 +196,16 @@
         });
     }
 
-    function loadForm() {
-        var row = grid.datagrid('getSelected');
-        if (row) {
-            params.id = row.id;
-            params.mode = 'edit';
-            $('#seedFormContainer').dialog('open').dialog('setTitle', '编辑数据');
-            $('#formSeed').form('load', row);
-        } else {
-            alert("请先选择一行数据，然后再尝试点击操作按钮！");
-        }
-    }
-
-    function addForm() {
-        $('#formSeed').form('reset');
-        $('#seedFormContainer').dialog({
-            onClose: function () {grid.datagrid('reload');}
-        }).dialog('open').dialog('setTitle', '添加数据');
-    }
-
-    function drawGrowStagesGrid(seedId) {
+    function drawGrowStagesGrid(rowId) {
         var target = growStagesWin;
         
-        console.log(seedId);
+        console.log(rowId);
+        alert("rowId: "+rowId);
         var path = "<%=basePath%>/growStage?seedId=" + seedId;
         $('#growStagesFrame').attr('src', path);
         target &&  target.window('open');
     }
-
-    function saveForm() {
-        $('#formSeed').form('submit', {
-            url: '<%=basePath%>/createSeed.do',
-            onSubmit: function (param) {
-                console.log(param);
-                param.mode = params.mode;
-                return $(this).form('validate');
-            },
-            success: function (result) {
-            	if(typeof(result) !== "object"){
-                 var result = JSON.parse(result);
-            	}
-                if (result.code == 200) {
-                    $('#seedFormContainer').dialog('close');
-                    grid.datagrid('reload');
-                }
-                $.messager.show({
-                    title: "消息",
-                    msg: result.msg
-                });
-            }
-        });
-    }
+    
 </script>
 </body>
 </html>
