@@ -74,11 +74,11 @@
 
 <hr style="border:1px dotted;width:100%;margin-top:3%;">
 
-<!--种子清单表格  -->
+<!--学生名单表格  -->
 <table id="grid" style="width:100%;margin-top:50px;"></table>
-<!-- 成长阶段的编辑窗口 -->
-<div id="growStagesWin">
-<iframe id="growStagesFrame" width="100%" height="100%" scrolling="no" style="border-width:0px">
+<!--学生详情编辑窗口 -->
+<div id="studentWin">
+<iframe id="studentFrame" width="100%" height="100%" scrolling="no" style="border-width:0px">
 </iframe>
 </div>
 
@@ -89,11 +89,11 @@
     };
 
     var grid = null;
-    var growStagesWin = null;
+    var studentWin = null;
     $(document).ready(function () {
     	
         //配置表格
-        growStagesWin = $('#growStagesWin');
+        studentWin = $('#studentWin');
         grid = $('#grid').edatagrid({
             title: '学生名单',
             height: '640px',
@@ -146,16 +146,6 @@
                     }
                 }
             ]],
-            destroyMsg: {
-                norecord: {
-                    title: '警告',
-                    msg: '首先需要选中记录，然后在点击删除按钮'
-                },
-                confirm: {
-                    title: '确认',
-                    msg: '是否删除选中记录?'
-                }
-            },
             onSuccess: function (index, result) {
                 console.log(result);
                 $("#msgBox").text(result.msg);
@@ -166,11 +156,11 @@
                 $("#msgBox").text(result.msg);
             }, 
             onLoadSuccess: function () {
-            	var target = growStagesWin;
+            	var target = studentWin;
                 target.window({
-                    title: "编辑成长阶段",
-                    width: '68%',
-                    height: 500,
+                    title: "学生详情信息",
+                    width: '85%',
+                    height: 600,
                     collapsible: false,
                     minimizable: false,
                     maximizable: false,
@@ -183,10 +173,6 @@
             }, 
         });
     });
-    
-    $('#opera').linkbutton({
-        iconCls: 'icon-edit'
-    });
 
     function doSearch() {
         grid.datagrid("load", {
@@ -197,12 +183,9 @@
     }
 
     function drawGrowStagesGrid(rowId) {
-        var target = growStagesWin;
-        
-        console.log(rowId);
-        alert("rowId: "+rowId);
-        var path = "<%=basePath%>/growStage?seedId=" + seedId;
-        $('#growStagesFrame').attr('src', path);
+        var target = studentWin;
+        var path = "<%=basePath%>/student/viewStudent/"+ rowId;
+        $('#studentFrame').attr('src', path);
         target &&  target.window('open');
     }
     

@@ -158,8 +158,6 @@ public class ClassesController {
 	@RequestMapping(value="mngFdByteacher/{account}",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Classes> mngFdByteacher(EasyUIDataPageRequest pageRequest,@PathVariable("account")String account){
-		
-		System.err.println("account \t" +account);
 		User teacher = userService.findByAccount(account);
 		return classesService.findByTeacher(teacher);
     }

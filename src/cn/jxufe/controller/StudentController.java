@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +47,19 @@ public class StudentController{
 		Student student = studentService.get(stuId);
 		model.addAttribute("curStu", student);
         return "student/editStudentInfo";
+    }
+	
+	/**
+	 * 班主任进入学生信息页面
+	 * @param student 当前详情按钮的学生，通过当前选择的学生的Id自动注入
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="viewStudent/{stuId}",produces=MediaType.APPLICATION_JSON_VALUE)
+    public String viewStudentInfo(@PathVariable("stuId")Long stuId,Model model){
+		Student student = studentService.get(stuId);
+		model.addAttribute("curStu", student);
+        return "teacher/viewStudentInfo";
     }
 	
 	/**
