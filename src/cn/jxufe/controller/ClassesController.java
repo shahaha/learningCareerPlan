@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -60,7 +59,16 @@ public class ClassesController {
     public List<Classes> fdAll(){
         return classesService.findAll();
     }
-	
+	/**
+	 * 查询所有班级列表
+	 * @return 班级实体集
+	 */
+	@RequestMapping(value="findByTeacher",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Classes> findByTeacher(Long id){
+		User teacher = userService.get(id);
+		return classesService.findByTeacher(teacher);
+    }
 	/**
 	 * 按专业查询班级列表
 	 * @param profession 专业
@@ -155,11 +163,18 @@ public class ClassesController {
 	 * @param name 前台参数，教师实体
 	 * @return 班级实体集
 	 */
-	@RequestMapping(value="mngFdByteacher/{account}",produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="mngFdByTeacher",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<Classes> mngFdByteacher(EasyUIDataPageRequest pageRequest,@PathVariable("account")String account){
-		User teacher = userService.findByAccount(account);
-		return classesService.findByTeacher(teacher);
+    public EasyUIData<Classes> mngFdByteacher(EasyUIDataPageRequest pageRequest,Long id){
+		List<Sort.Order> orders = new ArrayList<Sort.Order>();
+        if(pageRequest.getOrder().equals("asc")) {
+            orders.add(new Sort.Order(Direction.ASC,pageRequest.getSort()));
+        }else {
+            orders.add(new Sort.Order(Direction.DESC,pageRequest.getSort()));
+        }
+        Pageable pageable = new PageRequest(pageRequest.getPage()-1, pageRequest.getRows(), new Sort(orders));
+		User teacher = userService.get(id);
+		return classesService.findByTeacher(teacher,pageable);
     }
 	
 	

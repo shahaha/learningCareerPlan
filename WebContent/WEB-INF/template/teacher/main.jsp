@@ -52,10 +52,10 @@
 <body>
     <div class="container">
         <div id="pf-hd">
-			<%-- <div class="pf-term">
+			<div class="pf-term">
 				<i class="iconfont term-icon">&#xe653;</i>
-                <span class="pf-term-name">当前为第&nbsp;${curTrem}&nbsp;学期</span>
-			</div> --%>
+                <span class="pf-term-name">学生职业规划系统</span>
+			</div>
 			
             <div class="pf-user">
                 <div class="pf-user-photo">
@@ -120,12 +120,10 @@
             <div id="pf-page">
                 <div id="menuTabs" class="easyui-tabs" style="width:100%;height:100%;">
                   <div title="首页" style="padding:10px 5px 5px 10px;">
-                    <iframe class="page-iframe" src="<%=basePath %>base/workbench" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
+                    <iframe class="page-iframe" src="<%=basePath %>assist/workbench" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                   </div>
                 </div>
-				
             </div>
-			
         </div>
 
         <div id="pf-ft">
@@ -174,9 +172,6 @@
 		if ($('#menuTabs').tabs('exists', title)){
 			$('#menuTabs').tabs('select', title);
 		} else {
-			//console.log(parameter);
-			//console.log(JSON.parse(parameter));
-			
 			request( "POST",basePath+url,JSON.parse(parameter),addTabSuccess,serverError,true);
 			function addTabSuccess(data) {
 				var content = $('<iframe></iframe>',{
@@ -191,12 +186,6 @@
 					closable:true
 				});
 			}
-			/* var content = '<iframe scrolling="auto" frameborder="0"  src="'+basePath+'student/eStuInfo?id=24" style="width:100%;height:100%;"></iframe>';
-			$('#menuTabs').tabs('add',{
-				title:title,
-				content:content,
-				closable:true
-			}); */
 		}
 	}
     </script>

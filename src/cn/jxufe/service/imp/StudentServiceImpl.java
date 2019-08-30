@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -104,9 +103,13 @@ public class StudentServiceImpl extends QueryServiceImpl<Student> implements Stu
 				}
 			}
 		}
-		Page<Student> page = new PageImpl<>(sList, pageable, null != sList ? sList.size() : 0L);
-		easyUIData.setTotal(page.getTotalElements());
-        easyUIData.setRows(page.getContent());
+		long totalElements = null != sList ? sList.size() : 0L;
+		long fromIndex = pageable.getPageSize()*pageable.getPageNumber();
+        long toIndex = pageable.getPageSize()*(pageable.getPageNumber()+1);
+        if(toIndex>totalElements) toIndex = totalElements;
+        List<Student> content = sList.subList((int)fromIndex,(int)toIndex);
+		easyUIData.setTotal(totalElements);
+        easyUIData.setRows(content);
 		return easyUIData;
 	}
 	

@@ -37,38 +37,101 @@
 	<tr>
 		<td >
 			<span>班级:</span>
-		    <input id="classes" id="seedSearch" placeholder="必选"  class="easyui-combobox"
+		    <input id="classes" placeholder="必选"  class="easyui-combobox"
 										data-options="editable:false,
 											required:true,
 		                                    valueField:'id',
 		                                    textField:'name',
 		                                    panelHeight:'auto',
-		                                    url: '<%=basePath%>/classes/mngFdByteacher/${curter.account}'">
+		                                    panelMaxHeight:200,
+		                                    url: '<%=basePath%>/classes/findByTeacher?id=${curter.id}',
+		                                    loadFilter: function (data) {
+										        var obj = {};
+										        obj.id = 0;
+										        obj.name = '请选择'
+										        //在数组0位置插入obj,不删除原来的元素
+										        data.splice(0, 0, obj)
+										        return data;
+										    },
+											value: 0,
+		                                    onSelect: function(rec){
+										    	if(rec.id != 0){
+										    		var targetUrl = '<%=basePath%>/assist/targetList';
+										    		$('#target').combobox({
+													    url: targetUrl,
+													    loadFilter: function (data) {
+													        var obj = {};
+													        obj.id = 0;
+													        obj.targetCaption = '请选择'
+													        //在数组0位置插入obj,不删除原来的元素
+													        data.splice(0, 0, obj)
+													        return data;
+													    },
+													    value: 0
+													});
+												    var stateUrl = '<%=basePath%>/assist/stateList';
+												    $('#tremState').combobox({
+													    url: stateUrl,
+													    loadFilter: function (data) {
+													        var obj = {};
+													        obj.id = 0;
+													        obj.stateDes = '请选择'
+													        //在数组0位置插入obj,不删除原来的元素
+													        data.splice(0, 0, obj)
+													        return data;
+													    },
+													    value: 0
+													});
+										    	}else{
+										    		$('#target').combobox('clear');
+										    		$('#tremState').combobox('clear');
+										    		$('#target').combobox({
+										    			data: [],
+													    loadFilter: function (data) {
+													    	var d1 = [];
+												    		var targetData = {};
+												    		targetData.id = 0;
+												    		targetData.targetCaption = '请先选择班级';
+												    		d1.push(targetData);
+													        return d1;
+													    },
+													    value: 0
+													});
+													$('#tremState').combobox({
+														data: [],
+													    loadFilter: function (data) {
+													    	var d2 = [];
+												    		var stateData = {};
+												    		stateData.id = 0;
+												    		stateData.stateDes = '请先选择班级';
+												    		d2.push(stateData);
+													        return d2;
+													    },
+													    value: 0
+													});
+										    	}
+											}">
 	    </td>
 	    <td >
 			<span>目标:</span>
-		    <input id="target" id="seedSearch" placeholder="必选" class="easyui-combobox"
-										data-options="editable:false,
-											required:true,
+		    <input id="target" id="seedSearch" class="easyui-combobox"
+		    					data-options="editable:false,
 		                                    valueField:'id',
 		                                    textField:'targetCaption',
 		                                    panelHeight:'auto',
-		                                    panelMaxHeight:200,
-		                                    url: '<%=basePath%>/assist/targetList'">
+		                                    panelMaxHeight:200">
 	    </td>
 	    <td >
 			<span>状态:</span>
-		    <input id="tremState" id="seedSearch" placeholder="必选" class="easyui-combobox"
+		    <input id="tremState" id="seedSearch" class="easyui-combobox"
 										data-options="editable:false,
-											required:true,
 		                                    valueField:'id',
 		                                    textField:'stateDes',
 		                                    panelHeight:'auto',
-		                                    panelMaxHeight:200,
-		                                    url: '<%=basePath%>/assist/stateList'">
+		                                    panelMaxHeight:200">
 	    </td> 
-	    </tr>
-   </table>
+    </tr>
+  </table>
    <a style="float:right;margin-right:5%;" class="easyui-linkbutton c1" iconCls="icon-search" onclick="doSearch()">查询</a>
 </div>
 
@@ -90,16 +153,17 @@
 
     var grid = null;
     var studentWin = null;
+    
+    
+    
     $(document).ready(function () {
-    	
         //配置表格
         studentWin = $('#studentWin');
         grid = $('#grid').edatagrid({
             title: '学生名单',
             height: '640px',
-            fitColumns: true,
             method: 'post',
-            url: '<%=basePath%>/teacher/terQueryStuList',
+            url: '<%=basePath%>teacher/terQueryStuList',
             border: false,
             rownumbers: true,
             remoteSort: true,
@@ -108,10 +172,7 @@
             fitColumns: true,
             pagination: true,
             striped: true,
-            autoSave: true,
             pagination: true,
-            pageSize: 10,
-            pageList: [1, 5, 10, 15, 20, 25],
             idField: "id",
             columns: [[
                 {field: 'account', title: '学号', width: 70, sortable: true, align: 'center', halign: 'center'},
@@ -146,6 +207,14 @@
                     }
                 }
             ]],
+            queryParams: {
+            	/* classes: $('#classes').combobox('getValue'),
+            	target: $('#target').combobox('getValue'),
+            	tremState: $('#tremState').combobox('getValue') */
+            	classes: 0,
+            	target: 0,
+            	tremState: 0
+        	},
             onSuccess: function (index, result) {
                 console.log(result);
                 $("#msgBox").text(result.msg);
@@ -172,22 +241,28 @@
                 });
             }, 
         });
+        grid.datagrid("getPager").pagination({
+            pageSize: 10,
+            pageList: [10, 15, 20]
+        });
     });
 
     function doSearch() {
+    	console.log($('#classes').combobox('getValue'));
         grid.datagrid("load", {
-        	classes: $('#classes').val(),
-        	target: $('#target').val(),
-        	tremState: $('#tremState').val()
+        	classes: $('#classes').combobox('getValue'),
+        	target: $('#target').combobox('getValue'),
+        	tremState: $('#tremState').combobox('getValue')
         });
     }
 
     function drawGrowStagesGrid(rowId) {
         var target = studentWin;
-        var path = "<%=basePath%>/student/viewStudent/"+ rowId;
+        var path = "<%=basePath%>student/viewStudent/"+ rowId;
         $('#studentFrame').attr('src', path);
         target &&  target.window('open');
     }
+    
     
 </script>
 </body>

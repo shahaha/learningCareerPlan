@@ -58,10 +58,7 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="terQueryStuList",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public EasyUIData<Student> mngFdByProfsAdGrade(EasyUIDataPageRequest pageRequest,TeacherQueryObject terQO){
-		
-		System.err.println("terQO \t" +terQO.toString());
-		
+    public EasyUIData<Student> mngFdByProfsAdGrade(EasyUIDataPageRequest pageRequest,TeacherQueryObject terQO){		
 		List<Sort.Order> orders = new ArrayList<Sort.Order>();
         if(pageRequest.getOrder().equals("asc")) {
             orders.add(new Sort.Order(Direction.ASC,pageRequest.getSort()));

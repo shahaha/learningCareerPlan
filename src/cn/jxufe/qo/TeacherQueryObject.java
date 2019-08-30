@@ -50,7 +50,7 @@ public class TeacherQueryObject {
 
 	@Override
 	public String toString() {
-		return "TeacherQueryObject [classes=" + classes.getId() + ", target=" + target.getId() + ", tremState=" + tremState + "]";
+		return "TeacherQueryObject [classes=" + classes + ", target=" + target + ", tremState=" + tremState + "]";
 	}
 
 	

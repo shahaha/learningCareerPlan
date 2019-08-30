@@ -20,6 +20,7 @@ import cn.jxufe.bean.EasyUIData;
 import cn.jxufe.bean.EasyUIDataPageRequest;
 import cn.jxufe.bean.Message;
 import cn.jxufe.bean.Result;
+import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.College;
 import cn.jxufe.entity.Economy;
 import cn.jxufe.entity.MajorMembers;
@@ -27,6 +28,7 @@ import cn.jxufe.entity.Student;
 import cn.jxufe.entity.Target;
 import cn.jxufe.entity.Trem;
 import cn.jxufe.qo.TeacherQueryObject;
+import cn.jxufe.service.ClassesService;
 import cn.jxufe.service.CollegeService;
 import cn.jxufe.service.EconomyService;
 import cn.jxufe.service.MajorMembersService;
@@ -52,6 +54,8 @@ public class TestController{
 	TargetService targetService;
 	@Autowired
 	MajorMembersService majorMembersService;
+	@Autowired
+	ClassesService classesService;
 	
 	/**
 	 * 页面跳转到首页
@@ -237,5 +241,24 @@ public class TestController{
         }
         Pageable pageable = new PageRequest(pageRequest.getPage()-1, pageRequest.getRows(), new Sort(orders));       
         return studentService.findByQO(terQO,pageable);
+    }
+	
+	/**
+	 * 按班级名称模糊查询班级列表并分页管理
+	 * @param pageRequest 分页属性
+	 * @param name 前台参数，班级名称
+	 * @return 班级实体集
+	 */
+	@RequestMapping(value="mngFdByNameLike",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public EasyUIData<Classes> mngFdByNameLike(EasyUIDataPageRequest pageRequest,@RequestParam(defaultValue="") String name){
+		List<Sort.Order> orders = new ArrayList<Sort.Order>();
+        if(pageRequest.getOrder().equals("asc")) {
+            orders.add(new Sort.Order(Direction.ASC,pageRequest.getSort()));
+        }else {
+            orders.add(new Sort.Order(Direction.DESC,pageRequest.getSort()));
+        }
+        Pageable pageable = new PageRequest(pageRequest.getPage()-1, pageRequest.getRows(), new Sort(orders));
+		return classesService.findByNameLike("%"+name+"%",pageable);
     }
 }
