@@ -141,7 +141,7 @@
 <table id="grid" style="width:100%;margin-top:50px;"></table>
 <!--学生详情编辑窗口 -->
 <div id="studentWin">
-<iframe id="studentFrame" width="100%" height="100%" scrolling="no" style="border-width:0px">
+<iframe id="studentFrame" width="100%" height="100%" scrolling="yes" style="border-width:0px">
 </iframe>
 </div>
 
@@ -216,20 +216,18 @@
             	tremState: 0
         	},
             onSuccess: function (index, result) {
-                console.log(result);
                 $("#msgBox").text(result.msg);
                 grid.datagrid("load");
             },
             onDestroy: function (index, result) {
-                console.log(result);
                 $("#msgBox").text(result.msg);
             }, 
             onLoadSuccess: function () {
             	var target = studentWin;
                 target.window({
                     title: "学生详情信息",
-                    width: '85%',
-                    height: 600,
+                    width: '95%',
+                    height: '85%',
                     collapsible: false,
                     minimizable: false,
                     maximizable: false,
@@ -248,7 +246,6 @@
     });
 
     function doSearch() {
-    	console.log($('#classes').combobox('getValue'));
         grid.datagrid("load", {
         	classes: $('#classes').combobox('getValue'),
         	target: $('#target').combobox('getValue'),

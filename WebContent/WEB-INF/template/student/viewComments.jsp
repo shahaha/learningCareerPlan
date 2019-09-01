@@ -27,121 +27,112 @@
 
 <style type="text/css">
 .container {
-  margin-left:80px;
-  margin-top:50px;
-  width:80%;
+	margin-left: 80px;
+	margin-top: 50px;
+	width: 80%;
 }
 
-.search{
-    margin:20px 0px 0px 40px;
-    font-size:16px;
+.search {
+	margin: 20px 0px 0px 40px;
+	font-size: 16px;
 }
 
 .target {
-    margin-top:50px;	
-	margin-left:10px;
-	width:70%;
-    height:200px; 
+	margin-top: 50px;
+	margin-left: 10px;
+	width: 70%;
+	height: 200px;
 }
 
 .audit {
-	width:70%;
-	height:200px;
-	float:right;
+	width: 70%;
+	height: 200px;
+	float: right;
 }
 
-
-
-
 .feedBack {
-	margin-left:10px;
-	width:70%;
-    height:200px;
-   margin-top:100px;
-
+	margin-left: 10px;
+	width: 70%;
+	height: 200px;
+	margin-top: 100px;
 }
 
 .comment {
-	width:70%;
- 	height:200px;
-float:right;
- 	
+	width: 70%;
+	height: 200px;
+	float: right;
 }
-	
-       	
-		 .left{
-            width: 450px;
-            position:relative;
-            border: 1px solid lightgreen;
-            text-align:center;
-            border-radius: 10px;
-            filter: drop-shadow(0 0 2px #999);
-            background: #fff;
-        }
-        
-        .left::before{
-            content: '';
-            position: absolute;
-            left: -10px;
-            top: 50%;
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-            border-right:8px solid lightgreen;
-        }
-        
-        .left::after{
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 50%;
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-            border-right:8px solid #fff;
-        }
 
-		
-			 .right{
-            width: 450px;
-            float:right;
-            border: 1px solid lightgreen;
-            margin-right:35px;
-            margin-top:25px;
-             position:relative;
-            text-align:center;
-            border-radius: 10px;
-            filter: drop-shadow(0 0 2px blue);
-            background: #fff;
-        }
-        
-        .right::before{
-            content: '';
-            position: absolute;
-            right: -10px;
-            top: 50%;
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-            border-left:8px solid lightgreen;
-        }
-        
-        .right::after{
-            content: '';
-            position: absolute;
-            right: -8px;
-            top: 50%;
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-            border-left:8px solid #fff;
-        }
-        
-    .img_target{
-    margin-bottom:15px;
-    }    
-        
-  </style>
+.left {
+	width: 450px;
+	position: relative;
+	border: 1px solid lightgreen;
+	text-align: center;
+	border-radius: 10px;
+	filter: drop-shadow(0 0 2px #999);
+	background: #fff;
+}
+
+.left::before {
+	content: '';
+	position: absolute;
+	left: -10px;
+	top: 50%;
+	border-top: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	border-right: 8px solid lightgreen;
+}
+
+.left::after {
+	content: '';
+	position: absolute;
+	left: -8px;
+	top: 50%;
+	border-top: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	border-right: 8px solid #fff;
+}
+
+.right {
+	width: 450px;
+	float: right;
+	border: 1px solid lightgreen;
+	margin-right: 35px;
+	margin-top: 25px;
+	position: relative;
+	text-align: center;
+	border-radius: 10px;
+	filter: drop-shadow(0 0 2px blue);
+	background: #fff;
+}
+
+.right::before {
+	content: '';
+	position: absolute;
+	right: -10px;
+	top: 50%;
+	border-top: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	border-left: 8px solid lightgreen;
+}
+
+.right::after {
+	content: '';
+	position: absolute;
+	right: -8px;
+	top: 50%;
+	border-top: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	border-left: 8px solid #fff;
+}
+
+.img_target {
+	margin-bottom: 15px;
+}
+</style>
 </head>
 
 
-</style>
 <body>
   
    

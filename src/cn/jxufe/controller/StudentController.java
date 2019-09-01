@@ -59,8 +59,53 @@ public class StudentController{
     public String viewStudentInfo(@PathVariable("stuId")Long stuId,Model model){
 		Student student = studentService.get(stuId);
 		model.addAttribute("curStu", student);
+		model.addAttribute("trem", student.getOrdeTrems().get(student.getOrdeTrems().size()-1));
         return "teacher/viewStudentInfo";
     }
+	
+	/**
+	 * 班主任审核学生的学期规划
+	 * @param trem实例对象
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="teacherSaveTrem",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Message teacherSaveTrem(Trem trem,Model model){
+		Message message = new Message();
+		System.err.println("Semester \t"+trem.getSemester()+" \t Id : \t"+trem.getId());
+		System.err.println("Audit \t"+trem.getTeacherAudit()+" \t Comment : \t"+trem.getTeacherComment());
+		if(trem.getId()!=0) {
+			Trem trems = tremService.get(trem.getId());
+			if(trem.getTeacherComment()==null || trem.getTeacherComment().isEmpty()) {
+				trems.setTeacherAudit(trem.getTeacherAudit());
+			}else if(trem.getTeacherAudit()==null || trem.getTeacherAudit().isEmpty()) {
+				trems.setTeacherComment(trem.getTeacherComment());
+			}
+			trem = trems;
+		}
+		try {
+			tremService.save(trem);
+			message.success("保存成功！");
+		} catch (Exception e) {
+			message.error500("保存失败！");
+		}
+		return message;
+       
+    }
+	
+	/**
+	 * 班主任查询某学生某个学期的学期规划
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="queryTrem",produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+    public Trem queryTrem(Long id){
+		Trem trem = tremService.get(id);
+        return trem;
+    }
+	
 	
 	/**
 	 * 查询学生家庭成员

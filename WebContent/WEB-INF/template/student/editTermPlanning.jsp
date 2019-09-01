@@ -98,7 +98,6 @@
 			$("#targetFeedbackInfo").css("display","none");
 		}else{
 			$("#targetInfo").attr("contenteditable",false)//contenteditable="true"属性则可以对该标签进行编辑,相当与只读
-			console.log(teacherComment.length);
 			if(teacherComment.length<2 || teacherComment ==null){
 				$("#feddBackInfo").attr("contenteditable",true)//contenteditable="true"属性则可以对该标签进行编辑,相当与只读
 			}else{
