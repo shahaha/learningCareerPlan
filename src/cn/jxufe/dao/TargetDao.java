@@ -12,36 +12,36 @@ import cn.jxufe.entity.Target;
 public interface TargetDao extends JpaRepository<Target, Long>{
 
     @Query(value = "SELECT " + 
-	"t_employmentsituation.employment, " + 
+	"t_target.targetCaption, " + 
 	"COUNT( t_student.id ) " + 
 	"FROM  " + 
 	" t_student,  " + 
-	" t_employmentsituation,  " + 
+	" t_target,  " + 
 	" t_class   " + 
 	"	WHERE  " + 
-	" t_student.targetId = t_employmentsituation.id   " + 
+	" t_student.targetId = t_target.id   " + 
 	" AND t_student.classId = t_class.id   " + 
 	"	GROUP BY  " + 
-	"t_employmentsituation.employment  " + 
+	"t_target.targetCaption  " + 
 	"	ORDER BY  " + 
 	"COUNT( t_student.id ) DESC " , nativeQuery = true)
     List<TargetVo> selectEmployment();
     
     @Query(value = "SELECT    " + 
-    		"t_employmentsituation.employment,    " + 
+    		"t_target.targetCaption,    " + 
     		"	COUNT( t_student.id )     " + 
     		"FROM    " + 
     		"	t_student,    " + 
-    		"	t_employmentsituation,    " + 
+    		"	t_target,    " + 
     		"	t_class     " + 
     		"WHERE    " + 
-    		"	t_student.targetId = t_employmentsituation.id     " + 
+    		"	t_student.targetId = t_target.id     " + 
     		"AND t_student.classId = t_class.id     " + 
-    		"AND t_employmentsituation.employment !='尚未填写'"+
+    		"AND t_target.targetCaption !='还未录入'"+
     		"AND t_class.grade = :findGrade " + 
     		"GROUP BY    " + 
-    		"t_employmentsituation.employment  " + 
-    		"ORDER BY t_employmentsituation.employment DESC" , nativeQuery = true)
+    		"t_target.targetCaption  " + 
+    		"ORDER BY t_target.targetCaption DESC" , nativeQuery = true)
     List<TargetVo> selectEmploymentByGrade(@Param("findGrade") String find_Grade);
 
 }

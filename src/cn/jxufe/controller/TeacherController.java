@@ -12,11 +12,13 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.jxufe.bean.EasyUIData;
 import cn.jxufe.bean.EasyUIDataPageRequest;
 import cn.jxufe.entity.Student;
+import cn.jxufe.entity.Trem;
 import cn.jxufe.entity.User;
 import cn.jxufe.qo.TeacherQueryObject;
 import cn.jxufe.service.ClassesService;
@@ -77,4 +79,30 @@ public class TeacherController {
         return studentService.findByQO(terQO,pageable);
     }
 	
+	/**
+	 * 进入查看教师评语页面
+	 * @param stuId 学生Id
+	 * @param semester 当前学期号，即要查看的学期号
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="viewComments",produces=MediaType.APPLICATION_JSON_VALUE)
+    public String viewComments(Long stuId,@RequestParam(defaultValue="1")Integer semester,Model model){
+		model.addAttribute("stuId", stuId);
+		model.addAttribute("semester", semester);
+        return "teacher/viewComments";
+    }
+	
+	/**
+	 * 查询单个学期的评语
+	 * @param stuId
+	 * @param semester
+	 * @return
+	 */
+	@RequestMapping(value="gridComments",produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+    public Trem gridComments(Long stuId,@RequestParam(defaultValue="1")Integer semester){
+		Student student = studentService.get(stuId);
+        return tremService.findByStudentAndSemester(student, semester);
+    }
 }

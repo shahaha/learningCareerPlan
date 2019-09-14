@@ -261,3 +261,17 @@ table.kv-table .textarea-wrap textarea {
   background-color: #918585;
   font-family: -webkit-body;
 }
+
+.op-linkbutton{
+	  position: relative;
+	  display: inline-block;
+	  top: 0px;
+	  padding: 0 3px;
+	  height: 24px;
+	  line-height: 24px;
+	  cursor: pointer;
+	  -moz-border-radius: 5px 5px 5px 5px;
+	  -webkit-border-radius: 5px 5px 5px 5px;
+	  border-radius: 5px 5px 5px 5px;
+	  text-decoration: none;	
+}

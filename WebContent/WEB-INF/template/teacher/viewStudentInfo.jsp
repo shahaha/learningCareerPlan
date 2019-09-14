@@ -134,7 +134,7 @@
 <body>
 	<div class="container">
 		<div class="content">
-			<div class="easyui-tabs1" style="width: 100%;">
+			<div class="easyui-tabs1" style="width: 90%;">
 				<div class="basic-info">
 					<hr>
 					<div class="column">

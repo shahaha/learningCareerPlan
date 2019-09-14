@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import cn.jxufe.vo.TargetVo;
+
 import cn.jxufe.dao.TargetDao;
 import cn.jxufe.entity.Target;
 import cn.jxufe.service.TargetService;

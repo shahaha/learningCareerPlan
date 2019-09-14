@@ -19,7 +19,7 @@
 <link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/color.css">
-
+<link rel="stylesheet" type="text/css" href="<%=basePath%>css/main_base.css">
 <style type="text/css">
         .tbledit td {
             padding: 5px 15px;
@@ -141,7 +141,7 @@
 <table id="grid" style="width:100%;margin-top:50px;"></table>
 <!--学生详情编辑窗口 -->
 <div id="studentWin">
-<iframe id="studentFrame" width="100%" height="100%" scrolling="yes" style="border-width:0px">
+<iframe id="studentFrame" width="100%" height="95%" style="border-width:0px">
 </iframe>
 </div>
 
@@ -153,7 +153,7 @@
 
     var grid = null;
     var studentWin = null;
-    
+    var basePath = '<%=basePath%>';
     
     
     $(document).ready(function () {
@@ -163,7 +163,7 @@
             title: '学生名单',
             height: '420px',
             method: 'post',
-            url: '<%=basePath%>teacher/terQueryStuList',
+            url: basePath + 'teacher/terQueryStuList',
             border: false,
             rownumbers: true,
             remoteSort: true,
@@ -201,8 +201,10 @@
                 {
                     field: 'opt', title: '操作', width: 100, align: 'center',
                     formatter: function (value, rec) {
-                        var btn = '<a id="opera" name="opera" onclick="drawGrowStagesGrid('+ rec.id+')" class="op-linkbutton"' +
-                            ' style="background:#8DB6CD" href="javascript:void(0)">详情</a>';
+                        var btn = "<a onclick='drawGrowStagesGrid("+ rec.id+")' class='op-linkbutton' data-options='plain:true' " +
+                        "style='background:#8DB6CD;border-radius: 5px;' href='javascript:void(0)'>详情</a>&nbsp|&nbsp" +
+                        "<a onclick='addTab(\""+rec.name+"的评审\",\"teacher/viewComments\",\"{\\\"stuId\\\":"+rec.id+",\\\"semester\\\":1}\")' " +
+                        "class='op-linkbutton' data-options='plain:true' style='background:#8DB6CD;border-radius: 5px;' href='javascript:void(0)'>查看各学期评审</a>";
                         return btn;
                     }
                 }
@@ -227,14 +229,13 @@
                 target.window({
                     title: "学生详情信息",
                     width: '95%',
-                    height: '85%',
+                    height: '100%',
                     collapsible: false,
                     minimizable: false,
                     maximizable: false,
                     modal: true,
                     iconCls: 'icon-edit',
                     closed: true,
-                    closable: true,
                     cache: false, 
                 });
             }, 
@@ -255,11 +256,32 @@
 
     function drawGrowStagesGrid(rowId) {
         var target = studentWin;
-        var path = "<%=basePath%>student/viewStudent/"+ rowId;
+        var path = basePath + "student/viewStudent/"+ rowId;
         $('#studentFrame').attr('src', path);
         target &&  target.window('open');
     }
     
+    
+    function addTab(title, url, parameter){
+		if (parent.$('#menuTabs').tabs('exists', title)){
+			parent.$('#menuTabs').tabs('select', title);
+		} else {
+			request( "POST",basePath+url,JSON.parse(parameter),addTabSuccess,serverError,true);
+			function addTabSuccess(data) {
+				var content = $('<iframe></iframe>',{
+					srcdoc: data,
+					scrolling: "auto",
+					frameborder: "0",
+					style: "width:100%;height:100%;"
+				});
+				parent.$('#menuTabs').tabs('add',{
+					title:title,
+					content: content,
+					closable:true
+				});
+			}
+		}
+	}
     
 </script>
 </body>
