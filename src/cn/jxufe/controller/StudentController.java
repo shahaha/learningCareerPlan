@@ -81,6 +81,7 @@ public class StudentController{
 				trems.setTeacherAudit(trem.getTeacherAudit());
 			}else if(trem.getTeacherAudit()==null || trem.getTeacherAudit().isEmpty()) {
 				trems.setTeacherComment(trem.getTeacherComment());
+				trems.setScore(trem.getScore());
 			}
 			trem = trems;
 		}

@@ -65,7 +65,7 @@
 	width: 450px;
 	position: relative;
 	border: 1px solid lightgreen;
-	text-align: center;
+	text-indent:25px;
 	border-radius: 10px;
 	filter: drop-shadow(0 0 2px #999);
 	background: #fff;
@@ -98,7 +98,7 @@
 	margin-right: 35px;
 	margin-top: 25px;
 	position: relative;
-	text-align: center;
+	text-indent:25px;
 	border-radius: 10px;
 	filter: drop-shadow(0 0 2px blue);
 	background: #fff;
@@ -127,6 +127,7 @@
 .img_target {
 	margin-bottom: 15px;
 }
+
 </style>
 </head>
 
@@ -273,19 +274,20 @@
 									<tr >
 										<td>
 											<div id="commentInfo" class="right" tilte="班主任对目标反馈的评语"
-												style="margin-right: 150px; margin-bottom: -240px;"
-												contenteditable="true">
-												<p class="p" id="teacherComment" style="margin-bottom: 25px;"></p>
+												style="margin-right: 150px; margin-bottom: -240px;">
+												<p class="p" id="teacherComment" style="margin-bottom: 25px;border:1px  solid #8DB2E3;border-radius: 5px;" contenteditable="true"></p>
 												<input id="commentCommit" name="teacherComment" style="display: none;" />
-												<input id="semester" name="semester" value="${trem.semester}"
-													style="display: none;" />
-												<div class="result" style="margin-bottom:25px;">成绩：<a id="result" style="color:#FF0000;"></a></div>
+												<input id="semester" name="semester" value="${trem.semester}" style="display: none;" />
+												<div class="result" style="margin:0;boder:2px;">成绩：
+													<input id="score" name="score" style="border-radius:5px;border:1px  solid #8DB2E3;"/>
+													<a id="result" style="color:#FF0000;"></a>
+												</div>
 											</div>
 										</td>
 										</tr>
 								</table>
 							</form>
-						<div style="float:right;">
+						<div style="float:right;margin-bottom: -140px;">
 							<img id="img2" alt="关于学期小目标的评语" src="<%=basePath%>images/comment/Teacher_male.png">
 							<h1 id="commentH1" class="title"  style="left: 140px;top: 120px;display: none;position: relative;">班主任考核意见 &nbsp;&nbsp; </h1>
 							<div id="commentBton">
@@ -376,10 +378,20 @@
 			$("#result").html(trem.score);
 			if(trem.smallTarget==null || trem.smallTarget.length<1){
 				$(".containers").css("display","none");
+				$('.column').tooltip({
+				    position: 'bottom',
+				    content: '<span style="color:#fff">当前学期，该学生未录入学期小目标！</span>',
+				    onShow: function(){
+						$(this).tooltip('tip').css({
+							backgroundColor: '#666',
+							borderColor: '#666'
+						});
+				    }
+				});
 			}else{
 				$(".target").css("display","inline");
 			}
-			if(trem.teacherAudit==null || trem.teacherAudit.length<1){
+			if(trem.teacherAudit==null || trem.teacherAudit.length<1 || trem.targetFeedback==null || trem.targetFeedback.length<1){
 				$(".audit").css("display","inline");
 			}else{
 				$("#auditInfo").attr("contenteditable",false); 
@@ -400,7 +412,9 @@
 				}
 				
 			}else{
-				$("#commentInfo").attr("contenteditable",false);
+				$("#teacherComment").attr("contenteditable",false);
+				$("#teacherComment").css("border","0px");
+				$("#score").css("display","none");
 				$("#commentBton").css("display","none");
 				$("#commentH1").css("display","inline");
 				$(".comment").css("display","inline");
@@ -440,27 +454,62 @@
 		}
 	
 	function commentCommit() {
-		$("#commentCommit").val($("#commentInfo").text());
-		$('#commentForm').form('submit', {
-	         url: '<%=basePath%>student/teacherSaveTrem',
-				onSubmit : function(param) {
-					param.student = stuId;
-					param.id = id;
-					return $(this).form('validate');
-				},
-				success : function(result) {
-					var result = eval('(' + result + ')');
-					if (result.code == 200) {
-
+		var re = document.getElementById("score").value;
+		if(re<0 || re>100){
+			$.messager.alert("操作提示", "成绩栏请输入0~100的数字！！", "info");
+    	}else{
+			$("#commentCommit").val($("#teacherComment").text());
+			$('#commentForm').form('submit', {
+		         url: '<%=basePath%>student/teacherSaveTrem',
+					onSubmit : function(param) {
+						param.student = stuId;
+						param.id = id;
+						return $(this).form('validate');
+					},
+					success : function(result) {
+						var result = eval('(' + result + ')');
+						if (result.code == 200) {
+	
+						}
+						$.messager.show({
+							title : "消息",
+							msg : result.msg
+						});
 					}
-					$.messager.show({
-						title : "消息",
-						msg : result.msg
-					});
-				}
-			});
+				});
+    	}
 		}
 	
+	$('#auditInfo').tooltip({
+	    position: 'right',
+	    content: '<span style="color:#fff">请您在此处，给该同学回复评论！</span>',
+	    onShow: function(){
+			$(this).tooltip('tip').css({
+				backgroundColor: '#666',
+				borderColor: '#666'
+			});
+	    }
+	});
+	$('#commentInfo').tooltip({
+	    position: 'right',
+	    content: '<span style="color:#fff">请您在此处，填写该同学回复考核意见！！</span>',
+	    onShow: function(){
+			$(this).tooltip('tip').css({
+				backgroundColor: '#666',
+				borderColor: '#666'
+			});
+	    }
+	});
+	$('.result').tooltip({
+	    position: 'right',
+	    content: '<span style="color:#fff">请您在此处，给该同学评分.【分数范围（0~100）】！</span>',
+	    onShow: function(){
+			$(this).tooltip('tip').css({
+				backgroundColor: '#666',
+				borderColor: '#666'
+			});
+	    }
+	});
 	
 	</script>
 

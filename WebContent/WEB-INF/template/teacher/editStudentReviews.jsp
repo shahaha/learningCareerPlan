@@ -161,7 +161,7 @@
         studentWin = $('#studentWin');
         grid = $('#grid').edatagrid({
             title: '学生名单',
-            height: '640px',
+            height: '420px',
             method: 'post',
             url: '<%=basePath%>teacher/terQueryStuList',
             border: false,
