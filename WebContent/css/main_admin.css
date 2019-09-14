@@ -1,0 +1,99 @@
+#pf-hd {
+    height: 70px;
+    position: relative;
+    z-index: 2;
+    background-size:100%;
+    background-color: #87B8D3;
+} 
+#pf-hd .pf-user .pf-user-panel li:hover {
+    background: #f1f1f1;
+}
+#pf-hd .pf-user .pf-user-panel li:hover .iconfont {
+      background-color #87B8D3;
+}
+#pf-hd .pf-user .xiala {
+    color:white;
+    position: relative;
+    top: -1px
+}
+#pf-hd .pf-user .pf-user-name {
+    float: left;
+    max-width: 150px;
+    color: white;
+    font-weight:bold;
+    font-size: 14px;
+    margin-right: 5px
+}
+#pf-hd .pf-user:hover {
+    background:#87B8D3;
+  }
+#pf-bd #pf-sider {
+    float: left;
+    height: 100%;
+    margin-left: -220px;
+    width: 220px;
+    background: #87B8D3;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1;
+    transition: all 0.3s ease
+}
+#pf-bd #pf-sider .pf-model-name .toggle-icon {
+    position: absolute;
+    right: 0;
+    top: 14px;
+    width: 19px;
+    height: 22px;
+    background-position: 0 0;
+    cursor: pointer;
+  
+}
+#pf-bd #pf-sider .pf-model-name {
+    position: relative;
+    padding: 0 20px;
+    height: 49px;
+    line-height: 49px;
+    color: #2d4112;
+    background: #E0ECFF;
+    border-bottom: 1px solid #bdbdbd;
+    font-size: 16px
+}
+#pf-bd #pf-sider .sider-nav > li .sider-nav-icon {
+    float: left;
+    margin: 0 10px 0 0;
+    color: #FF4500;
+    font-size: 20px;
+}
+#pf-bd #pf-sider .sider-nav > li {
+    border-bottom: 1px solid #dbdbdb;
+    background: #87B8D3;
+  
+}
+#pf-bd #pf-sider .sider-nav > li a {
+    display: block;
+    padding: 0 15px;
+    height: 100%;
+    height: 50px;
+    line-height: 50px;
+     color:white;
+    font-size: 14px;
+    text-decoration: none
+}
+#pf-bd #pf-sider .sider-nav > li.current {
+    border-bottom: none;
+    background: #89D5C8;
+}
+#pf-bd #pf-sider .pf-model-name .iconfont {
+    font-size: 20px;
+	color:#FF4500;
+}
+#pf-bd #pf-sider .pf-model-name .pf-sider-icon {
+    float: left;
+    margin: 10px 15px 0 0;
+    width: 20px;
+    height: 20px;
+    font-size: 20px
+}
+#pf-bd #pf-sider .pf-model-name .toggle-icon {
+    background: url(../images/main/sider-toggle.png) no-repeat;
+}

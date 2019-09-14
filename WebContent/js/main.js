@@ -8,6 +8,13 @@ function request(method,url,data,successCallBack,errorCallBack,async){
             method: method
         }).done(successCallBack).fail(errorCallBack);
 }
+function request1(method,url,successCallBack,errorCallBack,async){
+    $.ajax({
+        url: url,
+        async:async,
+        method: method
+    }).done(successCallBack).fail(errorCallBack);
+}
 
 function showMessage(msg) {
     var c = $(".showmsg").attr("class");

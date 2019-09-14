@@ -24,130 +24,10 @@
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>easyui/themes/color.css">
-	
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>css/main_student.css">
 </head>
-<style>
-#pf-hd {
-    height: 70px;
-    position: relative;
-    z-index: 2;
-    background:url(<%=basePath%>/images/head.jpg) no-repeat;
-    background-size:100%;
-}
-  
-#pf-hd .pf-user .pf-user-panel li:hover {
-    background: #f1f1f1;
-}
-#pf-hd .pf-user .pf-user-panel li:hover .iconfont {
-    color: #1da02b
-}
-#pf-hd .pf-user .xiala {
-    color:white;
-    position: relative;
-    top: -1px
-}
-#pf-hd .pf-user .pf-user-name {
-    float: left;
-    max-width: 150px;
-    color: white;
-    font-weight:bold;
-    font-size: 14px;
-    margin-right: 5px
-}
-#pf-hd .pf-user:hover {
-    background:#34495e;
-  }
-#pf-bd #pf-sider {
-    float: left;
-    height: 100%;
-    margin-left: -220px;
-    width: 220px;
-    background: #34495E;
-    overflow-y: auto;
-    overflow-x: hidden;
-    z-index: 1;
-    transition: all 0.3s ease
-}
-#pf-bd #pf-sider .pf-model-name .toggle-icon {
-    position: absolute;
-    right: 0;
-    top: 14px;
-    width: 19px;
-    height: 22px;
-    background-position: 0 0;
-    cursor: pointer;
-  
-}
-#pf-bd #pf-sider .pf-model-name {
-    position: relative;
-    padding: 0 20px;
-    height: 49px;
-    line-height: 49px;
-    color: #2d4112;
-    background: #E0ECFF;
-    border-bottom: 1px solid #bdbdbd;
-    font-size: 16px
-}
-#pf-bd #pf-sider .sider-nav > li .sider-nav-icon {
-    float: left;
-    margin: 0 10px 0 0;
-    color: #FF4500;
-    font-size: 20px;
-}
-#pf-bd #pf-sider .sider-nav > li {
-    border-bottom: 1px solid #dbdbdb;
-    background: #34495E;
-  
-}
-#pf-bd #pf-sider .sider-nav > li a {
-    display: block;
-    padding: 0 15px;
-    height: 100%;
-    height: 50px;
-    line-height: 50px;
-     color:white;
-    font-size: 14px;
-    text-decoration: none
-}
-#pf-bd #pf-sider .sider-nav > li.current {
-    border-bottom: none;
-    background: #89D5C8;
-}
-#pf-bd #pf-sider .pf-model-name .iconfont {
-    font-size: 20px;
-	color:#FF4500;
-}
-#pf-bd #pf-sider .pf-model-name .pf-sider-icon {
-    float: left;
-    margin: 10px 15px 0 0;
-    width: 20px;
-    height: 20px;
-    font-size: 20px
-}
-#pf-bd #pf-sider .pf-model-name .toggle-icon {
-    background: url(<%=basePath%>images/main/sider-toggle.png) no-repeat;
-}
-</style>
-<%-- <style>
-#pf-hd {
-    background: url('<%=basePath%>images/main/xg_left.png?1464005190') left center no-repeat, url('<%=basePath%>images/main/xg_right.png?1464005212') right center no-repeat, url('<%=basePath%>images/main/top_bottombg.png?1464006836') left bottom repeat-x;
-}
-#pf-hd .pf-user:hover {
-    background: url('<%=basePath%>images/main/top_userbg.png?1464007598');
-}
-#pf-bd #pf-sider .pf-model-name .toggle-icon {
-    background: url(<%=basePath%>images/main/sider-toggle.png) no-repeat;
-}
-#pf-bd #pf-sider .sider-nav > li .sider-nav-s a {
-    background: url('<%=basePath%>images/main/left_list.png?1463555463') no-repeat 30px center;
-}
-#pf-bd #pf-page .easyui-tabs1 .tabs li a.tabs-close {
-    background: url('<%=basePath%>images/main/tabs_close_pf.png?1464531592')
-}
-#pf-bd #pf-page .easyui-tabs1 .tabs li:hover a.tabs-close {
-    background: url('<%=basePath%>images/main/tabs_close_hover.png?1464355659')
-}
-</style> --%>
+
+
 
 <body>
     <div class="container">
@@ -167,7 +47,7 @@
                 <div class="pf-user-panel">
                     <ul class="pf-user-opt">
                         <li class="pf-modify-pwd">
-                            <a onclick='addTab("修改密码","base/changePass","{\"stuId\": ${curUser.id}}")'>
+                            <a onclick='addTab("修改密码","base/changePass","{\"id\": ${curUser.id}}")'>
                                 <i class="iconfont">&#xe634;</i>
                                 <span class="pf-opt-name">修改密码</span>
                             </a>

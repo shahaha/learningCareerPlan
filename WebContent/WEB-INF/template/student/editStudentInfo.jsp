@@ -108,7 +108,7 @@
 								</tr>
 								<tr>
 									<td class="kv-label">生日</td>
-									<td class="kv-content"><fmt:formatDate value="${curStu.stuBirthday }" pattern="yyyy-MM-dd"/><input style="width: 80%;" placeholder="必填" name="stuBirthday" class="easyui-datebox" 
+									<td class="kv-content"><input style="width: 80%;" placeholder="必填" name="stuBirthday" class="easyui-datebox" 
 										data-options="editable:false,
 											required:true,
 											value: '<fmt:formatDate value="${curStu.stuBirthday }" pattern="yyyy-MM-dd"/>'"/>

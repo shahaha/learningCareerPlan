@@ -36,6 +36,14 @@ public class TeacherController {
 	@Autowired
 	ClassesService classesService;
 	
+	/**
+	 * 页面跳转到首页
+	 * @return
+	 */
+	@RequestMapping(value = "/workbench")
+	 public String welcome() {
+	        return "teacher/workbench";
+	}
 	
 	/**
 	 * 进入评审学生目标页面

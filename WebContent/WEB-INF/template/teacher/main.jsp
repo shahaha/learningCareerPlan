@@ -120,7 +120,7 @@
             <div id="pf-page">
                 <div id="menuTabs" class="easyui-tabs" style="width:100%;height:100%;">
                   <div title="首页" style="padding:10px 5px 5px 10px;">
-                    <iframe class="page-iframe" src="<%=basePath %>assist/workbench" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
+                    <iframe class="page-iframe" src="<%=basePath %>teacher/workbench" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                   </div>
                 </div>
             </div>

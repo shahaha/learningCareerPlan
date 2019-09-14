@@ -49,6 +49,22 @@ public class BaseController {
         return "admin/login";
     }
 	
+	/**
+	 * 首页
+	 * @return
+	 */
+	@RequestMapping(value = "/workbench")
+    public String workbench() {
+        return "base/workbench";
+    }
+	/**
+	 * 首页1
+	 * @return
+	 */
+	@RequestMapping(value = "/workbench2")
+    public String workbench2() {
+        return "teacher/workbench";
+    }
 	
 	/**
 	 * 登录管理员角色
