@@ -100,9 +100,9 @@
                         </a>
                      </li>
                      <li>
-                        <a onclick='addTab("学生目标反馈考核","teacher/eTermPlan","{\"terId\": ${curUser.id},\"semester\": ${curTrem}}")'>
+                        <a onclick='#'>
                             <span class="iconfont sider-nav-icon">&#xe6db;</span>
-                            <span class="sider-nav-title" style="cursor:pointer;">学生目标反馈考核</span>
+                            <span class="sider-nav-title" style="cursor:pointer;">待开发</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
                      </li>

@@ -40,33 +40,23 @@
 							<ul>
 								<li>
 									<span></span>
-									<a href="javascript:;" class="ellipsis">uimaker信息管理<i></i></a>
-									<label>04-13</label>
+									<a href="javascript:;" class="ellipsis">版本发布<i></i></a>
+									<label>09-13</label>
 								</li>
 								<li>
 									<span></span>
-									<a href="javascript:;" class="ellipsis">光电获土耳其最大固网<i></i></a>
-									<label>04-12</label>
+									<a href="javascript:;" class="ellipsis">版本更新<i></i></a>
+									<label>09-12</label>
 								</li>
 								<li>
 									<span></span>
-									<a href="javascript:;" class="ellipsis">2015中国线缆行业最具竞争</a>
-									<label>04-11</label>
+									<a href="javascript:;" class="ellipsis">bug修复</a>
+									<label>09-11</label>
 								</li>
 								<li>
 									<span></span>
-									<a href="javascript:;" class="ellipsis">2016年铝包钢绞线2016管道保温棉询</a>
-									<label>04-10</label>
-								</li>
-								<li>
-									<span></span>
-									<a href="javascript:;" class="ellipsis">力缆（特种导线）再次温棉询</a>
-									<label>04-09</label>
-								</li>
-								<li>
-									<span></span>
-									<a href="javascript:;" class="ellipsis">光电获土耳其最大固网</a>
-									<label>04-08</label>
+									<a href="javascript:;" class="ellipsis">UAT更新</a>
+									<label>09-10</label>
 								</li>
 							</ul>
 						</div>
@@ -83,27 +73,19 @@
 							<ul class="public-attached">
 								<li>
 									<span></span>
-									<a href="javascript:;" class="ellipsis">界面设计作品PSD源文件免费下载</a>
+									<a href="javascript:;" class="ellipsis">日常模板下载</a>
 								</li>
 								<li>
 									<span></span>
-									<a href="javascript:;" class="ellipsis">uimaker版权所有禁止转载发布</a>
+									<a href="javascript:;" class="ellipsis">填写规范</a>
 								</li>
 								<li>
 									<span></span>
-									<a href="javascript:;" class="ellipsis">意见建议反馈内容模版</a>
+									<a href="javascript:;" class="ellipsis">操作手册</a>
 								</li>
 								<li>
 									<span></span>
-									<a href="javascript:;" class="ellipsis">系统错误修复文档下载分布</a>
-								</li>
-								<li>
-									<span></span>
-									<a href="javascript:;" class="ellipsis">采集信息管理系统后台界面</a>
-								</li>
-								<li>
-									<span></span>
-									<a href="javascript:;" class="ellipsis">用户管理信息文件同步</a>
+									<a href="javascript:;" class="ellipsis">特殊说明</a>
 								</li>
 							</ul>
 							<ul class="inner-attached hide">
@@ -113,23 +95,11 @@
 								</li>
 								<li>
 									<span></span>
-									<a href="javascript:;" class="ellipsis">这里显示的不同内容</a>
+									<a href="javascript:;" class="ellipsis">成绩说明</a>
 								</li>
 								<li>
 									<span></span>
-									<a href="javascript:;" class="ellipsis">界面设计作品PSD源文件免费下载</a>
-								</li>
-								<li>
-									<span></span>
-									<a href="javascript:;" class="ellipsis">系统错误修复文档下载分布</a>
-								</li>
-								<li>
-									<span></span>
-									<a href="javascript:;" class="ellipsis">采集信息管理系统后台界面</a>
-								</li>
-								<li>
-									<span></span>
-									<a href="javascript:;" class="ellipsis">用户管理信息文件同步</a>
+									<a href="javascript:;" class="ellipsis">学院职业规划分布情况</a>
 								</li>
 							</ul>
 						</div>
@@ -144,8 +114,8 @@
 									<div class="work-inner">
 										<div class="work-item green">
 											<i class="iconfont">&#xe61f;</i>
-											<span class="num">14&nbsp;<span class="unit">个</span></span>
-											<label>待办未处理</label>
+											<span class="num">&nbsp;<span class="unit"></span></span>
+											<label></label>
 										</div>
 									</div>
 								</li>
@@ -153,38 +123,52 @@
 									<div class="work-inner">
 										<div class="work-item red">
 											<i class="iconfont">&#xe622;</i>
-											<span class="num">6&nbsp;<span class="unit">条</span></span>
-											<label>预警信息未读</label>
+											<span class="num">&nbsp;<span class="unit"></span></span>
+											<label></label>
 										</div>
 									</div>
 								</li>
-
+								<li>
+                                <div class="work-inner">
+                                    <div class="work-item yellow">
+                                         <i class="iconfont">&#xe61d;</i>
+                                        <span class="num">&nbsp;<span class="unit"></span></span>
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="work-inner">
+                                    <div class="work-item blue">
+                                         <i class="iconfont">&#xe621;</i>
+                                        <span title="2000,00万" class="num">&nbsp;<span class="unit"></span></span>
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="work-inner">
+                                    <div class="work-item purple">
+                                         <i class="iconfont">&#xe61e;</i>
+                                        <span title="2000,00万" class="num">&nbsp;<span class="unit"></span></span>
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="work-inner">
+                                    <div class="work-item gray">
+                                         <i class="iconfont">&#xe620;</i>
+                                        <span class="num">&nbsp;<span class="unit"></span></span>
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </li>
 							</ul>
 						</div>
-						<div style="display:none;">
-							<div class="center-items chart0 clearfix">
-								<div class="chart0-item">
-									<div class="item-inner">
-										<div class="item-content">
-											<div class="content-hd">货源风险</div>
-											<div class="chart-chart" id="chart0"></div>
-										</div>
-									</div>
-								</div>
-								<div class="chart0-item">
-									<div class="item-inner">
-										<div class="item-content">
-											<div class="content-hd">交货准确率</div>
-											<div class="chart-chart" id="chart1"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						
 						<div class="center-items chart1">
 							<div class="chart1-inner">
-								<div class="item-hd">询价降本率</div>
+								<div class="item-hd">班内目标趋势</div>
 								<div class="chart1-chart" id="chart3"></div>
 							</div>
 						</div>

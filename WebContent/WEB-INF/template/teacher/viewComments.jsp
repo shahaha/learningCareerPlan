@@ -168,7 +168,7 @@
 		  <div class="right" tilte="班主任对学期小目标评语" style=" margin-right:150px;margin-bottom:-240px;">
 				<p class="p" id="teacherAudit" style="margin-bottom:25px;"></p>
 			</div>
-			<div style="float:right;" >
+			<div style="left:85%;position:absolute;" >
 				<img id="img2" alt="关于学期小目标的评语" src="<%=basePath%>images/comment/Teacher_male.png">
 				<h1 class="title" style="margin-right:0px;">班主任评语 &nbsp;&nbsp; </h1>
 			</div>
@@ -185,11 +185,11 @@
 		</div>
 		
 		<div class="comment" style="display: none;">
-			<div class="right" tilte="班主任对目标反馈的评语" style="margin-right:170px;margin-bottom:-240px;">
+			<div class="right" tilte="班主任对目标反馈的评语" style="margin-right:135px;margin-bottom:-240px;">
 				<p class="p" id="teacherComment"></p>
 				<div class="result" style="margin-bottom:25px;">成绩：<a id="result" style="color:#FF0000;"></a></div>
 			</div>
-			<div style="float:right;">
+			<div style="left:85%;position:absolute;">
 				<img id="img2" alt="关于学期小目标的评语" src="<%=basePath%>images/comment/Teacher_male.png">
 				<h1 class="title"  style="margin-right:-25px;">班主任考核意见 &nbsp;&nbsp; </h1>
 			</div>
