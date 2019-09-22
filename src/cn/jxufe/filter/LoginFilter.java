@@ -22,7 +22,7 @@ public class LoginFilter extends OncePerRequestFilter{
             throws ServletException, IOException {
     	
         // 不拦截的url
-        String[] notFilter = new String[] {"adminLogin","getGifCode","loginValidate","login.jsp"};
+        String[] notFilter = new String[] {"/base/adminLogin","/base/getGifCode","/base/loginValidate","/login.jsp"};
 
         // 请求的url
         String url = request.getRequestURI();
@@ -72,14 +72,9 @@ public class LoginFilter extends OncePerRequestFilter{
         	
             return false;
         }
-        
-        String last_url[] = url.split("/");
-        int length=last_url.length;
-        //System.err.println(last_url[length-1]);
-        
         // 含有notFilter中的任何一个则不进行拦截
         for (String s : notFilter) {
-            if (last_url[length-1].equals(s) || last_url[length-2].equals("test")) {
+            if (url.indexOf(s) != -1) {
                 return false;
             }
         }
