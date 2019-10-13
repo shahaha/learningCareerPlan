@@ -31,4 +31,5 @@ public interface StudentService extends QueryService<Student>{
 	 * @return
 	 */
 	public EasyUIData<Student> findByQO(TeacherQueryObject terQO, Pageable pageable);
+	
 }

@@ -3,6 +3,7 @@ package cn.jxufe.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.jxufe.bean.EasyUIData;
 import cn.jxufe.bean.EasyUIDataPageRequest;
 import cn.jxufe.bean.Message;
+import cn.jxufe.dao.ProfessionDao;
 import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.Profession;
 import cn.jxufe.entity.User;
 import cn.jxufe.service.ClassesService;
+import cn.jxufe.service.ProfessionService;
 import cn.jxufe.service.UserService;
 
 @Controller
@@ -31,6 +34,8 @@ public class ClassesController {
 	ClassesService classesService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	ProfessionDao professionDao;
 	
 	/**
 	 * 保存或修改一个Classes
@@ -49,6 +54,7 @@ public class ClassesController {
 		}
         return message;
     }
+	
 	//========查询=====================================================================================================
 	/**
 	 * 查询所有班级列表
@@ -69,6 +75,7 @@ public class ClassesController {
 		User teacher = userService.get(id);
 		return classesService.findByTeacher(teacher);
     }
+	
 	/**
 	 * 按专业查询班级列表
 	 * @param profession 专业
@@ -79,6 +86,7 @@ public class ClassesController {
     public List<Classes> fdByProfs(Profession profession){
         return classesService.findByProfession(profession);
     }
+	
 	/**
 	 * 按年级查询班级列表
 	 * @param year 年级
@@ -89,6 +97,35 @@ public class ClassesController {
     public List<Classes> fdByGrade(String year){
         return classesService.findByGrade(year);
     }
+	
+	/**
+	 * 按查询年级列表
+	 * @param year 年级
+	 * @return 班级实体集
+	 */
+	@RequestMapping(value="findGrade",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Classes> findGrade(String profsName){
+		List <Classes> list=new ArrayList<>();
+		if(StringUtils.isNotBlank(profsName)&&!"请选择".equals(profsName)) {
+			Profession profession=professionDao.findByProfsName(profsName);
+			list=classesService.findGrade((int)profession.getId());
+		}else {
+         list=classesService.findGrade();
+		}
+		
+		if(list!=null) {
+		for(Classes classes:list) 
+		{
+			classes.setGrade(classes.getGrade().substring(0,4));
+		}
+		return list;
+		}else {
+			return null;
+		}
+		
+    }
+	
 	/**
 	 * 按专业和年级查询班级列表
 	 * @param year 年级
@@ -97,8 +134,8 @@ public class ClassesController {
 	 */
 	@RequestMapping(value="fdByProfsAdGrade",produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<Classes> fdByProfsAdGrade(Profession profession,String year){
-        return classesService.findByProfessionAndGrade(profession, year);
+    public List<Classes> fdByProfsAdGrade(String profsName,String grade){
+        return classesService.findByProfessionAndGrade(profsName, grade);
     }
 	//========管理=====================================================================================================
 	/**

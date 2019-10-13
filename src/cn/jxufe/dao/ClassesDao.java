@@ -1,10 +1,13 @@
 package cn.jxufe.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.Profession;
@@ -72,4 +75,20 @@ public interface ClassesDao extends JpaRepository<Classes, Long>{
 	 * @return
 	 */
 	public List<Classes> findByTeacher(User teacher);
+	/**查询所有年级
+	 * @return Classes类的实体集列表
+	 */
+	@Query(value="SELECT * FROM t_class GROUP BY grade",nativeQuery = true)
+	public List<Classes> findGrade();
+	/**通过班级profsId查询年级
+	 * @param profsId 班级profsId
+	 * @return Classes类的实体集列表
+	 */
+	@Query(value="SELECT * FROM t_class where t_class.profsId =:profsId  GROUP BY grade ",nativeQuery = true)
+	public List<Classes> findGrade(@Param("profsId") int profsId);
+	/**查询所有年级
+	 * @return Date列表
+	 */
+	@Query(value = "SELECT grade FROM t_class GROUP BY grade", nativeQuery = true)
+	public List<Date> findGradeGroup();
 }

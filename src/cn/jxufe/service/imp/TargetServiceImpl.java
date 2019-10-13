@@ -32,16 +32,29 @@ public class TargetServiceImpl extends QueryServiceImpl<Target> implements Targe
 		return targetDao;
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.jxufe.service.imp.QueryServiceImpl#selectEmployment()
+	 */
 	@Override
 	public List<TargetVo> selectEmployment() {
 		// TODO Auto-generated method stub
 		return targetDao.selectEmployment();
 	}
 	
+	/* (non-Javadoc)
+	 * @see cn.jxufe.service.imp.QueryServiceImpl#selectEmploymentByGrade()
+	 */
 	@Override
 	public List<TargetVo> selectEmploymentByGrade(String grade) {
 		// TODO Auto-generated method stub
 		return targetDao.selectEmploymentByGrade(grade);
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see cn.jxufe.service.imp.QueryServiceImpl#selectEmploymentByClass()
+	 */
+	@Override
+	public List<TargetVo> selectEmploymentByClass(String findClass){
+		return targetDao.selectEmploymentByClass(findClass);
+	}
 }

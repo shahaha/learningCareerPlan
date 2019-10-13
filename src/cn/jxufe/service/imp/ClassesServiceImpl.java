@@ -1,6 +1,8 @@
 package cn.jxufe.service.imp;
 
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,12 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import cn.jxufe.bean.EasyUIData;
 import cn.jxufe.dao.ClassesDao;
+import cn.jxufe.dao.ProfessionDao;
 import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.Profession;
 import cn.jxufe.entity.User;
@@ -29,6 +33,9 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	 */
 	@Autowired
 	private ClassesDao classesDao;
+	
+	@Autowired
+	private ProfessionDao ProfessionDao;
 	
 	/* (non-Javadoc)
 	 * @see cn.jxufe.service.imp.QueryServiceImpl#getDao()
@@ -130,8 +137,18 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	 */
 	@Override
 	@Cacheable(value="myCache",keyGenerator="customKeyGenerator")
-	public List<Classes> findByProfessionAndGrade(Profession profession, String year) {
-		return classesDao.findByProfessionAndGrade(profession, year);
+	public List<Classes> findByProfessionAndGrade(String profsName, String grade) {
+		List<Classes> classList=new ArrayList<>();
+		Profession profession=ProfessionDao.findByProfsName(profsName);
+		if(profession!=null&&grade!=null) {
+			classList=classesDao.findByProfessionAndGrade(profession, grade);
+		}else if(profession!=null) {
+			classList=classesDao.findByProfession(profession);
+		}else if(grade!=null) {
+			classList=classesDao.findByGrade(grade);
+		}
+		
+			return classList;
 	}
 
 	/* (non-Javadoc)
@@ -141,6 +158,24 @@ public class ClassesServiceImpl extends QueryServiceImpl<Classes> implements Cla
 	public List<Classes> findByTeacher(User teacher) {
 		return classesDao.findByTeacher(teacher);
 	}
+
+	@Override
+	public List<Classes> findGrade() {
+		// TODO Auto-generated method stub
+		return classesDao.findGrade();
+	}
+
+	@Override
+	public List<Classes> findGrade(int id) {
+		// TODO Auto-generated method stub
+		return classesDao.findGrade(id);
+	}
+	
+	@Override
+	public List<Date> findGradeGroup() {
+		return classesDao.findGradeGroup();
+	}
+
 
 	
 }

@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.College;
 import cn.jxufe.entity.Economy;
+import cn.jxufe.entity.Profession;
 import cn.jxufe.entity.State;
 import cn.jxufe.entity.Target;
 import cn.jxufe.service.ClassesService;
 import cn.jxufe.service.CollegeService;
 import cn.jxufe.service.EconomyService;
+import cn.jxufe.service.ProfessionService;
 import cn.jxufe.service.StateService;
 import cn.jxufe.service.StudentService;
 import cn.jxufe.service.TargetService;
@@ -41,7 +43,8 @@ public class AssistController {
 	ClassesService classesService;
 	@Autowired
 	StateService stateService;
-	
+	@Autowired
+	ProfessionService professionService;
 	
 	/**
 	 * 页面跳转到首页
@@ -100,6 +103,16 @@ public class AssistController {
     @ResponseBody
     public List<State> stateList(){
         return stateService.findAll();
+    }
+	
+	/**
+	 * 查询所有专业列表
+	 * @return 专业实体集
+	 */
+	@RequestMapping(value="professionList",produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Profession> ProfessionList(){
+        return professionService.findAll();
     }
 	
 }

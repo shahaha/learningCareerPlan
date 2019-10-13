@@ -33,4 +33,6 @@ public interface StudentDao extends JpaRepository<Student, Long>{
 	 * @return Student类实体集
 	 */
 	public List<Student> findByClasses(Classes classes);
+	
+	public Student findByAccount(String account);
 }

@@ -68,34 +68,32 @@
                 </h2>
 
                 <ul class="sider-nav">
-                     <li class="current">
-                        <a onclick=''>
-                            <span class="iconfont sider-nav-icon">&#xe620;</span>
-                            <span class="sider-nav-title" style="cursor:pointer;">查询年级</span>
-                        </a>
-                     </li>
                      <li>
-                        <a onclick=''>
+                        <a onclick='addTab1("学生填写情况","manage/findStudentInfo")'>
                             <span class="iconfont sider-nav-icon">&#xe6db;</span>
-                            <span class="sider-nav-title" style="cursor:pointer;">查询填写情况</span>
+                            <span class="sider-nav-title" style="cursor:pointer;">学生填写情况</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
                      </li>
                      <li>
-                        <a onclick=''>
+                        <a onclick='addTab1("班级填写情况","manage/findClassesInfo")'>
                             <span class="iconfont sider-nav-icon">&#xe6c2;</span>
-                            <span class="sider-nav-title" style="cursor:pointer;">查询班主任完成情况</span>
+                            <span class="sider-nav-title" style="cursor:pointer;">班级填写情况</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
                      </li>
                      <li>
-                        <a onclick='addTab1("查询分布图","manage/targetChart")'>
-                            <span class="iconfont sider-nav-icon">&#xe6c2;</span>
-                            <span class="sider-nav-title" style="cursor:pointer;">查询分布图</span>
+                        <a>
+                            <span class="iconfont sider-nav-icon">&#xe651;</span>
+                            <span class="sider-nav-title" style="cursor:pointer;">查看分布图</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
+                        <ul class="sider-nav-s">
+                           <li class="active"><a style="cursor:pointer;" onclick='addTab1("查看分布图","manage/viewTargetChart")'>查看分布图</a></li>
+                           <li class="active"><a style="cursor:pointer;" onclick='addTab1("查看年级分布图","manage/viewTargetByGrade")'>查看年级分布图</a></li>
+                           <li class="active"><a style="cursor:pointer;" onclick='addTab1("查看班级分布图","manage/viewTargetByClass")'>查看班级分布图</a></li>
+                        </ul>
                      </li>
-                            
                      <li>
                         <a onclick=''>
                             <span class="iconfont sider-nav-icon">&#xe635;</span>

@@ -1,5 +1,6 @@
 package cn.jxufe.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
@@ -70,12 +71,28 @@ public interface ClassesService extends QueryService<Classes>{
 	 * @param year 所在专业
 	 * @return Classes类的实体集
 	 */
-	public List<Classes> findByProfessionAndGrade(Profession profession,String year);
+	public List<Classes> findByProfessionAndGrade(String profsName,String grade);
 	
 	/**查询班主任所带班级
 	 * @param teacher
-	 * @return
+	 * @return Classes类的实体集
 	 */
 	public List<Classes> findByTeacher(User teacher);
+	
+	/**查询年级
+	 * @return Classes类的实体集
+	 */
+	public List<Classes> findGrade();
+	
+	/**通过专业找年级
+	 * @return Classes类的实体集
+	 */
+	public List<Classes> findGrade(int id);
+	
+	/**查询年级
+	 * @return Date列表
+	 */
+	public List<Date> findGradeGroup();
+
 	
 }
