@@ -201,6 +201,9 @@ public class Student extends User{
 	public String getTremState() {
 		List<Trem> ordeTrems = getOrdeTrems();
 		int count = ordeTrems.size();
+		if(count == 0) {
+			return "未录入目标";
+		}
 		Trem lastTrem = ordeTrems.get(count - 1);
 		if (StringUtils.isNotBlank(lastTrem.getSmallTarget()) && StringUtils.isBlank(lastTrem.getTeacherAudit())) {
 			return "未审核";

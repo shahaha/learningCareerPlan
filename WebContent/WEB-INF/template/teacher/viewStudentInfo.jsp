@@ -322,7 +322,7 @@
 	    };
 	$(document).ready(function () {
 		Obj = $.ajax({
-			url : basePath+"student/queryTrem",
+			url : basePath+"teacher/queryTrem",
 			data:{id:id},
 			type : "post",
 			async : false
@@ -434,7 +434,7 @@
 	function auditCommit() {
 		$("#auditCommit").val($("#auditInfo").text());
 		$('#auditForm').form('submit', {
-	         url: '<%=basePath%>student/teacherSaveTrem',
+	         url: '<%=basePath%>teacher/teacherSaveTrem',
 				onSubmit : function(param) {
 					param.student = stuId;
 					param.id = id;
@@ -460,7 +460,7 @@
     	}else{
 			$("#commentCommit").val($("#teacherComment").text());
 			$('#commentForm').form('submit', {
-		         url: '<%=basePath%>student/teacherSaveTrem',
+		         url: '<%=basePath%>teacher/teacherSaveTrem',
 					onSubmit : function(param) {
 						param.student = stuId;
 						param.id = id;

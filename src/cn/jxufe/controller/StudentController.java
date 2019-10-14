@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,63 +48,7 @@ public class StudentController{
         return "student/editStudentInfo";
     }
 	
-	/**
-	 * 班主任进入学生信息页面
-	 * @param student 当前详情按钮的学生，通过当前选择的学生的Id自动注入
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="viewStudent/{stuId}",produces=MediaType.APPLICATION_JSON_VALUE)
-    public String viewStudentInfo(@PathVariable("stuId")Long stuId,Model model){
-		Student student = studentService.get(stuId);
-		model.addAttribute("curStu", student);
-		model.addAttribute("trem", student.getOrdeTrems().get(student.getOrdeTrems().size()-1));
-        return "teacher/viewStudentInfo";
-    }
 	
-	/**
-	 * 班主任审核学生的学期规划
-	 * @param trem实例对象
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="teacherSaveTrem",produces=MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Message teacherSaveTrem(Trem trem,Model model){
-		Message message = new Message();
-		System.err.println("Semester \t"+trem.getSemester()+" \t Id : \t"+trem.getId());
-		System.err.println("Audit \t"+trem.getTeacherAudit()+" \t Comment : \t"+trem.getTeacherComment());
-		if(trem.getId()!=0) {
-			Trem trems = tremService.get(trem.getId());
-			if(trem.getTeacherComment()==null || trem.getTeacherComment().isEmpty()) {
-				trems.setTeacherAudit(trem.getTeacherAudit());
-			}else if(trem.getTeacherAudit()==null || trem.getTeacherAudit().isEmpty()) {
-				trems.setTeacherComment(trem.getTeacherComment());
-				trems.setScore(trem.getScore());
-			}
-			trem = trems;
-		}
-		try {
-			tremService.save(trem);
-			message.success("保存成功！");
-		} catch (Exception e) {
-			message.error500("保存失败！");
-		}
-		return message;
-       
-    }
-	
-	/**
-	 * 班主任查询某学生某个学期的学期规划
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value="queryTrem",produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-    public Trem queryTrem(Long id){
-		Trem trem = tremService.get(id);
-        return trem;
-    }
 	
 	
 	/**

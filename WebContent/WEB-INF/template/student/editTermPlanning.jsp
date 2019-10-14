@@ -85,20 +85,18 @@
 	    };
 	var stuId = ${editSemester.student.id};
 	var id = ${editSemester.id};
-	
+	var Audit = "${editSemester.teacherAudit}";
+	var teacherComment = "${editSemester.teacherComment}";
 	
 	
 	$(document).ready(function () {
-		console.log(stuId);
-		console.log(id);
-		
-		var Audit = "${editSemester.teacherAudit}";
-		var teacherComment = "${editSemester.teacherComment}";
+		/* console.log(stuId);
+		console.log(id); */
 		if(Audit==null || Audit.length<2){
 			$("#targetFeedbackInfo").css("display","none");
 		}else{
 			$("#targetInfo").attr("contenteditable",false)//contenteditable="true"属性则可以对该标签进行编辑,相当与只读
-			if(teacherComment.length<2 || teacherComment ==null){
+			if(teacherComment == null || teacherComment.length<2){
 				$("#feddBackInfo").attr("contenteditable",true)//contenteditable="true"属性则可以对该标签进行编辑,相当与只读
 			}else{
 				$("#feddBackInfo").attr("contenteditable",false)//contenteditable="true"属性则可以对该标签进行编辑,相当与只读
@@ -114,14 +112,29 @@
 				onSubmit : function(param) {
 					param.student = stuId;
 					param.id = id;
+					
+					var smallTarget = $("#targetInfo").text();
+					var targetFeedback = $("#feddBackInfo").text();
+					if (smallTarget.length < 1 || smallTarget.length > 500) {
+						$.messager.show({
+							title : "消息",
+							msg : "请填写1~500字的目标描述"
+						});
+						return false;
+					}
+					console.log(Audit);
+					if ((Audit !=null && Audit.length > 1) && (targetFeedback.length < 1 || targetFeedback.length > 500)) {
+						$.messager.show({
+							title : "消息",
+							msg : "请填写1~500字的目标反馈"
+						});
+						return false;
+					}
 					return $(this).form('validate');
 				},
 				success : function(result) {
 					var result = eval('(' + result + ')');
-					console.log(result);
-					if (result.code == 200) {
-
-					}
+					//console.log(result);
 					$.messager.show({
 						title : "消息",
 						msg : result.msg

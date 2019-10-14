@@ -256,7 +256,7 @@
 
     function drawGrowStagesGrid(rowId) {
         var target = studentWin;
-        var path = basePath + "student/viewStudent/"+ rowId;
+        var path = basePath + "teacher/viewStudent/"+ rowId;
         $('#studentFrame').attr('src', path);
         target &&  target.window('open');
     }

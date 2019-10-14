@@ -67,7 +67,7 @@
 							<div class="lg-account input-item clearfix"
 								style="border-radius: 8px;">
 								<i class="iconfont">&#xe60d;</i> <input id="account" name="account"
-									type="text" placeholder="学号">
+									type="text" placeholder="账号">
 							</div>
 							<div class="lg-password input-item clearfix"
 								style="border-radius: 8px;">

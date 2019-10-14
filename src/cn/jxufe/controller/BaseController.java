@@ -137,7 +137,6 @@ public class BaseController {
 				Student student = studentService.get(curUser.getId());
 				List<Trem> trems = student.getOrdeTrems();
 				request.getSession().setAttribute("tremsList", trems);
-				System.err.println(trems);
 				int curTrem = 1;
 				if (trems != null && !trems.isEmpty()) {
 					curTrem = trems.size();

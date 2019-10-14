@@ -23,7 +23,6 @@ import cn.jxufe.entity.Classes;
 import cn.jxufe.entity.Profession;
 import cn.jxufe.entity.User;
 import cn.jxufe.service.ClassesService;
-import cn.jxufe.service.ProfessionService;
 import cn.jxufe.service.UserService;
 
 @Controller
